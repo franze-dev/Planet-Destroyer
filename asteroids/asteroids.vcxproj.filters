@@ -22,6 +22,21 @@
     <ClCompile Include="src\gameplay.cpp">
       <Filter>Scenes</Filter>
     </ClCompile>
+    <ClCompile Include="src\ui_manager.cpp">
+      <Filter>Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="src\scene_manager.cpp">
+      <Filter>Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="src\menu_scene.cpp">
+      <Filter>Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="src\pause_menu.cpp">
+      <Filter>Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="src\result_scene.cpp">
+      <Filter>Scenes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\ship.h">
@@ -34,6 +49,21 @@
       <Filter>Utils</Filter>
     </ClInclude>
     <ClInclude Include="src\gameplay.h">
+      <Filter>Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="src\scene_manager.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ui_manager.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="src\menu_scene.h">
+      <Filter>Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="src\pause_menu.h">
+      <Filter>Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="src\result_scene.h">
       <Filter>Scenes</Filter>
     </ClInclude>
   </ItemGroup>

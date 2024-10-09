@@ -22,13 +22,23 @@
     <ClCompile Include="src\asteroid.cpp" />
     <ClCompile Include="src\gameplay.cpp" />
     <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\menu_scene.cpp" />
+    <ClCompile Include="src\pause_menu.cpp" />
+    <ClCompile Include="src\result_scene.cpp" />
+    <ClCompile Include="src\scene_manager.cpp" />
     <ClCompile Include="src\ship.cpp" />
+    <ClCompile Include="src\ui_manager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\asteroid.h" />
     <ClInclude Include="src\constants.h" />
     <ClInclude Include="src\gameplay.h" />
+    <ClInclude Include="src\menu_scene.h" />
+    <ClInclude Include="src\pause_menu.h" />
+    <ClInclude Include="src\result_scene.h" />
+    <ClInclude Include="src\scene_manager.h" />
     <ClInclude Include="src\ship.h" />
+    <ClInclude Include="src\ui_manager.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
@@ -100,11 +110,12 @@
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
-      <WarningLevel>Level3</WarningLevel>
+      <WarningLevel>Level4</WarningLevel>
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(SolutionDir)lib;$(SolutionDir)src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <TreatWarningAsError>true</TreatWarningAsError>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -115,13 +126,14 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
-      <WarningLevel>Level3</WarningLevel>
+      <WarningLevel>Level4</WarningLevel>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(SolutionDir)lib;$(SolutionDir)src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <TreatWarningAsError>true</TreatWarningAsError>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>

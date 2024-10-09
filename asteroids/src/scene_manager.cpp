@@ -1,4 +1,4 @@
-#include "SceneManager.h"
+#include "Scene_Manager.h"
 
 static SceneManager::GameMode currentGameMode = SceneManager::localMultiplayer;
 static SceneManager::Scene currentScene = SceneManager::Menu;

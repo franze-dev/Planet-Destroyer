@@ -3,9 +3,12 @@
 #include "raylib.h"
 
 #include "constants.h"
+#include "ui_manager.h"
 
 namespace Gameplay
 {
+	UIManager::Text credits;
+
 	static void Init()
 	{
 

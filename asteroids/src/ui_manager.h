@@ -10,7 +10,9 @@ namespace UIManager
 		string content = " ";
 		int fontSize = 0;
 		Vector2 location;
-		Color color;
+		Color currentColor;
+		Color alt1Color;
+		Color alt2Color;
 	};
 
 	//Prints a text
@@ -21,14 +23,9 @@ namespace UIManager
 	struct Button
 	{
 		Rectangle shape;
-		string textShown;
-		//If there are two texts possibilities in the same button, these are the two alternatives.
-		string textAlt1;
-		string textAlt2;
+		Text textShown;
 		Color defaultColor;
-		//If the button is a switch, it's convenient for it to have two colors that differenciate the 
-		//status in which theyre in (on or off). I distinguish that with "defaultColor" and "secondDefaultColor"
-		Color secondDefaultColor;
+		Color altColor;
 		Color currentColor;
 		//This is the color when the user hovers the mouse over the button.
 		Color highlightColor;
@@ -40,5 +37,13 @@ namespace UIManager
 	void DrawButtonText(Button button, Color color, int fontSize);
 	//Draws the square of the button
 	void DrawButtonRect(Button button);
+	//Create texts
+	Text GetText(float x, float y, int fontSize, string content, Color color);
+	//If the text is the same and only the color changes at one point, then this is used.
+	//color1 is the current color.
+	Text GetText(float x, float y, int fontSize, string content, Color color1, Color color2);
+	//Create buttons
+	Button GetButton(float x, float y, int width, int height, string content, Color mainColor, Color highlightColor, Color textColor);
+
 }
 
