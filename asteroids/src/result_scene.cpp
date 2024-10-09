@@ -1,13 +1,12 @@
 #include "raylib.h"
-#include "Result_Scene.h"
-#include "UI_Manager.h"
-#include "Scene_Manager.h"
+#include "result_scene.h"
+#include "ui_manager.h"
+#include "scene_manager.h"
 
 static UIManager::Button backToMenuButton;
 static UIManager::Button exitButton;
 
 static int buttonsPadding = 20;
-static int smallerFontSize = 15;
 static int defaultFontSize = 40;
 
 void ResultScene::Init()
