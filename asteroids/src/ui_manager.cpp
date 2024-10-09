@@ -21,17 +21,17 @@ namespace UIManager
 
 	void DrawButtonRect(Button button)
 	{
-		DrawRectangle(button.shape.x, button.shape.y, button.shape.width, button.shape.height, button.currentColor);
+		DrawRectangle(static_cast<int>(button.shape.x), static_cast<int>(button.shape.y), static_cast<int>(button.shape.width), static_cast<int>(button.shape.height), button.currentColor);
 	}
 
 	void PrintText(Text myText)
 	{
-		DrawText(myText.content.data(), myText.location.x, myText.location.y, myText.fontSize, myText.currentColor);
+		DrawText(myText.content.data(), static_cast<int>(myText.location.x), static_cast<int>(myText.location.y), myText.fontSize, myText.currentColor);
 	}
 
 	void PrintText(Text myText, int score)
 	{
-		DrawText(TextFormat(myText.content.data(), score), myText.location.x, myText.location.y, myText.fontSize, myText.currentColor); // PLAYER 1
+		DrawText(TextFormat(myText.content.data(), score), static_cast<int>(myText.location.x), static_cast<int>(myText.location.y), static_cast<int>(myText.fontSize), myText.currentColor); // PLAYER 1
 	}
 
 	Text GetText(float x, float y, int fontSize, string content, Color color)
@@ -62,7 +62,7 @@ namespace UIManager
 		return myText;
 	}
 
-	Button GetButton(float x, float y, int width, int height, string content, Color mainColor, Color highlightColor, Color textColor)
+	Button GetButton(float x, float y, float width, float height, string content, Color mainColor, Color highlightColor, Color textColor)
 	{
 		Button myButton;
 
@@ -74,7 +74,7 @@ namespace UIManager
 		myButton.shape.x = x;
 		myButton.shape.y = y;
 		myButton.textShown.content = content;
-		myButton.textShown.fontSize = height / 2;
+		myButton.textShown.fontSize = static_cast<int>(height) / 2;
 		myButton.textShown.currentColor = textColor;
 		myButton.textShown.location.x = x + width / 2.0f - static_cast<float>(MeasureText(myButton.textShown.content.data(), myButton.textShown.fontSize), myButton.textShown.fontSize);
 

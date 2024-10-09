@@ -1,6 +1,6 @@
-#include "PauseMenu.h"
-#include "UIManager.h"
-#include "SceneManager.h"
+#include "Pause_Menu.h"
+#include "UI_Manager.h"
+#include "Scene_Manager.h"
 #include "raylib.h"
 
 UIManager::Text pauseTitle;
@@ -13,22 +13,22 @@ int buttonsPadding = 30;
 void PauseMenu::Init()
 {
 #pragma region PAUSE_TITLE
-	pauseTitle.color = YELLOW;
+	pauseTitle.currentColor = YELLOW;
 	pauseTitle.content = "PAUSED";
 	pauseTitle.fontSize = defaultFontSize;
-	pauseTitle.location.x = GetScreenWidth() * 2/8 - MeasureText(pauseTitle.content.data(), pauseTitle.fontSize) / 2;
-	pauseTitle.location.y = GetScreenHeight() / 2 + pauseTitle.fontSize / 2;
+	pauseTitle.location.x = static_cast<float>(GetScreenWidth()) * 2/8 - static_cast<float>(MeasureText(pauseTitle.content.data(), pauseTitle.fontSize)) / 2.0f;
+	pauseTitle.location.y = static_cast<float>(GetScreenHeight()) / 2.0f + static_cast<float>(pauseTitle.fontSize) / 2.0f;
 #pragma endregion
 
 #pragma region CONTINUE_BUTTON
 	continueButton.defaultColor = DARKGRAY;
 	continueButton.currentColor = DARKGRAY;
 	continueButton.highlightColor = YELLOW;
-	continueButton.shape.width = MeasureText(pauseTitle.content.data(), pauseTitle.fontSize);
-	continueButton.shape.height = defaultFontSize;
-	continueButton.shape.x = GetScreenWidth() * 5 / 8;
-	continueButton.shape.y = pauseTitle.location.y - continueButton.shape.height + buttonsPadding;
-	continueButton.textShown = "CONTINUE";
+	continueButton.shape.width = static_cast<float>(MeasureText(pauseTitle.content.data(), pauseTitle.fontSize));
+	continueButton.shape.height = static_cast<float>(defaultFontSize);
+	continueButton.shape.x = static_cast<float>(GetScreenWidth()) * 5 / 8;
+	continueButton.shape.y = pauseTitle.location.y - continueButton.shape.height + static_cast<float>(buttonsPadding);
+	continueButton.textShown.content = "CONTINUE";
 
 #pragma endregion
 
@@ -36,20 +36,23 @@ void PauseMenu::Init()
 	backToMenuButton = continueButton;
 	backToMenuButton.shape.y += buttonsPadding + continueButton.shape.height;
 	backToMenuButton.highlightColor = BLUE;
-	backToMenuButton.textShown = "BACK TO MENU";
+	backToMenuButton.textShown.content = "BACK TO MENU";
 
 #pragma endregion
 
 
 }
 
-void PauseMenu::Update(BallSpace::Ball& ball)
+void PauseMenu::Update()
 {
 	if (UIManager::IsMouseOnButton(continueButton))
 	{
 		continueButton.currentColor = continueButton.highlightColor;
 		if (IsMouseButtonReleased(MOUSE_BUTTON_LEFT))
-			ball.paused = false;
+		{
+			//pause!
+
+		}
 	}
 	else
 		continueButton.currentColor = continueButton.defaultColor;
@@ -67,7 +70,7 @@ void PauseMenu::Update(BallSpace::Ball& ball)
 
 void PauseMenu::Draw()
 {
-	DrawText(pauseTitle.content.data(), pauseTitle.location.x, pauseTitle.location.y, pauseTitle.fontSize, pauseTitle.color);
+	DrawText(pauseTitle.content.data(), static_cast<int>(pauseTitle.location.x), static_cast<int>(pauseTitle.location.y), pauseTitle.fontSize, pauseTitle.currentColor);
 	
 	UIManager::DrawButtonRect(continueButton);
 	UIManager::DrawButtonRect(backToMenuButton);

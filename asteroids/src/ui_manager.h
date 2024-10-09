@@ -43,7 +43,7 @@ namespace UIManager
 	//color1 is the current color.
 	Text GetText(float x, float y, int fontSize, string content, Color color1, Color color2);
 	//Create buttons
-	Button GetButton(float x, float y, int width, int height, string content, Color mainColor, Color highlightColor, Color textColor);
+	Button GetButton(float x, float y, float width, float height, string content, Color mainColor, Color highlightColor, Color textColor);
 
 }
 
