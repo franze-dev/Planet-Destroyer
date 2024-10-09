@@ -24,6 +24,13 @@ namespace Gameplay
 	void Play()
 	{
 		InitWindow(screenWidth, screenHeight, "Awesome Asteroids");
+		Init();
+
+		while (!WindowShouldClose())
+		{
+			Update();
+			Draw();
+		}
 	}
 }
 
