@@ -22,6 +22,10 @@ namespace SceneManager
 	void SetCurrentScene(Scene scene);
 	//returns the current scene
 	Scene GetCurrentScene();
-
+	
+	//Changes the current gamemode
+	void SetCurrentGameMode(GameMode mode);
+	//returns the current gamemode
+	GameMode GetCurrentGameMode();
 }
 

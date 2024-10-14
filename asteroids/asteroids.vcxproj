@@ -20,7 +20,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\asteroid.cpp" />
-    <ClCompile Include="src\bullet.cpp" />
     <ClCompile Include="src\gameplay.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\menu_scene.cpp" />
@@ -28,12 +27,10 @@
     <ClCompile Include="src\result_scene.cpp" />
     <ClCompile Include="src\scene_manager.cpp" />
     <ClCompile Include="src\ship.cpp" />
-    <ClCompile Include="src\texture_manager.cpp" />
     <ClCompile Include="src\ui_manager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\asteroid.h" />
-    <ClInclude Include="src\bullet.h" />
     <ClInclude Include="src\constants.h" />
     <ClInclude Include="src\gameplay.h" />
     <ClInclude Include="src\menu_scene.h" />
@@ -41,7 +38,6 @@
     <ClInclude Include="src\result_scene.h" />
     <ClInclude Include="src\scene_manager.h" />
     <ClInclude Include="src\ship.h" />
-    <ClInclude Include="src\texture_manager.h" />
     <ClInclude Include="src\ui_manager.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

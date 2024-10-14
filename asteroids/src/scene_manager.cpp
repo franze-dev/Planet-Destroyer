@@ -1,17 +1,24 @@
 #include "Scene_Manager.h"
 
-namespace SceneManager
+static SceneManager::GameMode currentGameMode = SceneManager::localMultiplayer;
+static SceneManager::Scene currentScene = SceneManager::Menu;
+
+void SceneManager::SetCurrentScene(Scene scene)
 {
-	static Scene currentScene = Gameplay;
-
-	void SetCurrentScene(Scene scene)
-	{
-		currentScene = scene;
-	}
-
-	Scene GetCurrentScene()
-	{
-		return currentScene;
-	}
+	currentScene = scene;
 }
 
+SceneManager::Scene SceneManager::GetCurrentScene()
+{
+	return currentScene;
+}
+
+void SceneManager::SetCurrentGameMode(GameMode mode)
+{
+	currentGameMode = mode;
+}
+
+SceneManager::GameMode SceneManager::GetCurrentGameMode()
+{
+	return currentGameMode;
+}

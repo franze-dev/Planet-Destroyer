@@ -51,6 +51,7 @@ void PauseMenu::Update()
 		if (IsMouseButtonReleased(MOUSE_BUTTON_LEFT))
 		{
 			//pause!
+
 		}
 	}
 	else
