@@ -27,6 +27,7 @@
     <ClCompile Include="src\result_scene.cpp" />
     <ClCompile Include="src\scene_manager.cpp" />
     <ClCompile Include="src\ship.cpp" />
+    <ClCompile Include="src\texture_manager.cpp" />
     <ClCompile Include="src\ui_manager.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -38,6 +39,7 @@
     <ClInclude Include="src\result_scene.h" />
     <ClInclude Include="src\scene_manager.h" />
     <ClInclude Include="src\ship.h" />
+    <ClInclude Include="src\texture_manager.h" />
     <ClInclude Include="src\ui_manager.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

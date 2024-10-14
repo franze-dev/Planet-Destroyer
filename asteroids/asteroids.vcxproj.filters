@@ -37,6 +37,9 @@
     <ClCompile Include="src\result_scene.cpp">
       <Filter>Scenes</Filter>
     </ClCompile>
+    <ClCompile Include="src\texture_manager.cpp">
+      <Filter>Utils</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\ship.h">
@@ -65,6 +68,9 @@
     </ClInclude>
     <ClInclude Include="src\result_scene.h">
       <Filter>Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="src\texture_manager.h">
+      <Filter>Utils</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
