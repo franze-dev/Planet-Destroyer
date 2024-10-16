@@ -1,39 +1,39 @@
-#include "gameplay.h"
+#include "game.h"
 
 #include "raylib.h"
 
+#include "gameplay_scene.h"
 #include "constants.h"
-#include "ui_manager.h"
-#include "ship.h"
+#include "scene_manager.h"
 
-namespace Gameplay
+namespace Game
 {
-	UIManager::Text credits;
-	SpaceShip::SpaceShip ship;
-	static Texture2D shipTexture;
-
 	static void LoadTextures()
 	{
-		shipTexture = LoadTexture("res/sprites/spaceship.png");
-
+		Gameplay::LoadTextures();
 	}
 
 	static void UnloadTextures()
 	{
-
-		UnloadTexture(shipTexture);
+		Gameplay::UnloadTextures();
 	}
 
 	static void Init()
 	{
-		ship = SpaceShip::GetShip();
 		LoadTextures();
-		SpaceShip::SaveTexture(shipTexture, ship);
+		Gameplay::Init();
 	}
 
 	static void Update()
 	{
-		SpaceShip::Update(ship);
+		switch (SceneManager::GetCurrentScene())
+		{
+		case SceneManager::Gameplay:
+			Gameplay::Update();
+			break;
+		default:
+			break;
+		}
 	}
 
 	static void Draw()
@@ -41,7 +41,14 @@ namespace Gameplay
 		BeginDrawing();
 		ClearBackground(BLACK);
 
-		SpaceShip::Draw(ship);
+		switch (SceneManager::GetCurrentScene())
+		{
+		case SceneManager::Gameplay:
+			Gameplay::Draw();
+			break;
+		default:
+			break;
+		}
 
 		EndDrawing();
 	}

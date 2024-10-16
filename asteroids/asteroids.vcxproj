@@ -20,7 +20,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\asteroid.cpp" />
-    <ClCompile Include="src\gameplay.cpp" />
+    <ClCompile Include="src\game.cpp" />
+    <ClCompile Include="src\gameplay_scene.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\menu_scene.cpp" />
     <ClCompile Include="src\pause_menu.cpp" />
@@ -33,7 +34,8 @@
   <ItemGroup>
     <ClInclude Include="src\asteroid.h" />
     <ClInclude Include="src\constants.h" />
-    <ClInclude Include="src\gameplay.h" />
+    <ClInclude Include="src\game.h" />
+    <ClInclude Include="src\gameplay_scene.h" />
     <ClInclude Include="src\menu_scene.h" />
     <ClInclude Include="src\pause_menu.h" />
     <ClInclude Include="src\result_scene.h" />

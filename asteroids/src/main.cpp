@@ -1,4 +1,4 @@
-#include "gameplay.h"
+#include "game.h"
 
 // Notes:
 // left click > shoot
@@ -16,5 +16,5 @@
 
 int main()
 {
-	Gameplay::Play();
+	Game::Play();
 }
