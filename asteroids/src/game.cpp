@@ -3,8 +3,10 @@
 #include "raylib.h"
 
 #include "gameplay_scene.h"
+#include "menu_scene.h"
 #include "constants.h"
 #include "scene_manager.h"
+#include "ui_manager.h"
 
 namespace Game
 {
@@ -20,8 +22,10 @@ namespace Game
 
 	static void Init()
 	{
+		UIManager::InitFonts();
 		LoadTextures();
 		Gameplay::Init();
+		MenuScene::Init();
 	}
 
 	static void Update()
@@ -31,6 +35,8 @@ namespace Game
 		case SceneManager::Gameplay:
 			Gameplay::Update();
 			break;
+		case SceneManager::Menu:
+			MenuScene::Update();
 		default:
 			break;
 		}
@@ -46,6 +52,8 @@ namespace Game
 		case SceneManager::Gameplay:
 			Gameplay::Draw();
 			break;
+		case SceneManager::Menu:
+			MenuScene::Draw();
 		default:
 			break;
 		}

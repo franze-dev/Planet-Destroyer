@@ -5,6 +5,30 @@ using namespace std;
 
 namespace UIManager
 {
+	const float textSpacing = 20.0f;
+
+	enum class FontSize
+	{
+		small = 20,
+		medium = 40,
+		big = 80,
+		big2 = 140
+	};
+
+	enum class Fonts
+	{
+		Title1,
+		Title2,
+		Default
+	};
+
+	enum class Padding
+	{
+		small = 20,
+		medium = 60,
+		big = 90
+	};
+
 	struct Text
 	{
 		string content = " ";
@@ -13,6 +37,7 @@ namespace UIManager
 		Color currentColor;
 		Color alt1Color;
 		Color alt2Color;
+		Fonts font;
 	};
 
 	//Prints a text
@@ -31,6 +56,10 @@ namespace UIManager
 		Color highlightColor;
 	};
 
+	float GetTextWidth(Text text);
+	float GetTextHeight(Text text);
+	Font GetFont(Fonts font);
+	void InitFonts();
 	//Detects the mouse inside the bounds of a button
 	bool IsMouseOnButton(Button button);
 	//Draws the text in a button, as well as automatically centering it.
@@ -38,12 +67,12 @@ namespace UIManager
 	//Draws the square of the button
 	void DrawButtonRect(Button button);
 	//Create texts
-	Text GetText(float x, float y, int fontSize, string content, Color color);
+	Text GetText(float x, float y, Fonts font, int fontSize, string content, Color color);
 	//If the text is the same and only the color changes at one point, then this is used.
 	//color1 is the current color.
-	Text GetText(float x, float y, int fontSize, string content, Color color1, Color color2);
+	Text GetText(float x, float y, Fonts font, int fontSize, string content, Color color1, Color color2);
 	//Create buttons
-	Button GetButton(float x, float y, float width, float height, string content, Color mainColor, Color highlightColor, Color textColor);
+	Button GetButton(float x, float y, float width, float height, string content, Color mainColor, Color highlightColor, Color textColor, Fonts font);
 
 }
 

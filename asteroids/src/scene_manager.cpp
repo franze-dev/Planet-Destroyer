@@ -2,7 +2,7 @@
 
 namespace SceneManager
 {
-	static Scene currentScene = Gameplay;
+	static Scene currentScene = Menu;
 
 	void SetCurrentScene(Scene scene)
 	{
