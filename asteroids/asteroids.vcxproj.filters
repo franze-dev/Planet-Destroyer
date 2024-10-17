@@ -37,6 +37,9 @@
     <ClCompile Include="src\result_scene.cpp">
       <Filter>Scenes</Filter>
     </ClCompile>
+    <ClCompile Include="src\bullet.cpp">
+      <Filter>Objects</Filter>
+    </ClCompile>
     <ClCompile Include="src\texture_manager.cpp">
       <Filter>Utils</Filter>
     </ClCompile>
@@ -68,6 +71,9 @@
     </ClInclude>
     <ClInclude Include="src\result_scene.h">
       <Filter>Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="src\bullet.h">
+      <Filter>Objects</Filter>
     </ClInclude>
     <ClInclude Include="src\texture_manager.h">
       <Filter>Utils</Filter>
