@@ -118,13 +118,14 @@ namespace SpaceShip
 		//ship.collisionShape.pos.x += ship.speedIncrease * GetFrameTime();
 	}
 
-	static void Reload(SpaceShip& ship)
-	{
-		for (int i = 0; i < maxAmmo; i++)
-		{
-			ship.bullets[i] = Bullet::GetBullet();
-		}
-	}
+	//static void Reload(SpaceShip& ship)
+	//{
+	//	/*for (int i = 0; i < maxAmmo; i++)
+	//	{
+	//		ship.bullets[i] = Bullet::GetBullet();
+	//	}*/
+	//	return;
+	//}
 
 	SpaceShip GetShip()
 	{

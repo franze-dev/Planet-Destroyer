@@ -24,7 +24,7 @@ namespace SpaceShip
 		TextureManager::Sprite sprite;
 		Vector2 speed;
 		Vector2 dir;
-		Bullet::Bullet bullets[maxAmmo];
+		//Bullet::Bullet bullets[maxAmmo];
 	};
 
 	SpaceShip GetShip();
