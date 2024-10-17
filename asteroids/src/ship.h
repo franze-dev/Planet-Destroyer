@@ -22,9 +22,9 @@ namespace SpaceShip
 		int scale;
 		CollisionBall collisionShape;
 		TextureManager::Sprite sprite;
+		Bullet::Bullet bullets[maxAmmo];
 		Vector2 speed;
 		Vector2 dir;
-		//Bullet::Bullet bullets[maxAmmo];
 	};
 
 	SpaceShip GetShip();

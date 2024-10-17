@@ -66,9 +66,9 @@ namespace UIManager
 		//DrawText(myText.content.data(), static_cast<int>(myText.location.x), static_cast<int>(myText.location.y), myText.fontSize, myText.currentColor);
 	}
 
-	void PrintText(Text myText, int score)
+	void PrintText(Text myText, int number)
 	{
-		DrawText(TextFormat(myText.content.data(), score), static_cast<int>(myText.location.x), static_cast<int>(myText.location.y), static_cast<int>(myText.fontSize), myText.currentColor); // PLAYER 1
+		DrawTextEx(GetFont(myText.font), TextFormat(myText.content.data(), number), myText.location, static_cast<float>(myText.fontSize), textSpacing, myText.currentColor);
 	}
 
 	Text GetText(float x, float y, Fonts font, int fontSize, string content, Color color)

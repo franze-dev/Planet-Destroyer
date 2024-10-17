@@ -42,7 +42,7 @@ namespace UIManager
 
 	//Prints a text
 	void PrintText(Text myText);
-	//Prints a text that needs a number to print (used specifically for printing the score of the players)
+	//Prints a text that needs a number to print
 	void PrintText(Text myText, int score);
 	
 	struct Button

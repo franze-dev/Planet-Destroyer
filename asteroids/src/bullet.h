@@ -1,8 +1,6 @@
 #pragma once
 #include "raylib.h"
 
-#include "ship.h"
-
 namespace Bullet
 {
 	struct Bullet
@@ -10,13 +8,17 @@ namespace Bullet
 		Rectangle rect;
 		Vector2 speed;
 		Vector2 dir;
+		float maxSpeed;
+		float angle;
 		float damage;
-		bool isAlive;
+		bool isStored;
+		bool isVisible;
 	};
 
 	Bullet GetBullet();
 	void SetPos(float x, float y, Bullet& bullet);
+	void Shoot(Bullet& bullet);
 	void Draw(Bullet bullet);
-	//void Update(Bullet& bullet);
+	void Update(Bullet& bullet);
 
 }

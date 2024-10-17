@@ -2,50 +2,18 @@
 
 #include <cmath>
 #include "raymath.h"
+#include "raylib.h"
 
 #include "texture_manager.h"
 #include "constants.h"
+#include "bullet.h"
+#include "ui_manager.h"
+#include "calculations.h"
 
 namespace SpaceShip
 {
+	UIManager::Text ammoCount;
 
-	enum Quadrant
-	{
-		Q1,
-		Q2,
-		Q3,
-		Q4
-	};
-
-	static Quadrant GetQuadrant(Vector2 shipDir)
-	{
-		if (shipDir.y > 0 && shipDir.x > 0)
-			return Q1;
-		else if (shipDir.x < 0 && shipDir.y > 0)
-			return Q2;
-		else if (shipDir.x < 0 && shipDir.y < 0)
-			return Q3;
-		else if (shipDir.x > 0 && shipDir.y < 0)
-			return Q4;
-
-		return Q1;
-	}
-
-	static void FixTanValue(float& angle, Quadrant quadrant)
-	{
-		switch (quadrant)
-		{
-		case Q2:
-		case Q3:
-			angle += 180;
-			break;
-		case Q4:
-			angle += 360;
-			break;
-		default:
-			break;
-		}
-	}
 
 	static void FollowMouse(SpaceShip& ship)
 	{
@@ -59,9 +27,9 @@ namespace SpaceShip
 		//I turn it into DEG so it's compatible with raylib functions
 		ship.angle *= 180.0f / PI;
 
-		Quadrant myQuadrant = GetQuadrant(ship.dir);
+		Rotate::Quadrants myQuadrant = Rotate::GetQuadrant(ship.dir);
 
-		if (myQuadrant != Q1)
+		if (myQuadrant != Rotate::Q1)
 			FixTanValue(ship.angle, myQuadrant);
 	}
 
@@ -124,14 +92,44 @@ namespace SpaceShip
 		ship.sprite.dest.y = ship.collisionShape.pos.y - ship.sprite.texture.height / 2;
 	}
 
-	//static void Reload(SpaceShip& ship)
-	//{
-	//	/*for (int i = 0; i < maxAmmo; i++)
-	//	{
-	//		ship.bullets[i] = Bullet::GetBullet();
-	//	}*/
-	//	return;
-	//}
+	static void Reload(SpaceShip& ship)
+	{
+		for (int i = 0; i < maxAmmo; i++)
+		{
+			ship.bullets[i] = Bullet::GetBullet();
+			Bullet::SetPos(ship.sprite.dest.x + ship.sprite.texture.width / 2, ship.sprite.dest.y, ship.bullets[i]);
+		}
+	}
+
+	static void DrawBullets(SpaceShip& ship)
+	{
+		for (int i = 0; i < maxAmmo; i++)
+			if (ship.bullets[i].isVisible)
+				Bullet::Draw(ship.bullets[i]);
+
+	}
+
+	static bool EmptyAmmo(SpaceShip ship)
+	{
+		for (int i = 0; i < maxAmmo; i++)
+		{
+			if (ship.bullets[i].isStored)
+				return false;
+		}
+		return true;
+	}
+
+	static int GetCurrentAmmo(SpaceShip ship)
+	{
+		int count = 0;
+		for (int i = 0; i < maxAmmo; i++)
+		{
+			if (ship.bullets[i].isStored)
+				count++;
+		}
+
+		return count;
+	}
 
 	static void ScreenWrapCheck(SpaceShip& ship)
 	{
@@ -141,7 +139,7 @@ namespace SpaceShip
 			//Top (tp to bottom)
 			if (ship.collisionShape.pos.y + ship.sprite.texture.height < 0)
 				ship.collisionShape.pos.y = static_cast<float>(screenHeight) + static_cast<float>(ship.sprite.texture.height);
-			
+
 			//Bottom (tp to top)
 			if (ship.collisionShape.pos.y - ship.sprite.texture.height > screenHeight)
 				ship.collisionShape.pos.y = -(static_cast<float>(ship.sprite.texture.height));
@@ -158,10 +156,52 @@ namespace SpaceShip
 			//Right (tp to left)
 			if (ship.collisionShape.pos.x - ship.sprite.texture.width > screenWidth)
 				ship.collisionShape.pos.x = -(static_cast<float>(ship.sprite.texture.width));
-			
+
 		}
 
 	}
+
+	static void Shoot(SpaceShip& ship)
+	{
+		Bullet::Bullet* lastBullet = &ship.bullets[maxAmmo - 1];
+
+		if (IsMouseButtonReleased(MOUSE_BUTTON_RIGHT))
+		{
+			if (!EmptyAmmo(ship))
+			{
+				for (int i = maxAmmo - 1; i >= 0; i--)
+					if (ship.bullets[i].isStored)
+					{
+						lastBullet = &ship.bullets[i];
+						break;
+					}
+
+				Bullet::SetPos(ship.sprite.dest.x + ship.sprite.texture.width / 2, ship.sprite.dest.y, *lastBullet);
+				Bullet::Shoot(*lastBullet);
+			}
+			else
+				//a click to reload
+				Reload(ship);
+
+			//cout << GetCurrentAmmo(ship) << endl;
+		}
+	}
+
+	static void MoveBullets(SpaceShip& ship)
+	{
+		for (int i = 0; i < maxAmmo; i++)
+			if (ship.bullets[i].isVisible)
+				Bullet::Update(ship.bullets[i]);
+
+	}
+
+	static void InitAmmoText()
+	{
+		ammoCount = UIManager::GetText(0, 0, UIManager::Fonts::Default, static_cast<int>(UIManager::FontSize::medium), "%02i", YELLOW, RED);
+		ammoCount.location.x = static_cast<int>(UIManager::Padding::small);
+		ammoCount.location.y = screenHeight - UIManager::GetTextHeight(ammoCount);
+	}
+
 
 	SpaceShip GetShip()
 	{
@@ -192,6 +232,10 @@ namespace SpaceShip
 
 		ship.sprite.origin = origin;
 
+		Reload(ship);
+
+		InitAmmoText();
+
 		return ship;
 	}
 
@@ -211,19 +255,44 @@ namespace SpaceShip
 		ship.collisionShape.pos.y = (static_cast<float>(screenHeight) / 2.0f);
 	}
 
+
+	static void UpdateAmmoText(SpaceShip ship)
+	{
+		if (!EmptyAmmo(ship))
+			ammoCount.currentColor = YELLOW;
+		else
+			ammoCount.currentColor = RED;
+
+	}
+
 	void Update(SpaceShip& ship)
 	{
 		FollowMouse(ship);
 
 		MoveShip(ship);
 
+		Shoot(ship);
+
+		MoveBullets(ship);
+
 		ScreenWrapCheck(ship);
 
 		UpdateSpritePos(ship);
+
+		UpdateAmmoText(ship);
+	}
+
+	static void DrawAmmoCount(SpaceShip ship)
+	{
+		UIManager::PrintText(ammoCount, GetCurrentAmmo(ship));
 	}
 
 	void Draw(SpaceShip ship)
 	{
 		DrawTexturePro(ship.sprite.texture, ship.sprite.source, ship.sprite.dest, ship.sprite.origin, ship.angle, WHITE);
+
+		DrawAmmoCount(ship);
+
+		DrawBullets(ship);
 	}
 }

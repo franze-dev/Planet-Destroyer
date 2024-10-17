@@ -35,6 +35,9 @@
     <ClCompile Include="src\bullet.cpp">
       <Filter>Objects</Filter>
     </ClCompile>
+    <ClCompile Include="src\calculations.cpp">
+      <Filter>Utils</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\asteroid.h">
@@ -72,6 +75,9 @@
     </ClInclude>
     <ClInclude Include="src\bullet.h">
       <Filter>Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="src\calculations.h">
+      <Filter>Utils</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
