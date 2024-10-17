@@ -14,7 +14,7 @@ namespace Bullet
 
 	void SetPos(float x, float y, Bullet& bullet)
 	{
-		bullet.rect.x = x;
+		bullet.rect.x = x - bullet.rect.width/2;
 		bullet.rect.y = y;
 	}
 
@@ -25,6 +25,6 @@ namespace Bullet
 	
 	/*void Update(Bullet& bullet)
 	{
-		return;
+		
 	}*/
 }

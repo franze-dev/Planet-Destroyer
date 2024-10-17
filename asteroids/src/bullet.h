@@ -17,6 +17,6 @@ namespace Bullet
 	Bullet GetBullet();
 	void SetPos(float x, float y, Bullet& bullet);
 	void Draw(Bullet bullet);
-	void Update(Bullet& bullet);
+	//void Update(Bullet& bullet);
 
 }

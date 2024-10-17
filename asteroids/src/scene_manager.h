@@ -11,13 +11,6 @@ namespace SceneManager
 		Result,
 	};
 
-	//saves the gamemodes
-	enum GameMode
-	{
-		localMultiplayer,
-		singlePlayer
-	};
-
 	//changes the current scene
 	void SetCurrentScene(Scene scene);
 	//returns the current scene

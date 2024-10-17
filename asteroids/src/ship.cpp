@@ -65,10 +65,10 @@ namespace SpaceShip
 			FixTanValue(ship.angle, myQuadrant);
 	}
 
-	static void UpdatePos(SpaceShip& ship)
+	static void MovePos(SpaceShip& ship)
 	{
-		ship.sprite.dest.x += ship.speed.x * GetFrameTime();
-		ship.sprite.dest.y += ship.speed.y * GetFrameTime();
+		/*ship.sprite.dest.x += ship.speed.x * GetFrameTime();
+		ship.sprite.dest.y += ship.speed.y * GetFrameTime();*/
 
 		ship.collisionShape.pos.x += ship.speed.x * GetFrameTime();
 		ship.collisionShape.pos.y += ship.speed.y * GetFrameTime();
@@ -114,8 +114,14 @@ namespace SpaceShip
 			//cout << "X: " << ship.speed.x << ", Y: " << ship.speed.y << endl;
 		}
 
-		UpdatePos(ship);
+		MovePos(ship);
 		//ship.collisionShape.pos.x += ship.speedIncrease * GetFrameTime();
+	}
+
+	static void UpdateSpritePos(SpaceShip& ship)
+	{
+		ship.sprite.dest.x = ship.collisionShape.pos.x - ship.sprite.texture.width / 2;
+		ship.sprite.dest.y = ship.collisionShape.pos.y - ship.sprite.texture.height / 2;
 	}
 
 	//static void Reload(SpaceShip& ship)
@@ -126,6 +132,36 @@ namespace SpaceShip
 	//	}*/
 	//	return;
 	//}
+
+	static void ScreenWrapCheck(SpaceShip& ship)
+	{
+		//Top or bottom?
+		if (ship.collisionShape.pos.y - ship.sprite.texture.height > screenHeight || ship.collisionShape.pos.y + ship.sprite.texture.height < 0)
+		{
+			//Top (tp to bottom)
+			if (ship.collisionShape.pos.y + ship.sprite.texture.height < 0)
+				ship.collisionShape.pos.y = static_cast<float>(screenHeight) + static_cast<float>(ship.sprite.texture.height);
+			
+			//Bottom (tp to top)
+			if (ship.collisionShape.pos.y - ship.sprite.texture.height > screenHeight)
+				ship.collisionShape.pos.y = -(static_cast<float>(ship.sprite.texture.height));
+
+		}
+
+		//Left or right?
+		if (ship.collisionShape.pos.x - ship.sprite.texture.width > screenWidth || ship.collisionShape.pos.x + ship.sprite.texture.width < 0)
+		{
+			//Left (tp to right)
+			if (ship.collisionShape.pos.x + ship.sprite.texture.width < 0)
+				ship.collisionShape.pos.x = static_cast<float>(screenWidth) + static_cast<float>(ship.sprite.texture.width);
+
+			//Right (tp to left)
+			if (ship.collisionShape.pos.x - ship.sprite.texture.width > screenWidth)
+				ship.collisionShape.pos.x = -(static_cast<float>(ship.sprite.texture.width));
+			
+		}
+
+	}
 
 	SpaceShip GetShip()
 	{
@@ -171,8 +207,8 @@ namespace SpaceShip
 
 		ship.sprite.origin = { static_cast<float>(ship.sprite.texture.width),static_cast<float>(ship.sprite.texture.height) };
 
-		ship.collisionShape.pos.x = (static_cast<float>(screenWidth) / 2.0f) - static_cast<float>(ship.sprite.texture.width);
-		ship.collisionShape.pos.y = (static_cast<float>(screenHeight) / 2.0f) - static_cast<float>(ship.sprite.texture.height);
+		ship.collisionShape.pos.x = (static_cast<float>(screenWidth) / 2.0f);
+		ship.collisionShape.pos.y = (static_cast<float>(screenHeight) / 2.0f);
 	}
 
 	void Update(SpaceShip& ship)
@@ -180,6 +216,10 @@ namespace SpaceShip
 		FollowMouse(ship);
 
 		MoveShip(ship);
+
+		ScreenWrapCheck(ship);
+
+		UpdateSpritePos(ship);
 	}
 
 	void Draw(SpaceShip ship)
