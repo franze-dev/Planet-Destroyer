@@ -2,9 +2,12 @@
 #include "raylib.h"
 
 #include "texture_manager.h"
+#include "bullet.h"
 
 namespace SpaceShip
 {
+	const int maxAmmo = 50;
+
 	struct CollisionBall
 	{
 		Vector2 pos;
@@ -13,13 +16,15 @@ namespace SpaceShip
 
 	struct SpaceShip
 	{
-		CollisionBall collisionShape;
-		TextureManager::Sprite sprite;
-		Vector2 modifiableSpeed;
 		float maxSpeed;
-		float speedIncrease;
+		float acceleration;
 		float angle;
 		int scale;
+		CollisionBall collisionShape;
+		TextureManager::Sprite sprite;
+		Vector2 speed;
+		Vector2 dir;
+		Bullet::Bullet bullets[maxAmmo];
 	};
 
 	SpaceShip GetShip();
@@ -30,6 +35,6 @@ namespace SpaceShip
 
 	void Draw(SpaceShip ship);
 
-	void FollowMouse(SpaceShip& ship);
+	
 }
 

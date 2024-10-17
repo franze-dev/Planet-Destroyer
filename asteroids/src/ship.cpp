@@ -8,6 +8,7 @@
 
 namespace SpaceShip
 {
+
 	enum Quadrant
 	{
 		Q1,
@@ -46,6 +47,85 @@ namespace SpaceShip
 		}
 	}
 
+	static void FollowMouse(SpaceShip& ship)
+	{
+		Vector2 mousePos = GetMousePosition();
+
+		ship.dir = Vector2Subtract(mousePos, ship.collisionShape.pos);
+
+		//tanf returns result in radians
+		ship.angle = atan(ship.dir.y / ship.dir.x);
+
+		//I turn it into DEG so it's compatible with raylib functions
+		ship.angle *= 180.0f / PI;
+
+		Quadrant myQuadrant = GetQuadrant(ship.dir);
+
+		if (myQuadrant != Q1)
+			FixTanValue(ship.angle, myQuadrant);
+	}
+
+	static void UpdatePos(SpaceShip& ship)
+	{
+		ship.sprite.dest.x += ship.speed.x * GetFrameTime();
+		ship.sprite.dest.y += ship.speed.y * GetFrameTime();
+
+		ship.collisionShape.pos.x += ship.speed.x * GetFrameTime();
+		ship.collisionShape.pos.y += ship.speed.y * GetFrameTime();
+	}
+
+	static void MoveShip(SpaceShip& ship)
+	{
+		Vector2 normalizedDir{};
+
+		float mag = 0.0f;
+
+		if (IsMouseButtonReleased(MOUSE_LEFT_BUTTON))
+		{
+			normalizedDir.x = ship.dir.x / sqrt(pow(ship.dir.x, 2.0f) + pow(ship.dir.y, 2.0f));
+			normalizedDir.y = ship.dir.y / sqrt(pow(ship.dir.x, 2.0f) + pow(ship.dir.y, 2.0f));
+
+			if (ship.speed.x * ship.speed.x + ship.speed.y * ship.speed.y > ship.maxSpeed * ship.maxSpeed)
+			{
+				/*Vector2 Math::Normalize(const Vector2 & A, const float Mag) {
+					return { A.x / Mag, A.y / Mag };
+				}
+
+
+
+				Vector2 Math::Multiply(const Vector2 & A, const float K) {
+					return { A.x * K, A.y * K };
+				}*/
+
+				mag = sqrt(pow(ship.speed.x, 2.0f) + pow(ship.speed.y, 2.0f));
+
+				ship.speed.x /= mag;
+				ship.speed.y /= mag;
+
+				ship.speed.x *= ship.maxSpeed;
+				ship.speed.y *= ship.maxSpeed;
+
+				cout << sqrt(pow(ship.speed.x, 2.0f) + pow(ship.speed.y, 2.0f)) << endl;
+			}
+
+			ship.speed.x += ship.acceleration * normalizedDir.x;
+			ship.speed.y += ship.acceleration * normalizedDir.y;
+
+			//cout << "X: " << ship.speed.x << ", Y: " << ship.speed.y << endl;
+		}
+
+		UpdatePos(ship);
+		//ship.collisionShape.pos.x += ship.speedIncrease * GetFrameTime();
+	}
+
+	static void Reload(SpaceShip& ship)
+	{
+		for (int i = 0; i < maxAmmo; i++)
+		{
+			ship.bullets[i] = Bullet::GetBullet();
+		}
+	}
+
 	SpaceShip GetShip()
 	{
 		SpaceShip ship;
@@ -53,9 +133,9 @@ namespace SpaceShip
 		ship.sprite.textureDir = TextureManager::shipSprite;
 		ship.angle = 0.0f;
 		ship.scale = 2;
-		ship.maxSpeed = 200.0f;
-		ship.speedIncrease = 20.0f;
-		ship.modifiableSpeed = { 0, 0 };
+		ship.maxSpeed = 500.0f;
+		ship.acceleration = 100.0f;
+		ship.speed = { 0, 0 };
 
 		Rectangle sourceRect;
 
@@ -97,30 +177,12 @@ namespace SpaceShip
 	void Update(SpaceShip& ship)
 	{
 		FollowMouse(ship);
+
+		MoveShip(ship);
 	}
 
 	void Draw(SpaceShip ship)
 	{
 		DrawTexturePro(ship.sprite.texture, ship.sprite.source, ship.sprite.dest, ship.sprite.origin, ship.angle, WHITE);
-	}
-
-	void FollowMouse(SpaceShip& ship)
-	{
-		Vector2 mousePos = GetMousePosition();
-
-		Vector2 shipDir = Vector2Subtract(mousePos, ship.collisionShape.pos);
-
-		//tanf returns result in radians
-		ship.angle = atan(shipDir.y / shipDir.x);
-
-		//I turn it into DEG so it's compatible with raylib functions
-		ship.angle *= 180.0f / PI;
-
-		Quadrant myQuadrant = GetQuadrant(shipDir);
-
-		if (myQuadrant != Q1)
-			FixTanValue(ship.angle, myQuadrant);
-
-		cout << ship.angle << endl;
 	}
 }
