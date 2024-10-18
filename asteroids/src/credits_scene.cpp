@@ -1,6 +1,6 @@
 #include "credits_scene.h"
 
-#include "ui_manager.h"
+#include "button.h"
 #include "screen_info.h"
 
 namespace CreditsScene
@@ -10,8 +10,8 @@ namespace CreditsScene
 		string name;
 		string url;
 		string role;
-		UIManager::Text text;
-		UIManager::Button button;
+		Text::Text text;
+		Button::Button button;
 	};
 
 	enum Roles
@@ -36,7 +36,7 @@ namespace CreditsScene
 
 	struct Page
 	{
-		UIManager::Button button;
+		Button::Button button;
 		Pages number;
 	};
 
@@ -46,20 +46,20 @@ namespace CreditsScene
 	static Page page2{};
 	static Page page3{};
 
-	static UIManager::Text creditsTitle;
-	static UIManager::Text devTitle;
-	static UIManager::Text artTitle;
-	static UIManager::Text fontTitle;
-	static UIManager::Text toolsTitle;
+	static Text::Text creditsTitle;
+	static Text::Text devTitle;
+	static Text::Text artTitle;
+	static Text::Text fontTitle;
+	static Text::Text toolsTitle;
 
-	static UIManager::Button backToMenuButton;
+	static Button::Button backToMenuButton;
 
 	static Credit creditsInfo[maxCredits];
 	static Pages currentPage = Pages::page1;
 
 	static void CheckURLButton(Credit& credit)
 	{
-		if (UIManager::IsMouseOnButton(credit.button))
+		if (Button::IsMouseOnButton(credit.button))
 		{
 			credit.button.currentColor = credit.button.highlightColor;
 
@@ -100,7 +100,7 @@ namespace CreditsScene
 
 	static void CheckPagesButton(Page& page)
 	{
-		if (UIManager::IsMouseOnButton(page.button))
+		if (Button::IsMouseOnButton(page.button))
 		{
 			page.button.currentColor = page.button.highlightColor;
 			if (IsMouseButtonReleased(MOUSE_BUTTON_LEFT))
@@ -118,9 +118,9 @@ namespace CreditsScene
 		if (credit.name == creditsInfo[dev].name)
 			highlightColor = MAGENTA;
 
-		credit.text = UIManager::GetText(screenWidth / 2, y, UIManager::Fonts::Default, static_cast<int>(UIManager::FontSize::small), credit.role, WHITE);
-		UIManager::CenterTextX(credit.text);
-		credit.button = UIManager::GetButton(screenWidth / 2, credit.text.location.y + UIManager::GetTextHeight(credit.text) + static_cast<int>(UIManager::Padding::small), UIManager::GetTextWidth(creditsTitle) + static_cast<int>(UIManager::Padding::medium), UIManager::GetTextHeight(credit.text) * 2, credit.name, BLACK, highlightColor, WHITE, UIManager::Fonts::Default);
+		credit.text = Text::GetText(screenWidth / 2, y, Text::Fonts::Default, static_cast<int>(Text::FontSize::small), credit.role, WHITE);
+		Text::CenterTextX(credit.text);
+		credit.button = Button::GetButton(screenWidth / 2, credit.text.location.y + Text::GetTextHeight(credit.text) + static_cast<int>(Text::Padding::small), Text::GetTextWidth(creditsTitle) + static_cast<int>(Text::Padding::medium), Text::GetTextHeight(credit.text) * 2, credit.name, BLACK, highlightColor, WHITE, Text::Fonts::Default);
 		credit.button.shape.x -= credit.button.shape.width / 2;
 	}
 
@@ -128,33 +128,33 @@ namespace CreditsScene
 	{
 #pragma region PAGE_1
 
-		creditsTitle = UIManager::GetText(screenWidth / 2, static_cast<int>(UIManager::Padding::medium), UIManager::Fonts::Title1, static_cast<int>(UIManager::FontSize::big), "CREDITS", SKYBLUE);
-		UIManager::CenterTextX(creditsTitle);
+		creditsTitle = Text::GetText(screenWidth / 2, static_cast<int>(Text::Padding::medium), Text::Fonts::Title1, static_cast<int>(Text::FontSize::big), "CREDITS", SKYBLUE);
+		Text::CenterTextX(creditsTitle);
 
-		devTitle = UIManager::GetText(screenWidth / 2, creditsTitle.location.y + UIManager::GetTextHeight(creditsTitle) + static_cast<int>(UIManager::Padding::small), UIManager::Fonts::Title2, creditsTitle.fontSize * 3 / 4, "DEVELOPMENT", MAGENTA);
-		UIManager::CenterTextX(devTitle);
+		devTitle = Text::GetText(screenWidth / 2, creditsTitle.location.y + Text::GetTextHeight(creditsTitle) + static_cast<int>(Text::Padding::small), Text::Fonts::Title2, creditsTitle.fontSize * 3 / 4, "DEVELOPMENT", MAGENTA);
+		Text::CenterTextX(devTitle);
 
-		InitCredit(creditsInfo[dev], devTitle.location.y + UIManager::GetTextHeight(devTitle) + static_cast<int>(UIManager::Padding::small));
+		InitCredit(creditsInfo[dev], devTitle.location.y + Text::GetTextHeight(devTitle) + static_cast<int>(Text::Padding::small));
 
-		artTitle = UIManager::GetText(screenWidth / 2, creditsInfo[dev].button.shape.y + creditsInfo[dev].button.shape.height + static_cast<int>(UIManager::Padding::medium), UIManager::Fonts::Title2, devTitle.fontSize, "ART", YELLOW);
-		UIManager::CenterTextX(artTitle);
+		artTitle = Text::GetText(screenWidth / 2, creditsInfo[dev].button.shape.y + creditsInfo[dev].button.shape.height + static_cast<int>(Text::Padding::medium), Text::Fonts::Title2, devTitle.fontSize, "ART", YELLOW);
+		Text::CenterTextX(artTitle);
 
-		InitCredit(creditsInfo[artist], artTitle.location.y + UIManager::GetTextHeight(artTitle) + static_cast<int>(UIManager::Padding::small));
+		InitCredit(creditsInfo[artist], artTitle.location.y + Text::GetTextHeight(artTitle) + static_cast<int>(Text::Padding::small));
 
 #pragma endregion
 
 #pragma region PAGE_2
 
-		fontTitle = UIManager::GetText(screenWidth / 2, devTitle.location.y, artTitle.font, artTitle.fontSize, "FONTS", artTitle.currentColor);
-		UIManager::CenterTextX(fontTitle);
+		fontTitle = Text::GetText(screenWidth / 2, devTitle.location.y, artTitle.font, artTitle.fontSize, "FONTS", artTitle.currentColor);
+		Text::CenterTextX(fontTitle);
 
-		float posY = fontTitle.location.y + UIManager::GetTextHeight(fontTitle) + static_cast<float>(UIManager::Padding::small);
+		float posY = fontTitle.location.y + Text::GetTextHeight(fontTitle) + static_cast<float>(Text::Padding::small);
 
 		for (int i = font1; i < font3 + 1; i++)
 		{
 			InitCredit(creditsInfo[i], posY);
 
-			posY += creditsInfo[i].button.shape.height + static_cast<int>(UIManager::Padding::big);
+			posY += creditsInfo[i].button.shape.height + static_cast<int>(Text::Padding::big);
 		}
 
 #pragma endregion
@@ -164,13 +164,13 @@ namespace CreditsScene
 		toolsTitle = fontTitle;
 		toolsTitle.content = "TOOLS";
 
-		posY = toolsTitle.location.y + UIManager::GetTextHeight(toolsTitle) + static_cast<float>(UIManager::Padding::small);
+		posY = toolsTitle.location.y + Text::GetTextHeight(toolsTitle) + static_cast<float>(Text::Padding::small);
 
 		for (int i = language; i < soundTool + 1; i++)
 		{
 			InitCredit(creditsInfo[i], posY);
 
-			posY += creditsInfo[i].button.shape.height + static_cast<int>(UIManager::Padding::medium);
+			posY += creditsInfo[i].button.shape.height + static_cast<int>(Text::Padding::medium);
 		}
 
 #pragma endregion
@@ -179,9 +179,9 @@ namespace CreditsScene
 
 	static void DrawCredit(Credit& credit)
 	{
-		UIManager::PrintText(credit.text);
+		Text::PrintText(credit.text);
 
-		UIManager::DrawButton(credit.button);
+		Button::DrawButton(credit.button);
 	}
 
 	void Init()
@@ -259,9 +259,9 @@ namespace CreditsScene
 
 #pragma region PAGES
 
-		page2.button = UIManager::GetButton(screenWidth / 2, screenHeight, 40.0f, 40.0f, "2", WHITE, SKYBLUE, BLACK, UIManager::Fonts::Default);
+		page2.button = Button::GetButton(screenWidth / 2, screenHeight, 40.0f, 40.0f, "2", WHITE, SKYBLUE, BLACK, Text::Fonts::Default);
 		page2.button.shape.x -= page2.button.shape.width / 2;
-		page2.button.shape.y -= page2.button.shape.height + static_cast<float>(UIManager::Padding::small);
+		page2.button.shape.y -= page2.button.shape.height + static_cast<float>(Text::Padding::small);
 		page2.number = Pages::page2;
 
 		page1.button = page2.button;
@@ -276,15 +276,15 @@ namespace CreditsScene
 
 #pragma endregion
 
-		backToMenuButton = UIManager::GetButton(static_cast<float>(UIManager::Padding::small), screenHeight, 80, 40, "BACK", BLACK, YELLOW, WHITE, UIManager::Fonts::Default);
-		backToMenuButton.shape.y -= backToMenuButton.shape.height + static_cast<float>(UIManager::Padding::small);
+		backToMenuButton = Button::GetButton(static_cast<float>(Text::Padding::small), screenHeight, 80, 40, "BACK", BLACK, YELLOW, WHITE, Text::Fonts::Default);
+		backToMenuButton.shape.y -= backToMenuButton.shape.height + static_cast<float>(Text::Padding::small);
 
 	}
 
 	void Update()
 	{
 		CheckURLButtons();
-		UIManager::CheckSceneChange(backToMenuButton, SceneManager::Menu);
+		Button::CheckSceneChange(backToMenuButton, SceneManager::Menu);
 
 		CheckPagesButton(page1);
 		CheckPagesButton(page2);
@@ -293,22 +293,22 @@ namespace CreditsScene
 
 	void Draw()
 	{
-		UIManager::PrintText(creditsTitle);
+		Text::PrintText(creditsTitle);
 
 		switch (currentPage)
 		{
 		case CreditsScene::Pages::page1:
 
-			UIManager::PrintText(devTitle);
+			Text::PrintText(devTitle);
 			DrawCredit(creditsInfo[dev]);
 
-			UIManager::PrintText(artTitle);
+			Text::PrintText(artTitle);
 			DrawCredit(creditsInfo[artist]);
 
 			break;
 		case CreditsScene::Pages::page2:
 
-			UIManager::PrintText(fontTitle);
+			Text::PrintText(fontTitle);
 
 			for (int i = font1; i < font3 + 1; i++)
 				DrawCredit(creditsInfo[i]);
@@ -316,7 +316,7 @@ namespace CreditsScene
 			break;
 		case CreditsScene::Pages::page3:
 
-			UIManager::PrintText(toolsTitle);
+			Text::PrintText(toolsTitle);
 
 			for (int i = language; i < soundTool + 1; i++)
 				DrawCredit(creditsInfo[i]);
@@ -326,9 +326,9 @@ namespace CreditsScene
 			break;
 		}
 
-		UIManager::DrawButton(page1.button);
-		UIManager::DrawButton(page2.button);
-		UIManager::DrawButton(page3.button);
-		UIManager::DrawButton(backToMenuButton);
+		Button::DrawButton(page1.button);
+		Button::DrawButton(page2.button);
+		Button::DrawButton(page3.button);
+		Button::DrawButton(backToMenuButton);
 	}
 }

@@ -1,11 +1,13 @@
-#include "Pause_Menu.h"
-#include "UI_Manager.h"
-#include "Scene_Manager.h"
+#include "pause_menu.h"
+
 #include "raylib.h"
 
-UIManager::Text pauseTitle;
-UIManager::Button continueButton;
-UIManager::Button backToMenuButton;
+#include "button.h"
+#include "scene_manager.h"
+
+Text::Text pauseTitle;
+Button::Button continueButton;
+Button::Button backToMenuButton;
 
 int defaultFontSize = 40;
 int buttonsPadding = 30;
@@ -45,7 +47,7 @@ void PauseMenu::Init()
 
 void PauseMenu::Update()
 {
-	if (UIManager::IsMouseOnButton(continueButton))
+	if (Button::IsMouseOnButton(continueButton))
 	{
 		continueButton.currentColor = continueButton.highlightColor;
 		if (IsMouseButtonReleased(MOUSE_BUTTON_LEFT))
@@ -56,7 +58,7 @@ void PauseMenu::Update()
 	else
 		continueButton.currentColor = continueButton.defaultColor;
 
-	if (UIManager::IsMouseOnButton(backToMenuButton))
+	if (Button::IsMouseOnButton(backToMenuButton))
 	{
 		backToMenuButton.currentColor = backToMenuButton.highlightColor;
 		if (IsMouseButtonReleased(MOUSE_BUTTON_LEFT))
@@ -71,6 +73,6 @@ void PauseMenu::Draw()
 {
 	DrawText(pauseTitle.content.data(), static_cast<int>(pauseTitle.location.x), static_cast<int>(pauseTitle.location.y), pauseTitle.fontSize, pauseTitle.currentColor);
 	
-	UIManager::DrawButton(continueButton);
-	UIManager::DrawButton(backToMenuButton);
+	Button::DrawButton(continueButton);
+	Button::DrawButton(backToMenuButton);
 }

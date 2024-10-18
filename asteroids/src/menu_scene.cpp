@@ -5,8 +5,8 @@
 #include <iostream>
 #include <string>
 
-#include "Scene_Manager.h"
-#include "UI_Manager.h"
+#include "scene_manager.h"
+#include "button.h"
 #include "screen_info.h"
 
 using namespace std;
@@ -17,39 +17,39 @@ enum Options
 	Exit
 };
 
-static UIManager::Button playButton;
-static UIManager::Button exitButton;
-static UIManager::Button creditsButton;
+static Button::Button playButton;
+static Button::Button exitButton;
+static Button::Button creditsButton;
 
-static UIManager::Text titlePart1;
-static UIManager::Text titlePart2;
+static Text::Text titlePart1;
+static Text::Text titlePart2;
 
 void MenuScene::Init()
 {
 #pragma region TITLE_TEXTS
 
-	titlePart1 = UIManager::GetText(0, 0, UIManager::Fonts::Title1, static_cast<int>(UIManager::FontSize::big), "PLANET", MAGENTA);
-	titlePart1.location.x = static_cast<float>(screenWidth) / 2.0f - UIManager::GetTextWidth(titlePart1) / 2.0f;
-	titlePart1.location.y = static_cast<float>(UIManager::Padding::medium);
-	titlePart2 = UIManager::GetText(0, titlePart1.location.y + UIManager::GetTextHeight(titlePart1) + static_cast<float>(UIManager::Padding::small), UIManager::Fonts::Title2, static_cast<int>(UIManager::FontSize::giant), "DESTROYER", YELLOW);
-	titlePart2.location.x = static_cast<float>(screenWidth) / 2.0f - UIManager::GetTextWidth(titlePart2) / 2.0f;
+	titlePart1 = Text::GetText(0, 0, Text::Fonts::Title1, static_cast<int>(Text::FontSize::big), "PLANET", MAGENTA);
+	titlePart1.location.x = static_cast<float>(screenWidth) / 2.0f - Text::GetTextWidth(titlePart1) / 2.0f;
+	titlePart1.location.y = static_cast<float>(Text::Padding::medium);
+	titlePart2 = Text::GetText(0, titlePart1.location.y + Text::GetTextHeight(titlePart1) + static_cast<float>(Text::Padding::small), Text::Fonts::Title2, static_cast<int>(Text::FontSize::giant), "DESTROYER", YELLOW);
+	titlePart2.location.x = static_cast<float>(screenWidth) / 2.0f - Text::GetTextWidth(titlePart2) / 2.0f;
 #pragma endregion
 
-	playButton = UIManager::GetButton(static_cast<float>(GetScreenWidth()) / 2.0f - UIManager::GetTextWidth(titlePart2) / 2.0f, static_cast<float>(GetScreenHeight()) / 2.0f - UIManager::GetTextHeight(titlePart2) / 2.0f, UIManager::GetTextWidth(titlePart2), UIManager::GetTextHeight(titlePart2)/2, "PLAY", BLACK, MAGENTA, YELLOW, UIManager::Fonts::Title2);
+	playButton = Button::GetButton(static_cast<float>(GetScreenWidth()) / 2.0f - Text::GetTextWidth(titlePart2) / 2.0f, static_cast<float>(GetScreenHeight()) / 2.0f - Text::GetTextHeight(titlePart2) / 2.0f, Text::GetTextWidth(titlePart2), Text::GetTextHeight(titlePart2)/2, "PLAY", BLACK, MAGENTA, YELLOW, Text::Fonts::Title2);
 	
-	creditsButton = UIManager::GetButton(playButton.shape.x, playButton.shape.y + playButton.shape.height + static_cast<int>(UIManager::Padding::small), playButton.shape.width, playButton.shape.height, "CREDITS", BLACK, SKYBLUE, YELLOW, playButton.textShown.font);
+	creditsButton = Button::GetButton(playButton.shape.x, playButton.shape.y + playButton.shape.height + static_cast<int>(Text::Padding::small), playButton.shape.width, playButton.shape.height, "CREDITS", BLACK, SKYBLUE, YELLOW, playButton.textShown.font);
 
-	exitButton = UIManager::GetButton(playButton.shape.x, creditsButton.shape.y + creditsButton.shape.height + static_cast<int>(UIManager::Padding::small), playButton.shape.width, playButton.shape.height, "EXIT", BLACK, RED, YELLOW, playButton.textShown.font);
+	exitButton = Button::GetButton(playButton.shape.x, creditsButton.shape.y + creditsButton.shape.height + static_cast<int>(Text::Padding::small), playButton.shape.width, playButton.shape.height, "EXIT", BLACK, RED, YELLOW, playButton.textShown.font);
 
 }
 
 void MenuScene::Update()
 {
-	UIManager::CheckSceneChange(playButton, SceneManager::Gameplay);
+	Button::CheckSceneChange(playButton, SceneManager::Gameplay);
 
-	UIManager::CheckSceneChange(creditsButton, SceneManager::Credits);
+	Button::CheckSceneChange(creditsButton, SceneManager::Credits);
 
-	UIManager::CheckSceneChange(exitButton, SceneManager::None);
+	Button::CheckSceneChange(exitButton, SceneManager::None);
 
 }
 
@@ -58,8 +58,8 @@ void MenuScene::Draw()
 	PrintText(titlePart1);
 	PrintText(titlePart2);
 
-	UIManager::DrawButton(playButton);
-	UIManager::DrawButton(exitButton);
-	UIManager::DrawButton(creditsButton);
+	Button::DrawButton(playButton);
+	Button::DrawButton(exitButton);
+	Button::DrawButton(creditsButton);
 
 }

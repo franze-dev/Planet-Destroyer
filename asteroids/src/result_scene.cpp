@@ -1,10 +1,12 @@
-#include "raylib.h"
 #include "result_scene.h"
-#include "ui_manager.h"
+
+#include "raylib.h"
+
+#include "button.h"
 #include "scene_manager.h"
 
-static UIManager::Button backToMenuButton;
-static UIManager::Button exitButton;
+static Button::Button backToMenuButton;
+static Button::Button exitButton;
 
 static int buttonsPadding = 20;
 static int defaultFontSize = 40;

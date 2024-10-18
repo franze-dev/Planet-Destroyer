@@ -7,12 +7,12 @@
 #include "texture_manager.h"
 #include "screen_info.h"
 #include "bullet.h"
-#include "ui_manager.h"
+#include "button.h"
 #include "calculations.h"
 
 namespace SpaceShip
 {
-	UIManager::Text ammoCount;
+	Text::Text ammoCount;
 
 
 	static void FollowMouse(SpaceShip& ship)
@@ -197,9 +197,9 @@ namespace SpaceShip
 
 	static void InitAmmoText()
 	{
-		ammoCount = UIManager::GetText(0, 0, UIManager::Fonts::Default, static_cast<int>(UIManager::FontSize::medium), "%02i", YELLOW, RED);
-		ammoCount.location.x = static_cast<int>(UIManager::Padding::small);
-		ammoCount.location.y = screenHeight - UIManager::GetTextHeight(ammoCount);
+		ammoCount = Text::GetText(0, 0, Text::Fonts::Default, static_cast<int>(Text::FontSize::medium), "%02i", YELLOW, RED);
+		ammoCount.location.x = static_cast<int>(Text::Padding::small);
+		ammoCount.location.y = screenHeight - Text::GetTextHeight(ammoCount);
 	}
 
 
@@ -284,7 +284,7 @@ namespace SpaceShip
 
 	static void DrawAmmoCount(SpaceShip ship)
 	{
-		UIManager::PrintText(ammoCount, GetCurrentAmmo(ship));
+		Text::PrintText(ammoCount, GetCurrentAmmo(ship));
 	}
 
 	void Draw(SpaceShip ship)

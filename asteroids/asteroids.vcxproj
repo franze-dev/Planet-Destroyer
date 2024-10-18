@@ -21,6 +21,7 @@
   <ItemGroup>
     <ClCompile Include="src\asteroid.cpp" />
     <ClCompile Include="src\bullet.cpp" />
+    <ClCompile Include="src\button.cpp" />
     <ClCompile Include="src\calculations.cpp" />
     <ClCompile Include="src\credits_scene.cpp" />
     <ClCompile Include="src\game.cpp" />
@@ -31,12 +32,13 @@
     <ClCompile Include="src\result_scene.cpp" />
     <ClCompile Include="src\scene_manager.cpp" />
     <ClCompile Include="src\ship.cpp" />
+    <ClCompile Include="src\text.cpp" />
     <ClCompile Include="src\texture_manager.cpp" />
-    <ClCompile Include="src\ui_manager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\asteroid.h" />
     <ClInclude Include="src\bullet.h" />
+    <ClInclude Include="src\button.h" />
     <ClInclude Include="src\calculations.h" />
     <ClInclude Include="src\screen_info.h" />
     <ClInclude Include="src\credits_scene.h" />
@@ -47,8 +49,8 @@
     <ClInclude Include="src\result_scene.h" />
     <ClInclude Include="src\scene_manager.h" />
     <ClInclude Include="src\ship.h" />
+    <ClInclude Include="src\text.h" />
     <ClInclude Include="src\texture_manager.h" />
-    <ClInclude Include="src\ui_manager.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>

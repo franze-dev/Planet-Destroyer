@@ -6,7 +6,7 @@
 #include "menu_scene.h"
 #include "screen_info.h"
 #include "scene_manager.h"
-#include "ui_manager.h"
+#include "text.h"
 #include "credits_scene.h"
 
 namespace Game
@@ -23,7 +23,7 @@ namespace Game
 
 	static void Init()
 	{
-		UIManager::InitFonts();
+		Text::InitFonts();
 		LoadTextures();
 		Gameplay::Init();
 		MenuScene::Init();
