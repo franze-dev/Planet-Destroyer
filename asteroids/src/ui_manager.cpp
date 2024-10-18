@@ -6,6 +6,11 @@ namespace UIManager
 	static Font titleFont2;
 	static Font generalText;
 
+	void CenterTextX(Text& text)
+	{
+		text.location.x -= GetTextWidth(text) / 2;
+	}
+
 	float GetTextWidth(Text text)
 	{
 		return MeasureTextEx(GetFont(text.font), text.content.data(), static_cast<float>(text.fontSize), textSpacing).x;

@@ -60,19 +60,29 @@ namespace UIManager
 		Color highlightColor;
 	};
 
+	void CenterTextX(Text& text);
+
 	float GetTextWidth(Text text);
+
 	float GetTextHeight(Text text);
+
 	Font GetFont(Fonts font);
+
 	void InitFonts();
+
 	//Detects the mouse inside the bounds of a button
 	bool IsMouseOnButton(Button button);
+
 	void CheckSceneChange(Button& button, SceneManager::Scene scene);
+
 	void DrawButton(Button button);
 	//Create texts
 	Text GetText(float x, float y, Fonts font, int fontSize, string content, Color color);
+
 	//If the text is the same and only the color changes at one point, then this is used.
 	//color1 is the current color.
 	Text GetText(float x, float y, Fonts font, int fontSize, string content, Color color1, Color color2);
+
 	//Create buttons
 	Button GetButton(float x, float y, float width, float height, string content, Color mainColor, Color highlightColor, Color textColor, Fonts font);
 }

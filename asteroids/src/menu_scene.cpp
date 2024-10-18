@@ -7,7 +7,7 @@
 
 #include "Scene_Manager.h"
 #include "UI_Manager.h"
-#include "constants.h"
+#include "screen_info.h"
 
 using namespace std;
 

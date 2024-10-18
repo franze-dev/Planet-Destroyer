@@ -46,7 +46,7 @@
     <ClInclude Include="src\asteroid.h">
       <Filter>Objects</Filter>
     </ClInclude>
-    <ClInclude Include="src\constants.h">
+    <ClInclude Include="src\screen_info.h">
       <Filter>Utils</Filter>
     </ClInclude>
     <ClInclude Include="src\game.h">

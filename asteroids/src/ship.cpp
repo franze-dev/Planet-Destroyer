@@ -5,7 +5,7 @@
 #include "raylib.h"
 
 #include "texture_manager.h"
-#include "constants.h"
+#include "screen_info.h"
 #include "bullet.h"
 #include "ui_manager.h"
 #include "calculations.h"

@@ -1,6 +1,6 @@
 #pragma once
 
-namespace Credits
+namespace CreditsScene
 {
 	void Init();
 	void Update();

@@ -4,9 +4,10 @@
 
 #include "gameplay_scene.h"
 #include "menu_scene.h"
-#include "constants.h"
+#include "screen_info.h"
 #include "scene_manager.h"
 #include "ui_manager.h"
+#include "credits_scene.h"
 
 namespace Game
 {
@@ -26,7 +27,7 @@ namespace Game
 		LoadTextures();
 		Gameplay::Init();
 		MenuScene::Init();
-		
+		CreditsScene::Init();
 	}
 
 	static void Update()
@@ -38,6 +39,10 @@ namespace Game
 			break;
 		case SceneManager::Menu:
 			MenuScene::Update();
+			break;
+		case SceneManager::Credits:
+			CreditsScene::Update();
+			break;
 		default:
 			break;
 		}
@@ -55,6 +60,10 @@ namespace Game
 			break;
 		case SceneManager::Menu:
 			MenuScene::Draw();
+			break;
+		case SceneManager::Credits:
+			CreditsScene::Draw();
+			break;
 		default:
 			break;
 		}
