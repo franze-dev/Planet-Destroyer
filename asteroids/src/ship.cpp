@@ -9,6 +9,7 @@
 #include "bullet.h"
 #include "button.h"
 #include "calculations.h"
+//NOTE: All of the above are used
 
 namespace SpaceShip
 {
@@ -55,16 +56,6 @@ namespace SpaceShip
 
 			if (ship.speed.x * ship.speed.x + ship.speed.y * ship.speed.y > ship.maxSpeed * ship.maxSpeed)
 			{
-				/*Vector2 Math::Normalize(const Vector2 & A, const float Mag) {
-					return { A.x / Mag, A.y / Mag };
-				}
-
-
-
-				Vector2 Math::Multiply(const Vector2 & A, const float K) {
-					return { A.x * K, A.y * K };
-				}*/
-
 				mag = sqrt(pow(ship.speed.x, 2.0f) + pow(ship.speed.y, 2.0f));
 
 				ship.speed.x /= mag;
@@ -79,11 +70,9 @@ namespace SpaceShip
 			ship.speed.x += ship.acceleration * normalizedDir.x;
 			ship.speed.y += ship.acceleration * normalizedDir.y;
 
-			//cout << "X: " << ship.speed.x << ", Y: " << ship.speed.y << endl;
 		}
 
 		MovePos(ship);
-		//ship.collisionShape.pos.x += ship.speedIncrease * GetFrameTime();
 	}
 
 	static void UpdateSpritePos(SpaceShip& ship)

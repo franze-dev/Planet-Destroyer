@@ -8,6 +8,7 @@
 #include "scene_manager.h"
 #include "text.h"
 #include "credits_scene.h"
+//NOTE: All of the above are used
 
 namespace Game
 {

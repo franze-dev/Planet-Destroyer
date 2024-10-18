@@ -4,6 +4,7 @@
 
 #include "button.h"
 #include "scene_manager.h"
+//NOTE: All of the above are used
 
 static Button::Button backToMenuButton;
 static Button::Button exitButton;

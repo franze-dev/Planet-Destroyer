@@ -2,6 +2,7 @@
 
 #include "button.h"
 #include "screen_info.h"
+//NOTE: All of the above are used
 
 namespace CreditsScene
 {
