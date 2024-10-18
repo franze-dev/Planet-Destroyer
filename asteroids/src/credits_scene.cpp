@@ -52,6 +52,8 @@ namespace CreditsScene
 	static UIManager::Text fontTitle;
 	static UIManager::Text toolsTitle;
 
+	static UIManager::Button backToMenuButton;
+
 	static Credit creditsInfo[maxCredits];
 	static Pages currentPage = Pages::page1;
 
@@ -85,6 +87,10 @@ namespace CreditsScene
 
 			break;
 		case CreditsScene::Pages::page3:
+
+			for (int i = language; i < soundTool + 1; i++)
+				CheckURLButton(creditsInfo[i]);
+
 			break;
 		default:
 			break;
@@ -112,9 +118,9 @@ namespace CreditsScene
 		if (credit.name == creditsInfo[dev].name)
 			highlightColor = MAGENTA;
 
-		credit.text = UIManager::GetText(screenWidth / 2, y, UIManager::Fonts::Default, static_cast<int>(UIManager::FontSize::medium), credit.role, WHITE);
+		credit.text = UIManager::GetText(screenWidth / 2, y, UIManager::Fonts::Default, static_cast<int>(UIManager::FontSize::small), credit.role, WHITE);
 		UIManager::CenterTextX(credit.text);
-		credit.button = UIManager::GetButton(screenWidth / 2, credit.text.location.y + UIManager::GetTextHeight(credit.text) + static_cast<int>(UIManager::Padding::small), UIManager::GetTextWidth(creditsTitle) + static_cast<int>(UIManager::Padding::medium), UIManager::GetTextHeight(credit.text), credit.name, BLACK, highlightColor, WHITE, UIManager::Fonts::Default);
+		credit.button = UIManager::GetButton(screenWidth / 2, credit.text.location.y + UIManager::GetTextHeight(credit.text) + static_cast<int>(UIManager::Padding::small), UIManager::GetTextWidth(creditsTitle) + static_cast<int>(UIManager::Padding::medium), UIManager::GetTextHeight(credit.text) * 2, credit.name, BLACK, highlightColor, WHITE, UIManager::Fonts::Default);
 		credit.button.shape.x -= credit.button.shape.width / 2;
 	}
 
@@ -164,7 +170,7 @@ namespace CreditsScene
 		{
 			InitCredit(creditsInfo[i], posY);
 
-			posY += creditsInfo[i].button.shape.height + static_cast<int>(UIManager::Padding::big);
+			posY += creditsInfo[i].button.shape.height + static_cast<int>(UIManager::Padding::medium);
 		}
 
 #pragma endregion
@@ -232,17 +238,17 @@ namespace CreditsScene
 
 #pragma region ART_TOOL
 
-		creditsInfo[artTool].name = "ART TOOL";
+		creditsInfo[artTool].name = "PISKEL";
 		creditsInfo[artTool].url = "https://www.piskelapp.com/";
-		creditsInfo[artTool].role = "PISKEL";
+		creditsInfo[artTool].role = "ART TOOL";
 
 #pragma endregion
 
 #pragma region SOUND_TOOL
 
-		creditsInfo[artTool].name = "SOUND TOOL";
-		creditsInfo[artTool].url = "https://www.piskelapp.com/";
-		creditsInfo[artTool].role = "Sound!";
+		creditsInfo[soundTool].name = "Sound!";
+		creditsInfo[soundTool].url = "https://www.piskelapp.com/";
+		creditsInfo[soundTool].role = "SOUND TOOL";
 
 #pragma endregion
 
@@ -270,11 +276,15 @@ namespace CreditsScene
 
 #pragma endregion
 
+		backToMenuButton = UIManager::GetButton(static_cast<float>(UIManager::Padding::small), screenHeight, 80, 40, "BACK", BLACK, YELLOW, WHITE, UIManager::Fonts::Default);
+		backToMenuButton.shape.y -= backToMenuButton.shape.height + static_cast<float>(UIManager::Padding::small);
+
 	}
 
 	void Update()
 	{
 		CheckURLButtons();
+		UIManager::CheckSceneChange(backToMenuButton, SceneManager::Menu);
 
 		CheckPagesButton(page1);
 		CheckPagesButton(page2);
@@ -308,7 +318,7 @@ namespace CreditsScene
 
 			UIManager::PrintText(toolsTitle);
 
-			for (int i = language; i < soundTool; i++)
+			for (int i = language; i < soundTool + 1; i++)
 				DrawCredit(creditsInfo[i]);
 
 			break;
@@ -319,6 +329,6 @@ namespace CreditsScene
 		UIManager::DrawButton(page1.button);
 		UIManager::DrawButton(page2.button);
 		UIManager::DrawButton(page3.button);
-
+		UIManager::DrawButton(backToMenuButton);
 	}
 }
