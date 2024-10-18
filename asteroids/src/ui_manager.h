@@ -1,6 +1,10 @@
 #pragma once
+
 #include <iostream>
 #include "raylib.h"
+
+#include "scene_manager.h"
+
 using namespace std;
 
 namespace UIManager
@@ -62,10 +66,8 @@ namespace UIManager
 	void InitFonts();
 	//Detects the mouse inside the bounds of a button
 	bool IsMouseOnButton(Button button);
-	//Draws the text in a button, as well as automatically centering it.
-	void DrawButtonText(Button button, Color color, int fontSize);
-	//Draws the square of the button
-	void DrawButtonRect(Button button);
+	void CheckSceneChange(Button& button, SceneManager::Scene scene);
+	void DrawButton(Button button);
 	//Create texts
 	Text GetText(float x, float y, Fonts font, int fontSize, string content, Color color);
 	//If the text is the same and only the color changes at one point, then this is used.
@@ -73,6 +75,5 @@ namespace UIManager
 	Text GetText(float x, float y, Fonts font, int fontSize, string content, Color color1, Color color2);
 	//Create buttons
 	Button GetButton(float x, float y, float width, float height, string content, Color mainColor, Color highlightColor, Color textColor, Fonts font);
-
 }
 

@@ -51,8 +51,7 @@ namespace Bullet
 
 	void Draw(Bullet bullet)
 	{
-		DrawRectanglePro(bullet.rect, { -bullet.rect.width/2,0 }, bullet.angle, MAGENTA);
-		//DrawRectanglePro(static_cast<int>(bullet.rect.x), static_cast<int>(bullet.rect.y), static_cast<int>(bullet.rect.width), static_cast<int>(bullet.rect.height), MAGENTA);
+		DrawRectanglePro(bullet.rect, { 0,0 }, bullet.angle, MAGENTA);
 	}
 
 	void Update(Bullet& bullet)

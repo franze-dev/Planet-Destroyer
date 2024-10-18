@@ -50,24 +50,45 @@ namespace UIManager
 			GetMouseY() < (button.shape.y + button.shape.height);
 	}
 
-	void DrawButtonText(Button button, Color textColor, int fontSize)
+	void CheckSceneChange(Button& button, SceneManager::Scene scene)
 	{
-		DrawText(button.textShown.content.data(), static_cast<int>(button.shape.x) + static_cast<int>(button.shape.width / 2) - MeasureText(button.textShown.content.data(), fontSize) / 2, static_cast<int>(button.shape.y) + static_cast<int>(button.shape.height / 2) - fontSize / 2, fontSize, textColor);
+		if (IsMouseOnButton(button))
+		{
+			button.currentColor = button.highlightColor;
+
+			if (IsMouseButtonReleased(MOUSE_BUTTON_LEFT))
+				SceneManager::SetCurrentScene(scene);
+		}
+		else
+			button.currentColor = button.defaultColor;
 	}
 
-	void DrawButtonRect(Button button)
+	static void DrawButtonText(Button button)
+	{
+		DrawText(button.textShown.content.data(), static_cast<int>(button.shape.x) + static_cast<int>(button.shape.width / 2) - MeasureText(button.textShown.content.data(), button.textShown.fontSize) / 2, static_cast<int>(button.shape.y) + static_cast<int>(button.shape.height / 2) - button.textShown.fontSize / 2, button.textShown.fontSize, button.textShown.currentColor);
+	}
+
+	static void DrawButtonRect(Button button)
 	{
 		DrawRectangle(static_cast<int>(button.shape.x), static_cast<int>(button.shape.y), static_cast<int>(button.shape.width), static_cast<int>(button.shape.height), button.currentColor);
+		DrawRectangleLines(static_cast<int>(button.shape.x), static_cast<int>(button.shape.y), static_cast<int>(button.shape.width), static_cast<int>(button.shape.height), button.highlightColor);
+	}
+	
+	void DrawButton(Button button)
+	{
+		DrawButtonRect(button);
+		DrawButtonText(button);
 	}
 
 	void PrintText(Text myText)
 	{
+		SetTextureFilter(GetFont(myText.font).texture, TEXTURE_FILTER_BILINEAR);
 		DrawTextEx(GetFont(myText.font), myText.content.data(), myText.location, static_cast<float>(myText.fontSize), textSpacing, myText.currentColor);
-		//DrawText(myText.content.data(), static_cast<int>(myText.location.x), static_cast<int>(myText.location.y), myText.fontSize, myText.currentColor);
 	}
 
 	void PrintText(Text myText, int number)
 	{
+		SetTextureFilter(GetFont(myText.font).texture, TEXTURE_FILTER_BILINEAR);
 		DrawTextEx(GetFont(myText.font), TextFormat(myText.content.data(), number), myText.location, static_cast<float>(myText.fontSize), textSpacing, myText.currentColor);
 	}
 

@@ -71,8 +71,6 @@ void PauseMenu::Draw()
 {
 	DrawText(pauseTitle.content.data(), static_cast<int>(pauseTitle.location.x), static_cast<int>(pauseTitle.location.y), pauseTitle.fontSize, pauseTitle.currentColor);
 	
-	UIManager::DrawButtonRect(continueButton);
-	UIManager::DrawButtonRect(backToMenuButton);
-	UIManager::DrawButtonText(continueButton, WHITE, defaultFontSize/2);
-	UIManager::DrawButtonText(backToMenuButton, WHITE, defaultFontSize/2);
+	UIManager::DrawButton(continueButton);
+	UIManager::DrawButton(backToMenuButton);
 }

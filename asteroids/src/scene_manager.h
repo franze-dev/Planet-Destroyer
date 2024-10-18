@@ -9,8 +9,9 @@ namespace SceneManager
 		Menu,
 		Gameplay,
 		Result,
+		Credits
 	};
-
+ 
 	//changes the current scene
 	void SetCurrentScene(Scene scene);
 	//returns the current scene

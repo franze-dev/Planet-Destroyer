@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="credits.cpp" />
     <ClCompile Include="src\asteroid.cpp" />
     <ClCompile Include="src\bullet.cpp" />
     <ClCompile Include="src\calculations.cpp" />
@@ -34,6 +35,7 @@
     <ClCompile Include="src\ui_manager.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="credits.h" />
     <ClInclude Include="src\asteroid.h" />
     <ClInclude Include="src\bullet.h" />
     <ClInclude Include="src\calculations.h" />

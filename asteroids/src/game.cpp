@@ -66,12 +66,17 @@ namespace Game
 		UnloadTextures();
 	}
 
+	static bool ShouldWindowClose()
+	{
+		return WindowShouldClose() || SceneManager::GetCurrentScene() == SceneManager::None;
+	}
+
 	void Play()
 	{
 		InitWindow(screenWidth, screenHeight, "Planet Destroyer");
 		Init();
 
-		while (!WindowShouldClose())
+		while (!ShouldWindowClose())
 		{
 			Update();
 			Draw();
