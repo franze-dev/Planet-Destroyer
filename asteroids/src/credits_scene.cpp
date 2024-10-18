@@ -14,13 +14,17 @@ namespace CreditsScene
 		UIManager::Button button;
 	};
 
-	enum People
+	enum Roles
 	{
 		dev,
 		artist,
 		font1,
 		font2,
-		font3
+		font3,
+		language,
+		library,
+		artTool,
+		soundTool
 	};
 
 	enum class Pages
@@ -36,16 +40,17 @@ namespace CreditsScene
 		Pages number;
 	};
 
-	static const int maxCredits = 5;
+	static const int maxCredits = soundTool + 1;
 
-	Page page1{};
-	Page page2{};
-	Page page3{};
+	static Page page1{};
+	static Page page2{};
+	static Page page3{};
 
 	static UIManager::Text creditsTitle;
 	static UIManager::Text devTitle;
 	static UIManager::Text artTitle;
 	static UIManager::Text fontTitle;
+	static UIManager::Text toolsTitle;
 
 	static Credit creditsInfo[maxCredits];
 	static Pages currentPage = Pages::page1;
@@ -84,7 +89,7 @@ namespace CreditsScene
 		default:
 			break;
 		}
-		
+
 	}
 
 	static void CheckPagesButton(Page& page)
@@ -115,7 +120,7 @@ namespace CreditsScene
 
 	static void InitCredits()
 	{
-		//PAGE 1
+#pragma region PAGE_1
 
 		creditsTitle = UIManager::GetText(screenWidth / 2, static_cast<int>(UIManager::Padding::medium), UIManager::Fonts::Title1, static_cast<int>(UIManager::FontSize::big), "CREDITS", SKYBLUE);
 		UIManager::CenterTextX(creditsTitle);
@@ -130,7 +135,9 @@ namespace CreditsScene
 
 		InitCredit(creditsInfo[artist], artTitle.location.y + UIManager::GetTextHeight(artTitle) + static_cast<int>(UIManager::Padding::small));
 
-		// PAGE 2
+#pragma endregion
+
+#pragma region PAGE_2
 
 		fontTitle = UIManager::GetText(screenWidth / 2, devTitle.location.y, artTitle.font, artTitle.fontSize, "FONTS", artTitle.currentColor);
 		UIManager::CenterTextX(fontTitle);
@@ -143,11 +150,31 @@ namespace CreditsScene
 
 			posY += creditsInfo[i].button.shape.height + static_cast<int>(UIManager::Padding::big);
 		}
+
+#pragma endregion
+
+#pragma region PAGE_3
+
+		toolsTitle = fontTitle;
+		toolsTitle.content = "TOOLS";
+
+		posY = toolsTitle.location.y + UIManager::GetTextHeight(toolsTitle) + static_cast<float>(UIManager::Padding::small);
+
+		for (int i = language; i < soundTool + 1; i++)
+		{
+			InitCredit(creditsInfo[i], posY);
+
+			posY += creditsInfo[i].button.shape.height + static_cast<int>(UIManager::Padding::big);
+		}
+
+#pragma endregion
+
 	}
 
 	static void DrawCredit(Credit& credit)
 	{
 		UIManager::PrintText(credit.text);
+
 		UIManager::DrawButton(credit.button);
 	}
 
@@ -187,6 +214,38 @@ namespace CreditsScene
 		creditsInfo[font3].role = "DEFAULT FONT";
 #pragma endregion
 
+#pragma region LANGUAGE_TOOL
+
+		creditsInfo[language].name = "C++";
+		creditsInfo[language].url = "https://isocpp.org/";
+		creditsInfo[language].role = "CODE";
+
+#pragma endregion
+
+#pragma region LIBRARY_TOOL
+
+		creditsInfo[library].name = "RAYLIB";
+		creditsInfo[library].url = "https://www.raylib.com/index.html";
+		creditsInfo[library].role = "LIBRARY";
+
+#pragma endregion
+
+#pragma region ART_TOOL
+
+		creditsInfo[artTool].name = "ART TOOL";
+		creditsInfo[artTool].url = "https://www.piskelapp.com/";
+		creditsInfo[artTool].role = "PISKEL";
+
+#pragma endregion
+
+#pragma region SOUND_TOOL
+
+		creditsInfo[artTool].name = "SOUND TOOL";
+		creditsInfo[artTool].url = "https://www.piskelapp.com/";
+		creditsInfo[artTool].role = "Sound!";
+
+#pragma endregion
+
 
 #pragma endregion
 
@@ -194,19 +253,19 @@ namespace CreditsScene
 
 #pragma region PAGES
 
-		page2.button = UIManager::GetButton(screenWidth / 2, screenHeight, 20.0f, 20.0f, "2", WHITE, SKYBLUE, BLACK, UIManager::Fonts::Default);
+		page2.button = UIManager::GetButton(screenWidth / 2, screenHeight, 40.0f, 40.0f, "2", WHITE, SKYBLUE, BLACK, UIManager::Fonts::Default);
 		page2.button.shape.x -= page2.button.shape.width / 2;
 		page2.button.shape.y -= page2.button.shape.height + static_cast<float>(UIManager::Padding::small);
 		page2.number = Pages::page2;
 
 		page1.button = page2.button;
 		page1.button.textShown.content = "1";
-		page1.button.shape.x -= page1.button.shape.width*2;
+		page1.button.shape.x -= page1.button.shape.width * 2;
 		page1.number = Pages::page1;
 
 		page3.button = page1.button;
 		page3.button.textShown.content = "3";
-		page3.button.shape.x += page3.button.shape.width*3 + page2.button.shape.width;
+		page3.button.shape.x += page3.button.shape.width * 3 + page2.button.shape.width;
 		page3.number = Pages::page3;
 
 #pragma endregion
@@ -246,11 +305,17 @@ namespace CreditsScene
 
 			break;
 		case CreditsScene::Pages::page3:
+
+			UIManager::PrintText(toolsTitle);
+
+			for (int i = language; i < soundTool; i++)
+				DrawCredit(creditsInfo[i]);
+
 			break;
 		default:
 			break;
 		}
-		
+
 		UIManager::DrawButton(page1.button);
 		UIManager::DrawButton(page2.button);
 		UIManager::DrawButton(page3.button);
