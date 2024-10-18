@@ -26,6 +26,7 @@ namespace Game
 		LoadTextures();
 		Gameplay::Init();
 		MenuScene::Init();
+		
 	}
 
 	static void Update()

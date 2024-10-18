@@ -38,7 +38,9 @@
     <ClCompile Include="src\calculations.cpp">
       <Filter>Utils</Filter>
     </ClCompile>
-    <ClCompile Include="credits.cpp" />
+    <ClCompile Include="src\credits_scene.cpp">
+      <Filter>Scenes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\asteroid.h">
@@ -80,7 +82,9 @@
     <ClInclude Include="src\calculations.h">
       <Filter>Utils</Filter>
     </ClInclude>
-    <ClInclude Include="credits.h" />
+    <ClInclude Include="src\credits_scene.h">
+      <Filter>Scenes</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Objects">

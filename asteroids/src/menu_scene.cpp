@@ -31,7 +31,7 @@ void MenuScene::Init()
 	titlePart1 = UIManager::GetText(0, 0, UIManager::Fonts::Title1, static_cast<int>(UIManager::FontSize::big), "PLANET", MAGENTA);
 	titlePart1.location.x = static_cast<float>(screenWidth) / 2.0f - UIManager::GetTextWidth(titlePart1) / 2.0f;
 	titlePart1.location.y = static_cast<float>(UIManager::Padding::medium);
-	titlePart2 = UIManager::GetText(0, titlePart1.location.y + UIManager::GetTextHeight(titlePart1) + static_cast<float>(UIManager::Padding::small), UIManager::Fonts::Title2, static_cast<int>(UIManager::FontSize::big2), "DESTROYER", YELLOW);
+	titlePart2 = UIManager::GetText(0, titlePart1.location.y + UIManager::GetTextHeight(titlePart1) + static_cast<float>(UIManager::Padding::small), UIManager::Fonts::Title2, static_cast<int>(UIManager::FontSize::giant), "DESTROYER", YELLOW);
 	titlePart2.location.x = static_cast<float>(screenWidth) / 2.0f - UIManager::GetTextWidth(titlePart2) / 2.0f;
 #pragma endregion
 

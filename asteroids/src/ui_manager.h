@@ -16,7 +16,7 @@ namespace UIManager
 		small = 20,
 		medium = 40,
 		big = 80,
-		big2 = 140
+		giant = 140
 	};
 
 	enum class Fonts
