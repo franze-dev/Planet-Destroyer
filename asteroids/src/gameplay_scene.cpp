@@ -3,6 +3,7 @@
 #include "raylib.h"
 
 #include "ship.h"
+#include "planet.h"
 
 namespace Gameplay
 {
@@ -12,27 +13,32 @@ namespace Gameplay
 	void LoadTextures()
 	{
 		shipTexture = LoadTexture("res/sprites/spaceship.png");
+		Planet::LoadTextures();
 	}
 
 	void UnloadTextures()
 	{
 		UnloadTexture(shipTexture);
+		Planet::UnloadTextures();
 	}
 
 	void Init()
 	{
 		ship = SpaceShip::GetShip();
 		SpaceShip::SaveTexture(shipTexture, ship);
+		Planet::Init();
 	}
 
 	void Update()
 	{
 		SpaceShip::Update(ship);
+		Planet::Update();
 	}
 
 	void Draw()
 	{
 		SpaceShip::Draw(ship);
+		Planet::Draw();
 	}
 }
 
