@@ -217,7 +217,7 @@ namespace CreditsScene
 
 		//default text
 		creditsInfo[font3].name = "COURIER PRIME by Quote-Unquote Apps";
-		creditsInfo[font3].url = "https://gensofi24.itch.io/";
+		creditsInfo[font3].url = "https://www.fontsquirrel.com/fonts/courier-prime";
 		creditsInfo[font3].role = "DEFAULT FONT";
 #pragma endregion
 
