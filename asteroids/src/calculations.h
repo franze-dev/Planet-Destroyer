@@ -2,6 +2,15 @@
 
 #include "raylib.h"
 
+namespace Collide
+{
+	struct CollisionBall
+	{
+		Vector2 pos;
+		int radius;
+	};
+}
+
 namespace Rotate
 {
 	enum Quadrants

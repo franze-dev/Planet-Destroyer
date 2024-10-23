@@ -2,17 +2,12 @@
 #include "raylib.h"
 
 #include "texture_manager.h"
+#include "calculations.h"
 #include "bullet.h"
 
 namespace SpaceShip
 {
 	const int maxAmmo = 50;
-
-	struct CollisionBall
-	{
-		Vector2 pos;
-		int radius;
-	};
 
 	struct SpaceShip
 	{
@@ -20,7 +15,7 @@ namespace SpaceShip
 		float acceleration;
 		float angle;
 		int scale;
-		CollisionBall collisionShape;
+		Collide::CollisionBall collisionShape;
 		TextureManager::Sprite sprite;
 		Bullet::Bullet bullets[maxAmmo];
 		Vector2 speed;

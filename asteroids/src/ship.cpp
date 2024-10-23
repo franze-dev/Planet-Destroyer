@@ -13,8 +13,7 @@
 
 namespace SpaceShip
 {
-	Text::Text ammoCount;
-
+	static Text::Text ammoCount;
 
 	static void FollowMouse(SpaceShip& ship)
 	{
@@ -36,9 +35,6 @@ namespace SpaceShip
 
 	static void MovePos(SpaceShip& ship)
 	{
-		/*ship.sprite.dest.x += ship.speed.x * GetFrameTime();
-		ship.sprite.dest.y += ship.speed.y * GetFrameTime();*/
-
 		ship.collisionShape.pos.x += ship.speed.x * GetFrameTime();
 		ship.collisionShape.pos.y += ship.speed.y * GetFrameTime();
 	}
@@ -77,8 +73,8 @@ namespace SpaceShip
 
 	static void UpdateSpritePos(SpaceShip& ship)
 	{
-		ship.sprite.dest.x = ship.collisionShape.pos.x - ship.sprite.texture.width / 2;
-		ship.sprite.dest.y = ship.collisionShape.pos.y - ship.sprite.texture.height / 2;
+		ship.sprite.dest.x = ship.collisionShape.pos.x; //- ship.sprite.texture.width / 2;
+		ship.sprite.dest.y = ship.collisionShape.pos.y; //- ship.sprite.texture.height / 2;
 	}
 
 	static void Reload(SpaceShip& ship)
@@ -96,15 +92,15 @@ namespace SpaceShip
 			if (ship.bullets[i].isVisible)
 				Bullet::Draw(ship.bullets[i]);
 
+
 	}
 
 	static bool EmptyAmmo(SpaceShip ship)
 	{
 		for (int i = 0; i < maxAmmo; i++)
-		{
 			if (ship.bullets[i].isStored)
 				return false;
-		}
+		
 		return true;
 	}
 
@@ -242,6 +238,8 @@ namespace SpaceShip
 
 		ship.collisionShape.pos.x = (static_cast<float>(screenWidth) / 2.0f);
 		ship.collisionShape.pos.y = (static_cast<float>(screenHeight) / 2.0f);
+
+		ship.collisionShape.radius = static_cast<int>(ship.sprite.dest.width) / 2;
 	}
 
 
@@ -283,5 +281,7 @@ namespace SpaceShip
 		DrawAmmoCount(ship);
 
 		DrawBullets(ship);
+
+		//DrawCircle(static_cast<int>(ship.collisionShape.pos.x), static_cast<int>(ship.collisionShape.pos.y), static_cast<float>(ship.collisionShape.radius), RED);
 	}
 }

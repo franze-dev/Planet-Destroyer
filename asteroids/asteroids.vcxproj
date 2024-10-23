@@ -19,7 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\asteroid.cpp" />
+    <ClCompile Include="src\planet.cpp" />
     <ClCompile Include="src\bullet.cpp" />
     <ClCompile Include="src\button.cpp" />
     <ClCompile Include="src\calculations.cpp" />
@@ -36,7 +36,7 @@
     <ClCompile Include="src\texture_manager.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\asteroid.h" />
+    <ClInclude Include="src\planet.h" />
     <ClInclude Include="src\bullet.h" />
     <ClInclude Include="src\button.h" />
     <ClInclude Include="src\calculations.h" />
