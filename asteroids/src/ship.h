@@ -15,6 +15,7 @@ namespace SpaceShip
 		float acceleration;
 		float angle;
 		int scale;
+		int lives;
 		Collide::CollisionBall collisionShape;
 		TextureManager::Sprite sprite;
 		Bullet::Bullet bullets[maxAmmo];

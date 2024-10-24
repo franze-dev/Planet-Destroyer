@@ -1,6 +1,6 @@
 #include "planet.h"
 
-//#include <vector>
+#include <vector>
 #include <ctime>
 #include "raymath.h"
 
@@ -35,6 +35,10 @@ namespace Planet
 	};
 
 	static const int startPlanets = 50;
+
+	//static vector<Planet> planets;
+
+	//static Planet* planets;
 
 	static Planet planets[startPlanets];
 
@@ -131,25 +135,6 @@ namespace Planet
 		return planet;
 	}
 
-	static Planet GetSmallerPlanet(Planet planet)
-	{
-		Planet smallPlanet = planet;
-
-		smallPlanet.sprite.dest.width /= 2.0f;
-		smallPlanet.sprite.dest.height /= 2.0f;
-		smallPlanet.collisionShape.radius /= 2;
-
-		DirectionatePlanet(smallPlanet);
-
-		return smallPlanet;
-	}
-
-	static void UpdateSpritePos(Planet& planet)
-	{
-		planet.sprite.dest.x = planet.collisionShape.pos.x;
-		planet.sprite.dest.y = planet.collisionShape.pos.y;
-	}
-
 	static void DirectionatePlanet(Planet& planet)
 	{
 		int x = rand() % screenWidth;
@@ -172,6 +157,25 @@ namespace Planet
 
 	}
 
+	/*static Planet GetSmallerPlanet(Planet planet)
+	{
+		Planet smallPlanet = planet;
+
+		smallPlanet.sprite.dest.width /= 2.0f;
+		smallPlanet.sprite.dest.height /= 2.0f;
+		smallPlanet.collisionShape.radius /= 2;
+
+		DirectionatePlanet(smallPlanet);
+
+		return smallPlanet;
+	}*/
+
+	static void UpdateSpritePos(Planet& planet)
+	{
+		planet.sprite.dest.x = planet.collisionShape.pos.x;
+		planet.sprite.dest.y = planet.collisionShape.pos.y;
+	}
+
 	static void MovePlanet(Planet& planet)
 	{
 		Vector2 normalizedDir{};
@@ -185,7 +189,7 @@ namespace Planet
 
 	static void RandomizeTexture(Planet& planet)
 	{
-		PlanetType planetType = static_cast<PlanetType>(rand() % venus + 1);
+		PlanetType planetType = static_cast<PlanetType>(rand() % (venus + 1));
 
 		Texture2D texture;
 
@@ -230,16 +234,25 @@ namespace Planet
 
 	}
 
+	static void InitPlanet(Planet& planet)
+	{
+		planet = GetPlanet();
+		RandomizeTexture(planet);
+		RandomizePos(planet);
+		UpdateSpritePos(planet);
+		DirectionatePlanet(planet);
+	}
+
 	static void InitPlanets()
 	{
+		//planets = vector<Planet>();
+
+		//planets = new Planet[startPlanets];
+
+
 		for (int i = 0; i < startPlanets; i++)
-		{
-			planets[i] = GetPlanet();
-			RandomizeTexture(planets[i]);
-			RandomizePos(planets[i]);
-			UpdateSpritePos(planets[i]);
-			DirectionatePlanet(planets[i]);
-		}
+			InitPlanet(planets[i]);
+		
 	}
 
 	static void ScreenWrapCheck(Planet& planet)
@@ -275,9 +288,12 @@ namespace Planet
 	{
 		for (int i = 0; i < startPlanets; i++)
 		{
-			MovePlanet(planets[i]);
-			ScreenWrapCheck(planets[i]);
-			UpdateSpritePos(planets[i]);
+			if (planets[i].lives > 0)
+			{
+				MovePlanet(planets[i]);
+				ScreenWrapCheck(planets[i]);
+				UpdateSpritePos(planets[i]);
+			}
 		}
 
 	}
@@ -291,13 +307,32 @@ namespace Planet
 	static void DrawPlanets()
 	{
 		for (int i = 0; i < startPlanets; i++)
-			DrawPlanet(planets[i]);
+			if (planets[i].lives > 0)
+				DrawPlanet(planets[i]);
 
 	}
 
-	static void DeletePlanet()
+	static int GetPlanetsCount()
 	{
+		int count = 0;
+		for (int i = 0; i < startPlanets; i++)
+			if (planets[i].lives > 0)
+				count++;
+		return count;
+	}
 
+	static void ReplenishPlanetsCheck()
+	{
+		if (GetPlanetsCount() <= (startPlanets / 2))
+			for (int i = 0; i < startPlanets; i++)
+				if (planets[i].lives == 0)
+					InitPlanet(planets[i]);
+				
+	}
+
+	static void DeletePlanet(Planet& planet)
+	{
+		planet.lives = 0;
 	}
 
 	static void ShipCollisionCheck(SpaceShip::SpaceShip& ship, Planet& planet)
@@ -308,20 +343,23 @@ namespace Planet
 		float distY = ship.collisionShape.pos.y - planet.collisionShape.pos.y;
 
 		float distance = sqrt((distX * distX) + (distY * distY));
-		
-		if (distance <= ship.collisionShape.radius + planet.collisionShape.radius) 
+
+		if (distance <= ship.collisionShape.radius + planet.collisionShape.radius)
 		{
+			DeletePlanet(planet);
 			//lose a life!
 			//planet divides!
 		}
-		
+
 	}
 
 	static void ShipCollisionCheck(SpaceShip::SpaceShip& ship)
 	{
 		for (int i = 0; i < startPlanets; i++)
-			ShipCollisionCheck(ship, planets[i]);
-		
+			if (planets[i].lives > 0)
+				ShipCollisionCheck(ship, planets[i]);
+
+
 	}
 
 	void LoadTextures()
@@ -356,6 +394,7 @@ namespace Planet
 
 	void Update(SpaceShip::SpaceShip& ship)
 	{
+		ReplenishPlanetsCheck();
 		MovePlanets();
 		ShipCollisionCheck(ship);
 	}

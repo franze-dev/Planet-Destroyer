@@ -187,6 +187,20 @@ namespace SpaceShip
 		ammoCount.location.y = screenHeight - Text::GetTextHeight(ammoCount);
 	}
 
+	static void UpdateAmmoText(SpaceShip ship)
+	{
+		if (!EmptyAmmo(ship))
+			ammoCount.currentColor = YELLOW;
+		else
+			ammoCount.currentColor = RED;
+
+	}
+
+	static void DrawAmmoCount(SpaceShip ship)
+	{
+		Text::PrintText(ammoCount, GetCurrentAmmo(ship));
+	}
+
 
 	SpaceShip GetShip()
 	{
@@ -198,6 +212,7 @@ namespace SpaceShip
 		ship.maxSpeed = 500.0f;
 		ship.acceleration = 100.0f;
 		ship.speed = { 0, 0 };
+		ship.lives = 3;
 
 		Rectangle sourceRect;
 
@@ -241,17 +256,6 @@ namespace SpaceShip
 
 		ship.collisionShape.radius = static_cast<int>(ship.sprite.dest.width) / 4;
 	}
-
-
-	static void UpdateAmmoText(SpaceShip ship)
-	{
-		if (!EmptyAmmo(ship))
-			ammoCount.currentColor = YELLOW;
-		else
-			ammoCount.currentColor = RED;
-
-	}
-
 	void Update(SpaceShip& ship)
 	{
 		FollowMouse(ship);
@@ -267,11 +271,6 @@ namespace SpaceShip
 		UpdateSpritePos(ship);
 
 		UpdateAmmoText(ship);
-	}
-
-	static void DrawAmmoCount(SpaceShip ship)
-	{
-		Text::PrintText(ammoCount, GetCurrentAmmo(ship));
 	}
 
 	void Draw(SpaceShip ship)
