@@ -1,11 +1,11 @@
 #include "planet.h"
 
-#include <vector>
+//#include <vector>
 #include <ctime>
-
 #include "raymath.h"
 
 #include "screen_info.h"
+
 
 namespace Planet
 {
@@ -34,11 +34,26 @@ namespace Planet
 		Texture2D texture2;
 	};
 
-	static const int maxPlanets = 50;
+	static const int startPlanets = 50;
 
-	static Planet planets[maxPlanets];
+	static Planet planets[startPlanets];
 
-	static PlanetTexture planetTextures[venus + 1];
+	static Texture2D planetTextures[venus + 1];
+
+	static void SaveTextures(Texture2D texture, Planet& planet)
+	{
+		planet.sprite.texture = texture;
+
+		planet.sprite.source.width = static_cast<float>(planet.sprite.texture.width);
+		planet.sprite.source.height = static_cast<float>(planet.sprite.texture.height);
+
+		planet.sprite.dest.width = planet.sprite.source.width * planet.scale;
+		planet.sprite.dest.height = planet.sprite.source.height * planet.scale;
+
+		planet.sprite.origin = { static_cast<float>(planet.sprite.texture.width),static_cast<float>(planet.sprite.texture.height) };
+
+		planet.collisionShape.radius = planet.sprite.texture.height;
+	}
 
 	static void InitSprite(TextureManager::Sprite sprite)
 	{
@@ -69,7 +84,7 @@ namespace Planet
 		switch (pos)
 		{
 		case left:
-			planet.collisionShape.pos.x = -(static_cast<float>(planet.width));
+			planet.collisionShape.pos.x = -(static_cast<float>(planet.sprite.texture.width));
 			randomPos = rand() % screenHeight;
 			planet.collisionShape.pos.y = static_cast<float>(randomPos);
 
@@ -81,10 +96,10 @@ namespace Planet
 
 			break;
 		case top:
-			
+
 			randomPos = rand() % screenWidth;
 			planet.collisionShape.pos.x = static_cast<float>(randomPos);
-			planet.collisionShape.pos.y = -(static_cast<float>(planet.height));
+			planet.collisionShape.pos.y = -(static_cast<float>(planet.sprite.texture.height));
 
 			break;
 		case bottom:
@@ -104,56 +119,45 @@ namespace Planet
 		Planet planet{};
 
 		planet.damage = 1;
-		planet.maxSpeed;
+		planet.maxSpeed = 100.0f;
 		planet.speed = { planet.maxSpeed , planet.maxSpeed };
 		planet.scale = 2;
-		planet.isComplete = false;
+		planet.isSmaller = false;
 		planet.lives = 2;
-		planet.angle1 = 0;
-		planet.angle2 = 0;
+		planet.angle = 0;
 
-		InitSprite(planet.part1.sprite);
-		InitSprite(planet.part2.sprite);
+		InitSprite(planet.sprite);
 
 		return planet;
 	}
 
-	static void UpdateSpritePos(Planet& planet)
+	static Planet GetSmallerPlanet(Planet planet)
 	{
-		planet.part1.sprite.dest.x = planet.collisionShape.pos.x - planet.part1.sprite.dest.width / 2;
-		planet.part1.sprite.dest.y = planet.collisionShape.pos.y;
+		Planet smallPlanet = planet;
 
-		planet.part2.sprite.dest.x = planet.collisionShape.pos.x + planet.part2.sprite.dest.width / 2;
-		planet.part2.sprite.dest.y = planet.collisionShape.pos.y;
+		smallPlanet.sprite.dest.width /= 2.0f;
+		smallPlanet.sprite.dest.height /= 2.0f;
+		smallPlanet.collisionShape.radius /= 2;
+
+		DirectionatePlanet(smallPlanet);
+
+		return smallPlanet;
 	}
 
-	static void SaveTextures(Texture2D texture1, Texture2D texture2, Planet& planet)
+	static void UpdateSpritePos(Planet& planet)
 	{
-		planet.part1.sprite.texture = texture1;
-		planet.part2.sprite.texture = texture2;
-
-		planet.part1.sprite.source.width = static_cast<float>(planet.part1.sprite.texture.width);
-		planet.part1.sprite.source.height = static_cast<float>(planet.part1.sprite.texture.height);
-		planet.part2.sprite.source.width = static_cast<float>(planet.part2.sprite.texture.width);
-		planet.part2.sprite.source.height = static_cast<float>(planet.part2.sprite.texture.height);
-
-		planet.part1.sprite.dest.width = planet.part1.sprite.source.width * planet.scale;
-		planet.part1.sprite.dest.height = planet.part1.sprite.source.height * planet.scale;
-		planet.part2.sprite.dest.width = planet.part2.sprite.source.width * -planet.scale;
-		planet.part2.sprite.dest.height = planet.part2.sprite.source.height * planet.scale;
-
-		planet.part1.sprite.origin = { static_cast<float>(planet.part1.sprite.texture.width),static_cast<float>(planet.part1.sprite.texture.height) };
-		planet.part2.sprite.origin = { static_cast<float>(planet.part2.sprite.texture.width),static_cast<float>(planet.part2.sprite.texture.height) };
-
-		planet.collisionShape.radius = planet.height;
+		planet.sprite.dest.x = planet.collisionShape.pos.x;
+		planet.sprite.dest.y = planet.collisionShape.pos.y;
 	}
 
 	static void DirectionatePlanet(Planet& planet)
 	{
-		Vector2 normalizedDir{};
-		Vector2 objective{};
+		int x = rand() % screenWidth;
+		int y = rand() % screenHeight;
 
-		if (planet.collisionShape.pos.x < 0)
+		Vector2 objective{ static_cast<float>(x), static_cast<float>(y) };
+
+		/*if (planet.collisionShape.pos.x < 0)
 			objective.x = planet.collisionShape.pos.x + planet.speed.x;
 		else if(planet.collisionShape.pos.x > screenWidth)
 			objective.x = planet.collisionShape.pos.x - planet.speed.x;
@@ -161,7 +165,7 @@ namespace Planet
 		if (planet.collisionShape.pos.y < 0)
 			objective.y = planet.collisionShape.pos.y + planet.speed.y;
 		else if (planet.collisionShape.pos.x > screenHeight)
-			objective.y = planet.collisionShape.pos.y - planet.speed.y;
+			objective.y = planet.collisionShape.pos.y - planet.speed.y;*/
 
 
 		planet.dir = Vector2Subtract(objective, { planet.collisionShape.pos.x, planet.collisionShape.pos.y });
@@ -183,7 +187,7 @@ namespace Planet
 	{
 		PlanetType planetType = static_cast<PlanetType>(rand() % venus + 1);
 
-		PlanetTexture texture;
+		Texture2D texture;
 
 		switch (planetType)
 		{
@@ -221,14 +225,14 @@ namespace Planet
 			break;
 		}
 
-		SaveTextures(texture.texture1, texture.texture2, planet);
+		SaveTextures(texture, planet);
 
 
 	}
 
 	static void InitPlanets()
 	{
-		for (int i = 0; i < maxPlanets; i++)
+		for (int i = 0; i < startPlanets; i++)
 		{
 			planets[i] = GetPlanet();
 			RandomizeTexture(planets[i]);
@@ -238,59 +242,111 @@ namespace Planet
 		}
 	}
 
+	static void ScreenWrapCheck(Planet& planet)
+	{
+		//Top or bottom?
+		if (planet.collisionShape.pos.y - planet.sprite.texture.height > screenHeight || planet.collisionShape.pos.y + planet.sprite.texture.height < 0)
+		{
+			//Top (tp to bottom)
+			if (planet.collisionShape.pos.y + planet.sprite.texture.height < 0)
+				planet.collisionShape.pos.y = static_cast<float>(screenHeight) + static_cast<float>(planet.sprite.texture.height);
+
+			//Bottom (tp to top)
+			if (planet.collisionShape.pos.y - planet.sprite.texture.height > screenHeight)
+				planet.collisionShape.pos.y = -(static_cast<float>(planet.sprite.texture.height));
+
+		}
+
+		//Left or right?
+		if (planet.collisionShape.pos.x - planet.sprite.texture.width > screenWidth || planet.collisionShape.pos.x + planet.sprite.texture.width < 0)
+		{
+			//Left (tp to right)
+			if (planet.collisionShape.pos.x + planet.sprite.texture.width < 0)
+				planet.collisionShape.pos.x = static_cast<float>(screenWidth) + static_cast<float>(planet.sprite.texture.width);
+
+			//Right (tp to left)
+			if (planet.collisionShape.pos.x - planet.sprite.texture.width > screenWidth)
+				planet.collisionShape.pos.x = -(static_cast<float>(planet.sprite.texture.width));
+
+		}
+	}
+
 	static void MovePlanets()
 	{
-		for (int i = 0; i < maxPlanets; i++)
+		for (int i = 0; i < startPlanets; i++)
+		{
 			MovePlanet(planets[i]);
-		
+			ScreenWrapCheck(planets[i]);
+			UpdateSpritePos(planets[i]);
+		}
+
 	}
 
 	static void DrawPlanet(Planet planet)
 	{
-		DrawTexturePro(planet.part1.sprite.texture, planet.part1.sprite.source, planet.part1.sprite.dest, planet.part1.sprite.origin, static_cast<float>(planet.angle1), WHITE);
-		DrawTexturePro(planet.part2.sprite.texture, planet.part1.sprite.source, planet.part2.sprite.dest, planet.part2.sprite.origin, static_cast<float>(planet.angle2), WHITE);
+		DrawCircle(static_cast<int>(planet.collisionShape.pos.x), static_cast<int>(planet.collisionShape.pos.y), static_cast<float>(planet.collisionShape.radius), RED);
+		DrawTexturePro(planet.sprite.texture, planet.sprite.source, planet.sprite.dest, planet.sprite.origin, static_cast<float>(planet.angle), WHITE);
 	}
 
 	static void DrawPlanets()
 	{
-		for (int i = 0; i < maxPlanets; i++)
+		for (int i = 0; i < startPlanets; i++)
 			DrawPlanet(planets[i]);
+
+	}
+
+	static void DeletePlanet()
+	{
+
+	}
+
+	static void ShipCollisionCheck(SpaceShip::SpaceShip& ship, Planet& planet)
+	{
+		SpaceShip::SpaceShip myship = ship;
+
+		float distX = ship.collisionShape.pos.x - planet.collisionShape.pos.x;
+		float distY = ship.collisionShape.pos.y - planet.collisionShape.pos.y;
+
+		float distance = sqrt((distX * distX) + (distY * distY));
+		
+		if (distance <= ship.collisionShape.radius + planet.collisionShape.radius) 
+		{
+			//lose a life!
+			//planet divides!
+		}
+		
+	}
+
+	static void ShipCollisionCheck(SpaceShip::SpaceShip& ship)
+	{
+		for (int i = 0; i < startPlanets; i++)
+			ShipCollisionCheck(ship, planets[i]);
 		
 	}
 
 	void LoadTextures()
 	{
-		planetTextures[earth].texture1 = LoadTexture(TextureManager::earthSprite1.data());
-		planetTextures[earth].texture2 = LoadTexture(TextureManager::earthSprite2.data());
+		planetTextures[earth] = LoadTexture(TextureManager::earthSprite.data());
 
-		planetTextures[venus].texture1 = LoadTexture(TextureManager::venusSprite1.data());
-		planetTextures[venus].texture2 = LoadTexture(TextureManager::venusSprite2.data());
+		planetTextures[venus] = LoadTexture(TextureManager::venusSprite.data());
 
-		planetTextures[saturn].texture1 = LoadTexture(TextureManager::saturnSprite1.data());
-		planetTextures[saturn].texture2 = LoadTexture(TextureManager::saturnSprite2.data());
+		planetTextures[saturn] = LoadTexture(TextureManager::saturnSprite.data());
 
-		planetTextures[uranus].texture1 = LoadTexture(TextureManager::uranusSprite1.data());
-		planetTextures[uranus].texture2 = LoadTexture(TextureManager::uranusSprite2.data());
+		planetTextures[uranus] = LoadTexture(TextureManager::uranusSprite.data());
 
-		planetTextures[mars].texture1 = LoadTexture(TextureManager::marsSprite1.data());
-		planetTextures[mars].texture2 = LoadTexture(TextureManager::marsSprite2.data());
+		planetTextures[mars] = LoadTexture(TextureManager::marsSprite.data());
 
-		planetTextures[neptune].texture1 = LoadTexture(TextureManager::neptuneSprite1.data());
-		planetTextures[neptune].texture2 = LoadTexture(TextureManager::neptuneSprite2.data());
+		planetTextures[neptune] = LoadTexture(TextureManager::neptuneSprite.data());
 
-		planetTextures[jupiter].texture1 = LoadTexture(TextureManager::jupiterSprite1.data());
-		planetTextures[jupiter].texture2 = LoadTexture(TextureManager::jupiterSprite2.data());
-
+		planetTextures[jupiter] = LoadTexture(TextureManager::jupiterSprite.data());
 
 	}
 
 	void UnloadTextures()
 	{
 		for (int i = 0; i < venus + 1; i++)
-		{
-			UnloadTexture(planetTextures[i].texture1);
-			UnloadTexture(planetTextures[i].texture2);
-		}
+			UnloadTexture(planetTextures[i]);
+
 	}
 
 	void Init()
@@ -298,9 +354,10 @@ namespace Planet
 		InitPlanets();
 	}
 
-	void Update()
+	void Update(SpaceShip::SpaceShip& ship)
 	{
 		MovePlanets();
+		ShipCollisionCheck(ship);
 	}
 
 	void Draw()

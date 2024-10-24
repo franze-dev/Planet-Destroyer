@@ -32,7 +32,7 @@ namespace Gameplay
 	void Update()
 	{
 		SpaceShip::Update(ship);
-		Planet::Update();
+		Planet::Update(ship);
 	}
 
 	void Draw()

@@ -239,7 +239,7 @@ namespace SpaceShip
 		ship.collisionShape.pos.x = (static_cast<float>(screenWidth) / 2.0f);
 		ship.collisionShape.pos.y = (static_cast<float>(screenHeight) / 2.0f);
 
-		ship.collisionShape.radius = static_cast<int>(ship.sprite.dest.width) / 2;
+		ship.collisionShape.radius = static_cast<int>(ship.sprite.dest.width) / 4;
 	}
 
 
@@ -282,6 +282,6 @@ namespace SpaceShip
 
 		DrawBullets(ship);
 
-		//DrawCircle(static_cast<int>(ship.collisionShape.pos.x), static_cast<int>(ship.collisionShape.pos.y), static_cast<float>(ship.collisionShape.radius), RED);
+		DrawCircle(static_cast<int>(ship.collisionShape.pos.x), static_cast<int>(ship.collisionShape.pos.y), static_cast<float>(ship.collisionShape.radius), BLUE);
 	}
 }
