@@ -25,7 +25,8 @@ namespace CreditsScene
 		language,
 		library,
 		artTool,
-		soundTool
+		soundTool1,
+		soundTool2
 	};
 
 	enum class Pages
@@ -41,7 +42,7 @@ namespace CreditsScene
 		Pages number;
 	};
 
-	static const int maxCredits = soundTool + 1;
+	static const int maxCredits = soundTool2 + 1;
 
 	static Page page1{};
 	static Page page2{};
@@ -52,6 +53,8 @@ namespace CreditsScene
 	static Text::Text artTitle;
 	static Text::Text fontTitle;
 	static Text::Text toolsTitle;
+
+	static Text::Text soundSubTitle;
 
 	static Button::Button backToMenuButton;
 
@@ -89,8 +92,10 @@ namespace CreditsScene
 			break;
 		case CreditsScene::Pages::page3:
 
-			for (int i = language; i < soundTool + 1; i++)
+			for (int i = language; i < soundTool2 + 1; i++)
 				CheckURLButton(creditsInfo[i]);
+
+			//both sound buttons
 
 			break;
 		default:
@@ -108,6 +113,8 @@ namespace CreditsScene
 				if (currentPage != page.number)
 					currentPage = page.number;
 		}
+		else if (currentPage == page.number)
+			page.button.currentColor = page.button.highlightColor;
 		else
 			page.button.currentColor = page.button.defaultColor;
 	}
@@ -121,7 +128,7 @@ namespace CreditsScene
 
 		credit.text = Text::GetText(screenWidth / 2, y, Text::Fonts::Default, static_cast<int>(Text::FontSize::small), credit.role, WHITE);
 		Text::CenterTextX(credit.text);
-		credit.button = Button::GetButton(screenWidth / 2, credit.text.location.y + Text::GetTextHeight(credit.text) + static_cast<int>(Text::Padding::small), Text::GetTextWidth(creditsTitle) + static_cast<int>(Text::Padding::medium), Text::GetTextHeight(credit.text) * 2, credit.name, BLACK, highlightColor, WHITE, Text::Fonts::Default);
+		credit.button = Button::GetButton(screenWidth / 2, credit.text.location.y + Text::GetTextHeight(credit.text) + static_cast<int>(Text::Padding::tiny), Text::GetTextWidth(creditsTitle) + static_cast<int>(Text::Padding::medium), Text::GetTextHeight(credit.text) * 2, credit.name, BLACK, highlightColor, WHITE, Text::Fonts::Default);
 		credit.button.shape.x -= credit.button.shape.width / 2;
 	}
 
@@ -132,15 +139,15 @@ namespace CreditsScene
 		creditsTitle = Text::GetText(screenWidth / 2, static_cast<int>(Text::Padding::medium), Text::Fonts::Title1, static_cast<int>(Text::FontSize::big), "CREDITS", SKYBLUE);
 		Text::CenterTextX(creditsTitle);
 
-		devTitle = Text::GetText(screenWidth / 2, creditsTitle.location.y + Text::GetTextHeight(creditsTitle) + static_cast<int>(Text::Padding::small), Text::Fonts::Title2, creditsTitle.fontSize * 3 / 4, "DEVELOPMENT", MAGENTA);
+		devTitle = Text::GetText(screenWidth / 2, creditsTitle.location.y + Text::GetTextHeight(creditsTitle) + static_cast<int>(Text::Padding::tiny), Text::Fonts::Title2, creditsTitle.fontSize * 3 / 4, "DEVELOPMENT", MAGENTA);
 		Text::CenterTextX(devTitle);
 
-		InitCredit(creditsInfo[dev], devTitle.location.y + Text::GetTextHeight(devTitle) + static_cast<int>(Text::Padding::small));
+		InitCredit(creditsInfo[dev], devTitle.location.y + Text::GetTextHeight(devTitle) + static_cast<int>(Text::Padding::tiny));
 
 		artTitle = Text::GetText(screenWidth / 2, creditsInfo[dev].button.shape.y + creditsInfo[dev].button.shape.height + static_cast<int>(Text::Padding::medium), Text::Fonts::Title2, devTitle.fontSize, "ART", YELLOW);
 		Text::CenterTextX(artTitle);
 
-		InitCredit(creditsInfo[artist], artTitle.location.y + Text::GetTextHeight(artTitle) + static_cast<int>(Text::Padding::small));
+		InitCredit(creditsInfo[artist], artTitle.location.y + Text::GetTextHeight(artTitle) + static_cast<int>(Text::Padding::tiny));
 
 #pragma endregion
 
@@ -149,7 +156,7 @@ namespace CreditsScene
 		fontTitle = Text::GetText(screenWidth / 2, devTitle.location.y, artTitle.font, artTitle.fontSize, "FONTS", artTitle.currentColor);
 		Text::CenterTextX(fontTitle);
 
-		float posY = fontTitle.location.y + Text::GetTextHeight(fontTitle) + static_cast<float>(Text::Padding::small);
+		float posY = fontTitle.location.y + Text::GetTextHeight(fontTitle) + static_cast<float>(Text::Padding::tiny);
 
 		for (int i = font1; i < font3 + 1; i++)
 		{
@@ -165,14 +172,16 @@ namespace CreditsScene
 		toolsTitle = fontTitle;
 		toolsTitle.content = "TOOLS";
 
-		posY = toolsTitle.location.y + Text::GetTextHeight(toolsTitle) + static_cast<float>(Text::Padding::small);
+		posY = toolsTitle.location.y + Text::GetTextHeight(toolsTitle) + static_cast<float>(Text::Padding::tiny);
 
-		for (int i = language; i < soundTool + 1; i++)
+		for (int i = language; i < soundTool2 + 1; i++)
 		{
 			InitCredit(creditsInfo[i], posY);
 
-			posY += creditsInfo[i].button.shape.height + static_cast<int>(Text::Padding::medium);
+			posY += creditsInfo[i].button.shape.height + Text::GetTextHeight(creditsInfo[i].text) + static_cast<int>(Text::Padding::small);
 		}
+
+		//both sound buttons
 
 #pragma endregion
 
@@ -247,9 +256,13 @@ namespace CreditsScene
 
 #pragma region SOUND_TOOL
 
-		creditsInfo[soundTool].name = "Sound!";
-		creditsInfo[soundTool].url = "https://www.piskelapp.com/";
-		creditsInfo[soundTool].role = "SOUND TOOL";
+		creditsInfo[soundTool1].name = "Made with Suno AI";
+		creditsInfo[soundTool1].url = "https://suno.com/";
+		creditsInfo[soundTool1].role = "MUSIC";
+
+		creditsInfo[soundTool2].name = "Sci-fi sounds by Kenney";
+		creditsInfo[soundTool2].url = "https://kenney.nl/assets/sci-fi-sounds";
+		creditsInfo[soundTool2].role = "SFX";
 
 #pragma endregion
 
@@ -262,7 +275,7 @@ namespace CreditsScene
 
 		page2.button = Button::GetButton(screenWidth / 2, screenHeight, 40.0f, 40.0f, "2", WHITE, SKYBLUE, BLACK, Text::Fonts::Default);
 		page2.button.shape.x -= page2.button.shape.width / 2;
-		page2.button.shape.y -= page2.button.shape.height + static_cast<float>(Text::Padding::small);
+		page2.button.shape.y -= page2.button.shape.height + static_cast<float>(Text::Padding::tiny);
 		page2.number = Pages::page2;
 
 		page1.button = page2.button;
@@ -277,8 +290,8 @@ namespace CreditsScene
 
 #pragma endregion
 
-		backToMenuButton = Button::GetButton(static_cast<float>(Text::Padding::small), screenHeight, 80, 40, "BACK", BLACK, YELLOW, WHITE, Text::Fonts::Default);
-		backToMenuButton.shape.y -= backToMenuButton.shape.height + static_cast<float>(Text::Padding::small);
+		backToMenuButton = Button::GetButton(static_cast<float>(Text::Padding::tiny), screenHeight, 80, 40, "BACK", BLACK, YELLOW, WHITE, Text::Fonts::Default);
+		backToMenuButton.shape.y -= backToMenuButton.shape.height + static_cast<float>(Text::Padding::tiny);
 
 	}
 
@@ -319,7 +332,7 @@ namespace CreditsScene
 
 			Text::DrawText(toolsTitle);
 
-			for (int i = language; i < soundTool + 1; i++)
+			for (int i = language; i < soundTool2 + 1; i++)
 				DrawCredit(creditsInfo[i]);
 
 			break;
