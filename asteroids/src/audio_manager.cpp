@@ -81,9 +81,9 @@ namespace Audio
 			break;
 		case Song::gameplay:
 			return gameplayMusic;
-
 			break;
 		default:
+			return menuMusic;
 			break;
 		}
 	}
@@ -99,6 +99,7 @@ namespace Audio
 			return planetSfx;
 			break;
 		default:
+			return shootSfx;
 			break;
 		}
 	}
@@ -120,6 +121,7 @@ namespace Audio
 			return buttonSfx3;
 			break;
 		default:
+			return buttonSfx0;
 			break;
 		}
 	}
