@@ -4,37 +4,37 @@ namespace Audio
 {
 #pragma region DIRECTORIES
 	//music
-	string menuMusicDir = "res/sound/music/alien invasion.mp3";
-	string gameplayMusicDir = "res/sound/music/galactic fury.mp3";
+	static string menuMusicDir = "res/sound/music/alien invasion.mp3";
+	static string gameplayMusicDir = "res/sound/music/galactic fury.mp3";
 
 	//button sfx
-	string buttonSfx0Dir = "res/sound/sfx/forceField_000.ogg";
-	string buttonSfx1Dir = "res/sound/sfx/forceField_001.ogg";
-	string buttonSfx2Dir = "res/sound/sfx/forceField_002.ogg";
-	string buttonSfx3Dir = "res/sound/sfx/forceField_003.ogg";
+	static string buttonSfx0Dir = "res/sound/sfx/forceField_000.ogg";
+	static string buttonSfx1Dir = "res/sound/sfx/forceField_001.ogg";
+	static string buttonSfx2Dir = "res/sound/sfx/forceField_002.ogg";
+	static string buttonSfx3Dir = "res/sound/sfx/forceField_003.ogg";
 
 	//shoot sfx
-	string shootSfxDir = "res/sound/sfx/laserRetro_000.ogg";
+	static string shootSfxDir = "res/sound/sfx/laserRetro_000.ogg";
 
 	//planet explosion
-	string planetSfxDir = "res/sound/sfx/lowFrequency_explosion_000.ogg";
+	static string planetSfxDir = "res/sound/sfx/lowFrequency_explosion_000.ogg";
 #pragma endregion
 
 	//music
-	Music menuMusic;
-	Music gameplayMusic;
+	static Music menuMusic;
+	static Music gameplayMusic;
 
 	//button sfx
-	Sound buttonSfx0;
-	Sound buttonSfx1;
-	Sound buttonSfx2;
-	Sound buttonSfx3;
+	static Sound buttonSfx0;
+	static Sound buttonSfx1;
+	static Sound buttonSfx2;
+	static Sound buttonSfx3;
 
 	//shoot sfx
-	Sound shootSfx;
+	static Sound shootSfx;
 
 	//planet explosion
-	Sound planetSfx;
+	static Sound planetSfx;
 
 	ButtonSfx GetRandomSfx()
 	{
