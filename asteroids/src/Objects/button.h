@@ -2,9 +2,9 @@
 
 #include "raylib.h"
 
-#include "text.h"
-#include "scene_manager.h"
-#include "audio_manager.h"
+#include "objects/text.h"
+#include "utils/scene_manager.h"
+#include "utils/audio_manager.h"
 
 namespace Button
 {

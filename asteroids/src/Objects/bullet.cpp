@@ -1,9 +1,10 @@
-#include "bullet.h"
+#include "objects/bullet.h"
 
 #include "raymath.h"
 
-#include "calculations.h"
-#include "screen_info.h"
+#include "utils/calculations.h"
+#include "utils/screen_info.h"
+
 //NOTE: All of the above are used
 
 namespace Bullet

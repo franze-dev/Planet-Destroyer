@@ -2,14 +2,14 @@
 
 #include "raylib.h"
 
-#include "gameplay_scene.h"
-#include "menu_scene.h"
-#include "screen_info.h"
-#include "scene_manager.h"
-#include "text.h"
-#include "credits_scene.h"
-#include "result_scene.h"
-#include "audio_manager.h"
+#include "scenes/gameplay_scene.h"
+#include "scenes/menu_scene.h"
+#include "scenes/credits_scene.h"
+#include "scenes/result_scene.h"
+#include "utils/screen_info.h"
+#include "utils/scene_manager.h"
+#include "utils/audio_manager.h"
+#include "objects/text.h"
 //NOTE: All of the above are used
 
 namespace Game
