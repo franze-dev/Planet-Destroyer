@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\audio_manager.cpp" />
     <ClCompile Include="src\planet.cpp" />
     <ClCompile Include="src\bullet.cpp" />
     <ClCompile Include="src\button.cpp" />
@@ -36,6 +37,7 @@
     <ClCompile Include="src\texture_manager.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\audio_manager.h" />
     <ClInclude Include="src\planet.h" />
     <ClInclude Include="src\bullet.h" />
     <ClInclude Include="src\button.h" />

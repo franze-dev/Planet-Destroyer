@@ -44,6 +44,9 @@
     <ClCompile Include="src\text.cpp">
       <Filter>Objects</Filter>
     </ClCompile>
+    <ClCompile Include="src\audio_manager.cpp">
+      <Filter>Utils</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\planet.h">
@@ -90,6 +93,9 @@
     </ClInclude>
     <ClInclude Include="src\text.h">
       <Filter>Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="src\audio_manager.h">
+      <Filter>Utils</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
