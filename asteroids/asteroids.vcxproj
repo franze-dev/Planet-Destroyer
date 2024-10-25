@@ -19,40 +19,42 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\audio_manager.cpp" />
-    <ClCompile Include="src\planet.cpp" />
-    <ClCompile Include="src\bullet.cpp" />
-    <ClCompile Include="src\button.cpp" />
-    <ClCompile Include="src\calculations.cpp" />
-    <ClCompile Include="src\credits_scene.cpp" />
-    <ClCompile Include="src\game.cpp" />
-    <ClCompile Include="src\gameplay_scene.cpp" />
     <ClCompile Include="src\main.cpp" />
-    <ClCompile Include="src\menu_scene.cpp" />
-    <ClCompile Include="src\pause_menu.cpp" />
-    <ClCompile Include="src\result_scene.cpp" />
-    <ClCompile Include="src\scene_manager.cpp" />
-    <ClCompile Include="src\ship.cpp" />
-    <ClCompile Include="src\text.cpp" />
-    <ClCompile Include="src\texture_manager.cpp" />
+    <ClCompile Include="src\Objects\bullet.cpp" />
+    <ClCompile Include="src\Objects\button.cpp" />
+    <ClCompile Include="src\Objects\game.cpp" />
+    <ClCompile Include="src\Objects\planet.cpp" />
+    <ClCompile Include="src\Objects\ship.cpp" />
+    <ClCompile Include="src\Objects\text.cpp" />
+    <ClCompile Include="src\Scenes\credits_scene.cpp" />
+    <ClCompile Include="src\Scenes\gameplay_scene.cpp" />
+    <ClCompile Include="src\Scenes\menu_scene.cpp" />
+    <ClCompile Include="src\Scenes\pause_menu.cpp" />
+    <ClCompile Include="src\Scenes\result_scene.cpp" />
+    <ClCompile Include="src\Scenes\rules_scene.cpp" />
+    <ClCompile Include="src\Utils\audio_manager.cpp" />
+    <ClCompile Include="src\Utils\calculations.cpp" />
+    <ClCompile Include="src\Utils\scene_manager.cpp" />
+    <ClCompile Include="src\Utils\texture_manager.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\audio_manager.h" />
-    <ClInclude Include="src\planet.h" />
-    <ClInclude Include="src\bullet.h" />
-    <ClInclude Include="src\button.h" />
-    <ClInclude Include="src\calculations.h" />
-    <ClInclude Include="src\screen_info.h" />
-    <ClInclude Include="src\credits_scene.h" />
-    <ClInclude Include="src\game.h" />
-    <ClInclude Include="src\gameplay_scene.h" />
-    <ClInclude Include="src\menu_scene.h" />
-    <ClInclude Include="src\pause_menu.h" />
-    <ClInclude Include="src\result_scene.h" />
-    <ClInclude Include="src\scene_manager.h" />
-    <ClInclude Include="src\ship.h" />
-    <ClInclude Include="src\text.h" />
-    <ClInclude Include="src\texture_manager.h" />
+    <ClInclude Include="src\Objects\bullet.h" />
+    <ClInclude Include="src\Objects\button.h" />
+    <ClInclude Include="src\Objects\game.h" />
+    <ClInclude Include="src\Objects\planet.h" />
+    <ClInclude Include="src\Objects\ship.h" />
+    <ClInclude Include="src\Objects\text.h" />
+    <ClInclude Include="src\Scenes\credits_scene.h" />
+    <ClInclude Include="src\Scenes\gameplay_scene.h" />
+    <ClInclude Include="src\Scenes\menu_scene.h" />
+    <ClInclude Include="src\Scenes\pause_menu.h" />
+    <ClInclude Include="src\Scenes\result_scene.h" />
+    <ClInclude Include="src\Scenes\rules_scene.h" />
+    <ClInclude Include="src\Utils\audio_manager.h" />
+    <ClInclude Include="src\Utils\calculations.h" />
+    <ClInclude Include="src\Utils\scene_manager.h" />
+    <ClInclude Include="src\Utils\screen_info.h" />
+    <ClInclude Include="src\Utils\texture_manager.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>

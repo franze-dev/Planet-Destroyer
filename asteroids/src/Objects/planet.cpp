@@ -136,8 +136,8 @@ namespace Planet
 
 	static void DirectionatePlanet(Planet& planet)
 	{
-		int x = rand() % screenWidth;
-		int y = rand() % screenHeight;
+		int x = GetRandomValue(0, screenWidth);
+		int y = GetRandomValue(0, screenHeight);
 
 		Vector2 objective{ static_cast<float>(x), static_cast<float>(y) };
 
@@ -188,7 +188,7 @@ namespace Planet
 
 	static void RandomizeTexture(Planet& planet)
 	{
-		PlanetType planetType = static_cast<PlanetType>(rand() % (venus + 1));
+		PlanetType planetType = static_cast<PlanetType>(GetRandomValue(0, venus + 1));
 
 		Texture2D texture;
 

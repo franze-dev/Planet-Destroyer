@@ -2,101 +2,54 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClCompile Include="src\main.cpp" />
-    <ClCompile Include="src\planet.cpp">
+    <ClCompile Include="src\Objects\bullet.cpp">
       <Filter>Objects</Filter>
     </ClCompile>
-    <ClCompile Include="src\game.cpp">
+    <ClCompile Include="src\Objects\button.cpp">
       <Filter>Objects</Filter>
     </ClCompile>
-    <ClCompile Include="src\gameplay_scene.cpp">
+    <ClCompile Include="src\Objects\game.cpp">
+      <Filter>Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Objects\planet.cpp">
+      <Filter>Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Objects\ship.cpp">
+      <Filter>Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Objects\text.cpp">
+      <Filter>Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Scenes\credits_scene.cpp">
       <Filter>Scenes</Filter>
     </ClCompile>
-    <ClCompile Include="src\menu_scene.cpp">
+    <ClCompile Include="src\Scenes\gameplay_scene.cpp">
       <Filter>Scenes</Filter>
     </ClCompile>
-    <ClCompile Include="src\pause_menu.cpp">
+    <ClCompile Include="src\Scenes\menu_scene.cpp">
       <Filter>Scenes</Filter>
     </ClCompile>
-    <ClCompile Include="src\result_scene.cpp">
+    <ClCompile Include="src\Scenes\pause_menu.cpp">
       <Filter>Scenes</Filter>
     </ClCompile>
-    <ClCompile Include="src\scene_manager.cpp">
+    <ClCompile Include="src\Scenes\result_scene.cpp">
+      <Filter>Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Scenes\rules_scene.cpp">
+      <Filter>Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Utils\audio_manager.cpp">
       <Filter>Utils</Filter>
     </ClCompile>
-    <ClCompile Include="src\texture_manager.cpp">
+    <ClCompile Include="src\Utils\calculations.cpp">
       <Filter>Utils</Filter>
     </ClCompile>
-    <ClCompile Include="src\ship.cpp">
-      <Filter>Objects</Filter>
-    </ClCompile>
-    <ClCompile Include="src\bullet.cpp">
-      <Filter>Objects</Filter>
-    </ClCompile>
-    <ClCompile Include="src\calculations.cpp">
+    <ClCompile Include="src\Utils\scene_manager.cpp">
       <Filter>Utils</Filter>
     </ClCompile>
-    <ClCompile Include="src\credits_scene.cpp">
-      <Filter>Scenes</Filter>
-    </ClCompile>
-    <ClCompile Include="src\button.cpp">
-      <Filter>Objects</Filter>
-    </ClCompile>
-    <ClCompile Include="src\text.cpp">
-      <Filter>Objects</Filter>
-    </ClCompile>
-    <ClCompile Include="src\audio_manager.cpp">
+    <ClCompile Include="src\Utils\texture_manager.cpp">
       <Filter>Utils</Filter>
     </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="src\planet.h">
-      <Filter>Objects</Filter>
-    </ClInclude>
-    <ClInclude Include="src\screen_info.h">
-      <Filter>Utils</Filter>
-    </ClInclude>
-    <ClInclude Include="src\game.h">
-      <Filter>Objects</Filter>
-    </ClInclude>
-    <ClInclude Include="src\gameplay_scene.h">
-      <Filter>Scenes</Filter>
-    </ClInclude>
-    <ClInclude Include="src\menu_scene.h">
-      <Filter>Scenes</Filter>
-    </ClInclude>
-    <ClInclude Include="src\pause_menu.h">
-      <Filter>Scenes</Filter>
-    </ClInclude>
-    <ClInclude Include="src\result_scene.h">
-      <Filter>Scenes</Filter>
-    </ClInclude>
-    <ClInclude Include="src\scene_manager.h">
-      <Filter>Utils</Filter>
-    </ClInclude>
-    <ClInclude Include="src\texture_manager.h">
-      <Filter>Utils</Filter>
-    </ClInclude>
-    <ClInclude Include="src\ship.h">
-      <Filter>Objects</Filter>
-    </ClInclude>
-    <ClInclude Include="src\bullet.h">
-      <Filter>Objects</Filter>
-    </ClInclude>
-    <ClInclude Include="src\calculations.h">
-      <Filter>Utils</Filter>
-    </ClInclude>
-    <ClInclude Include="src\credits_scene.h">
-      <Filter>Scenes</Filter>
-    </ClInclude>
-    <ClInclude Include="src\button.h">
-      <Filter>Objects</Filter>
-    </ClInclude>
-    <ClInclude Include="src\text.h">
-      <Filter>Objects</Filter>
-    </ClInclude>
-    <ClInclude Include="src\audio_manager.h">
-      <Filter>Utils</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Objects">
@@ -108,5 +61,58 @@
     <Filter Include="Utils">
       <UniqueIdentifier>{f70614ac-8921-455d-bbf1-bbebccb95a47}</UniqueIdentifier>
     </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\Objects\bullet.h">
+      <Filter>Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Objects\button.h">
+      <Filter>Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Objects\game.h">
+      <Filter>Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Objects\planet.h">
+      <Filter>Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Objects\ship.h">
+      <Filter>Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Objects\text.h">
+      <Filter>Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Scenes\credits_scene.h">
+      <Filter>Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Scenes\gameplay_scene.h">
+      <Filter>Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Scenes\menu_scene.h">
+      <Filter>Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Scenes\pause_menu.h">
+      <Filter>Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Scenes\result_scene.h">
+      <Filter>Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Scenes\rules_scene.h">
+      <Filter>Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Utils\audio_manager.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Utils\calculations.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Utils\scene_manager.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Utils\screen_info.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Utils\texture_manager.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

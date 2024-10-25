@@ -9,7 +9,8 @@ namespace SceneManager
 		Menu,
 		Gameplay,
 		Result,
-		Credits
+		Credits,
+		HowToPlay
 	};
  
 	//changes the current scene

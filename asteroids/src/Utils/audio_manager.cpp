@@ -38,7 +38,7 @@ namespace Audio
 
 	ButtonSfx GetRandomSfx()
 	{
-		ButtonSfx sfx = static_cast<ButtonSfx>(rand() % (static_cast<int>(ButtonSfx::sfx3) + 1));
+		ButtonSfx sfx = static_cast<ButtonSfx>(GetRandomValue(0, static_cast<int>(ButtonSfx::sfx3) + 1));
 
 		return sfx;
 	}
@@ -94,7 +94,7 @@ namespace Audio
 		buttonSfx1 = LoadSound(buttonSfx1Dir.data());
 		buttonSfx2 = LoadSound(buttonSfx2Dir.data());
 		buttonSfx3 = LoadSound(buttonSfx3Dir.data());
-	
+
 		shootSfx = LoadSound(shootSfxDir.data());
 		planetSfx = LoadSound(planetSfxDir.data());
 	}
