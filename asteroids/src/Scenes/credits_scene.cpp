@@ -1,7 +1,7 @@
 #include "credits_scene.h"
 
-#include "button.h"
-#include "screen_info.h"
+#include "objects/button.h"
+#include "utils/screen_info.h"
 //NOTE: All of the above are used
 
 namespace CreditsScene

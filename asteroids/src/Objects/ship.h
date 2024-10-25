@@ -1,9 +1,9 @@
 #pragma once
 #include "raylib.h"
 
-#include "texture_manager.h"
-#include "calculations.h"
-#include "bullet.h"
+#include "utils/texture_manager.h"
+#include "utils/calculations.h"
+#include "objects/bullet.h"
 
 namespace SpaceShip
 {

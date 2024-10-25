@@ -4,11 +4,11 @@
 #include "raymath.h"
 #include "raylib.h"
 
-#include "texture_manager.h"
-#include "screen_info.h"
-#include "bullet.h"
-#include "button.h"
-#include "calculations.h"
+#include "utils/texture_manager.h"
+#include "utils/screen_info.h"
+#include "utils/calculations.h"
+#include "objects/bullet.h"
+#include "objects/button.h"
 //NOTE: All of the above are used
 
 namespace SpaceShip

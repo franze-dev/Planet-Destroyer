@@ -2,10 +2,10 @@
 
 #include "raylib.h"
 
-#include "button.h"
-#include "scene_manager.h"
-#include "screen_info.h"
-#include "gameplay_scene.h"
+#include "objects/button.h"
+#include "utils/scene_manager.h"
+#include "utils/screen_info.h"
+#include "scenes/gameplay_scene.h"
 //NOTE: All of the above are used
 
 namespace PauseMenu

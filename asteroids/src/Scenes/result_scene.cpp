@@ -2,10 +2,11 @@
 
 #include <iostream>
 
-#include "button.h"
-#include "text.h"
-#include "scene_manager.h"
-#include "screen_info.h"
+#include "objects/button.h"
+#include "objects/text.h"
+#include "utils/scene_manager.h"
+#include "utils/screen_info.h"
+
 using namespace std;
 
 namespace ResultScene

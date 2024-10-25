@@ -1,5 +1,5 @@
 #pragma once
-#include "ship.h"
+#include "objects/ship.h"
 
 namespace ResultScene
 {

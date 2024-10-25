@@ -2,9 +2,9 @@
 
 #include "raylib.h"
 
-#include "scene_manager.h"
-#include "button.h"
-#include "screen_info.h"
+#include "utils/scene_manager.h"
+#include "utils/screen_info.h"
+#include "objects/button.h"
 //NOTE: All of the above are used
 
 using namespace std;

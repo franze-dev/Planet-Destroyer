@@ -1,9 +1,9 @@
-#include "planet.h"
+#include "objects/planet.h"
 
 #include <vector>
 #include "raymath.h"
 
-#include "screen_info.h"
+#include "utils/screen_info.h"
 
 
 namespace Planet

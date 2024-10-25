@@ -2,11 +2,11 @@
 
 #include "raylib.h"
 
-#include "ship.h"
-#include "planet.h"
-#include "pause_menu.h"
-#include "scene_manager.h"
-#include "audio_manager.h"
+#include "objects/ship.h"
+#include "objects/planet.h"
+#include "scenes/pause_menu.h"
+#include "utils/scene_manager.h"
+#include "utils/audio_manager.h"
 
 namespace Gameplay
 {

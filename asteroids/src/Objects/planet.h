@@ -2,9 +2,9 @@
 
 #include "raylib.h"
 
-#include "ship.h"
-#include "calculations.h"
-#include "texture_manager.h"
+#include "objects/ship.h"
+#include "utils/calculations.h"
+#include "utils/texture_manager.h"
 
 namespace Planet
 {
