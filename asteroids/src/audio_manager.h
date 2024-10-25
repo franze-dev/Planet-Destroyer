@@ -26,11 +26,23 @@ namespace Audio
 		planet
 	};
 
+	ButtonSfx GetRandomSfx();
+
 	void Play(Song song);
 
 	void Play(Sfx sound);
 
+	void Play(ButtonSfx sound);
+
 	void Update(Song song);
+
+	void Stop(Song song);
+
+	bool IsPlaying(Sfx sfx);
+
+	bool IsPlaying(ButtonSfx sfx);
+
+	bool IsPlaying(Song song);
 
 	void Load();
 

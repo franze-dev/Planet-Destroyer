@@ -1,5 +1,7 @@
 #include "Button.h"
 
+#include <ctime>
+
 namespace Button
 {
 	bool IsMouseOnButton(Button button)
@@ -12,12 +14,43 @@ namespace Button
 
 	void CheckSceneChange(Button& button, SceneManager::Scene scene)
 	{
+		Audio::ButtonSfx sfx{};
+
+		bool firstTimeHover = true;
+
+		if (IsMouseOnButton(button))
+		{
+			button.currentColor = button.highlightColor;
+
+			sfx = Audio::GetRandomSfx();
+
+			if (!Audio::IsPlaying(sfx) && firstTimeHover)
+			{
+				Audio::Play(sfx);
+				firstTimeHover = false;
+			}
+
+			if (IsMouseButtonReleased(MOUSE_BUTTON_LEFT))
+				SceneManager::SetCurrentScene(scene);
+		}
+		else
+		{
+			button.currentColor = button.defaultColor;
+			firstTimeHover = true;
+		}
+	}
+
+	void CheckSceneChange(Button& button, SceneManager::Scene scene, Audio::Song songToStop)
+	{
 		if (IsMouseOnButton(button))
 		{
 			button.currentColor = button.highlightColor;
 
 			if (IsMouseButtonReleased(MOUSE_BUTTON_LEFT))
+			{
+				Audio::Stop(songToStop);
 				SceneManager::SetCurrentScene(scene);
+			}
 		}
 		else
 			button.currentColor = button.defaultColor;

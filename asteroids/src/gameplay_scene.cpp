@@ -6,6 +6,7 @@
 #include "planet.h"
 #include "pause_menu.h"
 #include "scene_manager.h"
+#include "audio_manager.h"
 
 namespace Gameplay
 {
@@ -49,6 +50,13 @@ namespace Gameplay
 	{
 		CheckPause();
 
+		if (!Audio::IsPlaying(Audio::Song::gameplay))
+			Audio::Play(Audio::Song::gameplay);
+		
+		if (Audio::IsPlaying(Audio::Song::gameplay))
+			Audio::Update(Audio::Song::gameplay);
+		
+
 		if (SpaceShip::IsAlive(ship))
 		{
 			if (!isPaused)
@@ -60,7 +68,12 @@ namespace Gameplay
 				PauseMenu::Update();
 		}
 		else
+		{
+			if (Audio::IsPlaying(Audio::Song::gameplay))
+				Audio::Stop(Audio::Song::gameplay);
+			
 			SceneManager::SetCurrentScene(SceneManager::Result);
+		}
 		
 	}
 

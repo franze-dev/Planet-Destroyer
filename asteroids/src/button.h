@@ -4,6 +4,7 @@
 
 #include "text.h"
 #include "scene_manager.h"
+#include "audio_manager.h"
 
 namespace Button
 {
@@ -22,6 +23,8 @@ namespace Button
 	bool IsMouseOnButton(Button button);
 
 	void CheckSceneChange(Button& button, SceneManager::Scene scene);
+
+	void CheckSceneChange(Button& button, SceneManager::Scene scene, Audio::Song songToStop);
 
 	void DrawButton(Button button);
 

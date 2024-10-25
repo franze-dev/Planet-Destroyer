@@ -43,11 +43,17 @@ void MenuScene::Init()
 
 void MenuScene::Update()
 {
-	Button::CheckSceneChange(playButton, SceneManager::Gameplay);
+	if (!Audio::IsPlaying(Audio::Song::menu))
+		Audio::Play(Audio::Song::menu);
+
+	if (Audio::IsPlaying(Audio::Song::menu))
+		Audio::Update(Audio::Song::menu);
+
+	Button::CheckSceneChange(playButton, SceneManager::Gameplay, Audio::Song::menu);
 
 	Button::CheckSceneChange(creditsButton, SceneManager::Credits);
 
-	Button::CheckSceneChange(exitButton, SceneManager::None);
+	Button::CheckSceneChange(exitButton, SceneManager::None, Audio::Song::menu);
 
 }
 

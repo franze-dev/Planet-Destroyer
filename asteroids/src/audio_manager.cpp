@@ -4,7 +4,7 @@ namespace Audio
 {
 #pragma region DIRECTORIES
 	//music
-	string menuMusicDir = "res/sound/music/alien invation.mp3";
+	string menuMusicDir = "res/sound/music/alien invasion.mp3";
 	string gameplayMusicDir = "res/sound/music/galactic fury.mp3";
 
 	//button sfx
@@ -36,12 +36,24 @@ namespace Audio
 	//planet explosion
 	Sound planetSfx;
 
+	ButtonSfx GetRandomSfx()
+	{
+		ButtonSfx sfx = static_cast<ButtonSfx>(rand() % (static_cast<int>(ButtonSfx::sfx3) + 1));
+
+		return sfx;
+	}
+
 	void Play(Song song)
 	{
 		PlayMusicStream(GetMusic(song));
 	}
 
 	void Play(Sfx sound)
+	{
+		PlaySound(GetSound(sound));
+	}
+
+	void Play(ButtonSfx sound)
 	{
 		PlaySound(GetSound(sound));
 	}
@@ -54,6 +66,21 @@ namespace Audio
 	void Stop(Song song)
 	{
 		StopMusicStream(GetMusic(song));
+	}
+
+	bool IsPlaying(Sfx sfx)
+	{
+		return IsSoundPlaying(GetSound(sfx));
+	}
+
+	bool IsPlaying(ButtonSfx sfx)
+	{
+		return IsSoundPlaying(GetSound(sfx));
+	}
+
+	bool IsPlaying(Song song)
+	{
+		return IsMusicStreamPlaying(GetMusic(song));
 	}
 
 	void Load()

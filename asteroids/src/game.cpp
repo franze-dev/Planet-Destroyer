@@ -1,5 +1,6 @@
 #include "game.h"
 
+#include <ctime>
 #include "raylib.h"
 
 #include "gameplay_scene.h"
@@ -9,6 +10,7 @@
 #include "text.h"
 #include "credits_scene.h"
 #include "result_scene.h"
+#include "audio_manager.h"
 //NOTE: All of the above are used
 
 namespace Game
@@ -16,18 +18,21 @@ namespace Game
 	static SceneManager::Scene previousScene = SceneManager::None;
 	static bool restart = true;
 
-	static void LoadTextures()
+	static void LoadRes()
 	{
+		Audio::Load();
 		Gameplay::LoadTextures();
 	}
 
-	static void UnloadTextures()
+	static void UnloadRes()
 	{
+		Audio::UnLoad();
 		Gameplay::UnloadTextures();
 	}
 
 	static void Init()
 	{
+		srand(time(NULL));
 		Gameplay::Init();
 		MenuScene::Init();
 		CreditsScene::Init();
@@ -88,7 +93,7 @@ namespace Game
 	static void Close()
 	{
 		Text::UnloadFonts();
-		UnloadTextures();
+		UnloadRes();
 	}
 
 	static bool ShouldWindowClose()
@@ -100,7 +105,7 @@ namespace Game
 	{
 		InitWindow(screenWidth, screenHeight, "Planet Destroyer");
 		Text::InitFonts();
-		LoadTextures();
+		LoadRes();
 		Init();
 
 		while (!ShouldWindowClose())
