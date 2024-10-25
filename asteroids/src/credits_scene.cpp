@@ -180,7 +180,7 @@ namespace CreditsScene
 
 	static void DrawCredit(Credit& credit)
 	{
-		Text::PrintText(credit.text);
+		Text::DrawText(credit.text);
 
 		Button::DrawButton(credit.button);
 	}
@@ -294,22 +294,22 @@ namespace CreditsScene
 
 	void Draw()
 	{
-		Text::PrintText(creditsTitle);
+		Text::DrawText(creditsTitle);
 
 		switch (currentPage)
 		{
 		case CreditsScene::Pages::page1:
 
-			Text::PrintText(devTitle);
+			Text::DrawText(devTitle);
 			DrawCredit(creditsInfo[dev]);
 
-			Text::PrintText(artTitle);
+			Text::DrawText(artTitle);
 			DrawCredit(creditsInfo[artist]);
 
 			break;
 		case CreditsScene::Pages::page2:
 
-			Text::PrintText(fontTitle);
+			Text::DrawText(fontTitle);
 
 			for (int i = font1; i < font3 + 1; i++)
 				DrawCredit(creditsInfo[i]);
@@ -317,7 +317,7 @@ namespace CreditsScene
 			break;
 		case CreditsScene::Pages::page3:
 
-			Text::PrintText(toolsTitle);
+			Text::DrawText(toolsTitle);
 
 			for (int i = language; i < soundTool + 1; i++)
 				DrawCredit(creditsInfo[i]);

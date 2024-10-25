@@ -53,8 +53,8 @@ void MenuScene::Update()
 
 void MenuScene::Draw()
 {
-	PrintText(titlePart1);
-	PrintText(titlePart2);
+	DrawText(titlePart1);
+	DrawText(titlePart2);
 
 	Button::DrawButton(playButton);
 	Button::DrawButton(exitButton);

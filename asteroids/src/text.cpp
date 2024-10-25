@@ -47,13 +47,20 @@ namespace Text
 		generalText = LoadFont("res/fonts/Courier-Prime.ttf");
 	}
 
-	void PrintText(Text myText)
+	void UnloadFonts()
+	{
+		UnloadFont(GetFont(Fonts::Default));
+		UnloadFont(GetFont(Fonts::Title1));
+		UnloadFont(GetFont(Fonts::Title2));
+	}
+
+	void DrawText(Text myText)
 	{
 		SetTextureFilter(GetFont(myText.font).texture, TEXTURE_FILTER_BILINEAR);
 		DrawTextEx(GetFont(myText.font), myText.content.data(), myText.location, static_cast<float>(myText.fontSize), textSpacing, myText.currentColor);
 	}
 
-	void PrintText(Text myText, int number)
+	void DrawText(Text myText, int number)
 	{
 		SetTextureFilter(GetFont(myText.font).texture, TEXTURE_FILTER_BILINEAR);
 		DrawTextEx(GetFont(myText.font), TextFormat(myText.content.data(), number), myText.location, static_cast<float>(myText.fontSize), textSpacing, myText.currentColor);

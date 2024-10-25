@@ -42,11 +42,13 @@ namespace Text
 		Fonts font;
 	};
 
+	void UnloadFonts();
+
 	//Prints a text
-	void PrintText(Text myText);
+	void DrawText(Text myText);
 
 	//Prints a text that needs a number to print
-	void PrintText(Text myText, int score);
+	void DrawText(Text myText, int score);
 
 	void CenterTextX(Text& text);
 
