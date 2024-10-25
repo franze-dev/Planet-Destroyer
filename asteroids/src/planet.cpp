@@ -347,6 +347,7 @@ namespace Planet
 		if (distance <= ship.collisionShape.radius + planet.collisionShape.radius)
 		{
 			DeletePlanet(planet);
+			ship.lives--;
 			//lose a life!
 			//planet divides!
 		}
