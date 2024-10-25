@@ -35,8 +35,8 @@ namespace SpaceShip
 
 	static void MovePos(SpaceShip& ship)
 	{
-		ship.collisionShape.pos.x += ship.speed.x * GetFrameTime();
-		ship.collisionShape.pos.y += ship.speed.y * GetFrameTime();
+		ship.collisionShape.pos.x += ship.speed.x* GetFrameTime(); //* GetFrameTime();
+		ship.collisionShape.pos.y += ship.speed.y* GetFrameTime(); //* GetFrameTime();
 	}
 
 	static void MoveShip(SpaceShip& ship)
@@ -63,8 +63,8 @@ namespace SpaceShip
 				cout << sqrt(pow(ship.speed.x, 2.0f) + pow(ship.speed.y, 2.0f)) << endl;
 			}
 
-			ship.speed.x += ship.acceleration * normalizedDir.x;
-			ship.speed.y += ship.acceleration * normalizedDir.y;
+			ship.speed.x += ship.acceleration  * normalizedDir.x;
+			ship.speed.y += ship.acceleration  * normalizedDir.y;
 
 		}
 
@@ -198,9 +198,13 @@ namespace SpaceShip
 
 	static void DrawAmmoCount(SpaceShip ship)
 	{
-		Text::PrintText(ammoCount, GetCurrentAmmo(ship));
+		Text::DrawText(ammoCount, GetCurrentAmmo(ship));
 	}
 
+	bool IsAlive(SpaceShip ship)
+	{
+		return ship.lives > 0;
+	}
 
 	SpaceShip GetShip()
 	{
@@ -213,6 +217,7 @@ namespace SpaceShip
 		ship.acceleration = 100.0f;
 		ship.speed = { 0, 0 };
 		ship.lives = 3;
+		ship.won = false;
 
 		Rectangle sourceRect;
 
