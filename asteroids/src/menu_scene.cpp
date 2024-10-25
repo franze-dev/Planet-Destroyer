@@ -29,15 +29,15 @@ void MenuScene::Init()
 	titlePart1 = Text::GetText(0, 0, Text::Fonts::Title1, static_cast<int>(Text::FontSize::big), "PLANET", MAGENTA);
 	titlePart1.location.x = static_cast<float>(screenWidth) / 2.0f - Text::GetTextWidth(titlePart1) / 2.0f;
 	titlePart1.location.y = static_cast<float>(Text::Padding::medium);
-	titlePart2 = Text::GetText(0, titlePart1.location.y + Text::GetTextHeight(titlePart1) + static_cast<float>(Text::Padding::small), Text::Fonts::Title2, static_cast<int>(Text::FontSize::giant), "DESTROYER", YELLOW);
+	titlePart2 = Text::GetText(0, titlePart1.location.y + Text::GetTextHeight(titlePart1) + static_cast<float>(Text::Padding::tiny), Text::Fonts::Title2, static_cast<int>(Text::FontSize::giant), "DESTROYER", YELLOW);
 	titlePart2.location.x = static_cast<float>(screenWidth) / 2.0f - Text::GetTextWidth(titlePart2) / 2.0f;
 #pragma endregion
 
 	playButton = Button::GetButton(static_cast<float>(GetScreenWidth()) / 2.0f - Text::GetTextWidth(titlePart2) / 2.0f, static_cast<float>(GetScreenHeight()) / 2.0f - Text::GetTextHeight(titlePart2) / 2.0f, Text::GetTextWidth(titlePart2), Text::GetTextHeight(titlePart2)/2, "PLAY", BLACK, MAGENTA, YELLOW, Text::Fonts::Title2);
 	
-	creditsButton = Button::GetButton(playButton.shape.x, playButton.shape.y + playButton.shape.height + static_cast<int>(Text::Padding::small), playButton.shape.width, playButton.shape.height, "CREDITS", BLACK, SKYBLUE, YELLOW, playButton.textShown.font);
+	creditsButton = Button::GetButton(playButton.shape.x, playButton.shape.y + playButton.shape.height + static_cast<int>(Text::Padding::tiny), playButton.shape.width, playButton.shape.height, "CREDITS", BLACK, SKYBLUE, YELLOW, playButton.textShown.font);
 
-	exitButton = Button::GetButton(playButton.shape.x, creditsButton.shape.y + creditsButton.shape.height + static_cast<int>(Text::Padding::small), playButton.shape.width, playButton.shape.height, "EXIT", BLACK, RED, YELLOW, playButton.textShown.font);
+	exitButton = Button::GetButton(playButton.shape.x, creditsButton.shape.y + creditsButton.shape.height + static_cast<int>(Text::Padding::tiny), playButton.shape.width, playButton.shape.height, "EXIT", BLACK, RED, YELLOW, playButton.textShown.font);
 
 }
 

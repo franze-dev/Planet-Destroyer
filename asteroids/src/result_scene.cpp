@@ -29,8 +29,8 @@ namespace ResultScene
 		Text::CenterTextX(resultText);
 
 		playAgainButton = Button::GetButton(resultText.location.x, resultText.location.y + Text::GetTextHeight(resultText) + static_cast<int>(Text::Padding::medium), Text::GetTextWidth(resultText), Text::GetTextHeight(resultText)/2, "REPLAY", BLACK, MAGENTA, WHITE, Text::Fonts::Default);
-		backToMenuButton = Button::GetButton(resultText.location.x, playAgainButton.shape.y + playAgainButton.shape.height + static_cast<int>(Text::Padding::small), Text::GetTextWidth(resultText), Text::GetTextHeight(resultText)/2, "MENU", BLACK, SKYBLUE, WHITE, Text::Fonts::Default);
-		exitButton = Button::GetButton(backToMenuButton.shape.x, backToMenuButton.shape.y + backToMenuButton.shape.height + static_cast<int>(Text::Padding::small), Text::GetTextWidth(resultText), Text::GetTextHeight(resultText)/2, "EXIT", BLACK, RED, WHITE, Text::Fonts::Default);
+		backToMenuButton = Button::GetButton(resultText.location.x, playAgainButton.shape.y + playAgainButton.shape.height + static_cast<int>(Text::Padding::tiny), Text::GetTextWidth(resultText), Text::GetTextHeight(resultText)/2, "MENU", BLACK, SKYBLUE, WHITE, Text::Fonts::Default);
+		exitButton = Button::GetButton(backToMenuButton.shape.x, backToMenuButton.shape.y + backToMenuButton.shape.height + static_cast<int>(Text::Padding::tiny), Text::GetTextWidth(resultText), Text::GetTextHeight(resultText)/2, "EXIT", BLACK, RED, WHITE, Text::Fonts::Default);
 	}
 
 	void Update()

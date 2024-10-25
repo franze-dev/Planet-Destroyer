@@ -183,7 +183,7 @@ namespace SpaceShip
 	static void InitAmmoText()
 	{
 		ammoCount = Text::GetText(0, 0, Text::Fonts::Default, static_cast<int>(Text::FontSize::medium), "%02i", YELLOW, RED);
-		ammoCount.location.x = static_cast<int>(Text::Padding::small);
+		ammoCount.location.x = static_cast<int>(Text::Padding::tiny);
 		ammoCount.location.y = screenHeight - Text::GetTextHeight(ammoCount);
 	}
 
