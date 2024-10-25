@@ -1,6 +1,5 @@
 #include "Button.h"
 
-#include <ctime>
 
 namespace Button
 {

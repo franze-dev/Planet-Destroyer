@@ -1,6 +1,5 @@
 #include "game.h"
 
-#include <ctime>
 #include "raylib.h"
 
 #include "gameplay_scene.h"
@@ -32,7 +31,6 @@ namespace Game
 
 	static void Init()
 	{
-		srand(time(NULL));
 		Gameplay::Init();
 		MenuScene::Init();
 		CreditsScene::Init();

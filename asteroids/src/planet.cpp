@@ -1,7 +1,6 @@
 #include "planet.h"
 
 #include <vector>
-#include <ctime>
 #include "raymath.h"
 
 #include "screen_info.h"
@@ -82,32 +81,32 @@ namespace Planet
 
 	static void RandomizePos(Planet& planet)
 	{
-		Position pos = static_cast<Position>(rand() % bottom + 1);
+		Position pos = static_cast<Position>(GetRandomValue(0, bottom + 1));
 		int randomPos = 0;
 
 		switch (pos)
 		{
 		case left:
 			planet.collisionShape.pos.x = -(static_cast<float>(planet.sprite.texture.width));
-			randomPos = rand() % screenHeight;
+			randomPos = static_cast<Position>(GetRandomValue(0, screenHeight));
 			planet.collisionShape.pos.y = static_cast<float>(randomPos);
 
 			break;
 		case right:
 			planet.collisionShape.pos.x = screenWidth;
-			randomPos = rand() % screenHeight;
+			randomPos = static_cast<Position>(GetRandomValue(0, screenHeight));
 			planet.collisionShape.pos.y = static_cast<float>(randomPos);
 
 			break;
 		case top:
 
-			randomPos = rand() % screenWidth;
+			randomPos = static_cast<Position>(GetRandomValue(0, screenWidth));
 			planet.collisionShape.pos.x = static_cast<float>(randomPos);
 			planet.collisionShape.pos.y = -(static_cast<float>(planet.sprite.texture.height));
 
 			break;
 		case bottom:
-			randomPos = rand() % screenWidth;
+			randomPos = static_cast<Position>(GetRandomValue(0, screenWidth));
 			planet.collisionShape.pos.x = static_cast<float>(randomPos);
 			planet.collisionShape.pos.y = screenHeight;
 
@@ -245,11 +244,6 @@ namespace Planet
 
 	static void InitPlanets()
 	{
-		//planets = vector<Planet>();
-
-		//planets = new Planet[startPlanets];
-
-
 		for (int i = 0; i < startPlanets; i++)
 			InitPlanet(planets[i]);
 		
