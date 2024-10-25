@@ -2,6 +2,7 @@
 
 namespace Gameplay
 {
+	void UnPauseGame();
 	void LoadTextures();
 	void UnloadTextures();
 	void Init();

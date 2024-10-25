@@ -4,76 +4,56 @@
 
 #include "button.h"
 #include "scene_manager.h"
+#include "screen_info.h"
+#include "gameplay_scene.h"
 //NOTE: All of the above are used
 
-Text::Text pauseTitle;
-Button::Button continueButton;
-Button::Button backToMenuButton;
-
-int defaultFontSize = 40;
-int buttonsPadding = 30;
-
-void PauseMenu::Init()
+namespace PauseMenu
 {
-#pragma region PAUSE_TITLE
-	pauseTitle.currentColor = YELLOW;
-	pauseTitle.content = "PAUSED";
-	pauseTitle.fontSize = defaultFontSize;
-	pauseTitle.location.x = static_cast<float>(GetScreenWidth()) * 2/8 - static_cast<float>(MeasureText(pauseTitle.content.data(), pauseTitle.fontSize)) / 2.0f;
-	pauseTitle.location.y = static_cast<float>(GetScreenHeight()) / 2.0f + static_cast<float>(pauseTitle.fontSize) / 2.0f;
-#pragma endregion
+	Text::Text pauseTitle;
+	Button::Button continueButton;
+	Button::Button backToMenuButton;
+	Button::Button exitButton;
 
-#pragma region CONTINUE_BUTTON
-	continueButton.defaultColor = DARKGRAY;
-	continueButton.currentColor = DARKGRAY;
-	continueButton.highlightColor = YELLOW;
-	continueButton.shape.width = static_cast<float>(MeasureText(pauseTitle.content.data(), pauseTitle.fontSize));
-	continueButton.shape.height = static_cast<float>(defaultFontSize);
-	continueButton.shape.x = static_cast<float>(GetScreenWidth()) * 5 / 8;
-	continueButton.shape.y = pauseTitle.location.y - continueButton.shape.height + static_cast<float>(buttonsPadding);
-	continueButton.textShown.content = "CONTINUE";
+	int defaultFontSize = 40;
+	int buttonsPadding = 30;
 
-#pragma endregion
-
-#pragma region BACKTOMENU_BUTTON
-	backToMenuButton = continueButton;
-	backToMenuButton.shape.y += buttonsPadding + continueButton.shape.height;
-	backToMenuButton.highlightColor = BLUE;
-	backToMenuButton.textShown.content = "BACK TO MENU";
-
-#pragma endregion
-
-
-}
-
-void PauseMenu::Update()
-{
-	if (Button::IsMouseOnButton(continueButton))
+	void Init()
 	{
-		continueButton.currentColor = continueButton.highlightColor;
-		if (IsMouseButtonReleased(MOUSE_BUTTON_LEFT))
+		pauseTitle = Text::GetText(screenWidth / 2, screenHeight / 2 - static_cast<int>(Text::FontSize::big), Text::Fonts::Title1, static_cast<int>(Text::FontSize::big), "PAUSED", WHITE);
+		Text::CenterTextX(pauseTitle);
+
+		continueButton = Button::GetButton(pauseTitle.location.x, pauseTitle.location.y + Text::GetTextHeight(pauseTitle) + static_cast<float>(Text::Padding::medium), Text::GetTextWidth(pauseTitle), Text::GetTextHeight(pauseTitle) / 2, "CONTINUE", BLACK, MAGENTA, WHITE, Text::Fonts::Default);
+
+		backToMenuButton = Button::GetButton(continueButton.shape.x, continueButton.shape.y + static_cast<float>(Text::Padding::medium), Text::GetTextWidth(pauseTitle), Text::GetTextHeight(pauseTitle) / 2, "BACK TO MENU", BLACK, SKYBLUE, WHITE, Text::Fonts::Default);
+
+		exitButton = Button::GetButton(backToMenuButton.shape.x, backToMenuButton.shape.y + static_cast<float>(Text::Padding::medium), Text::GetTextWidth(pauseTitle), Text::GetTextHeight(pauseTitle) / 2, "EXIT", BLACK, RED, WHITE, Text::Fonts::Default);
+	}
+
+
+
+	void Update()
+	{
+		if (Button::IsMouseOnButton(continueButton))
 		{
-			//pause!
+			continueButton.currentColor = continueButton.highlightColor;
+
+			if (IsMouseButtonReleased(MOUSE_BUTTON_LEFT))
+				Gameplay::UnPauseGame();;
 		}
-	}
-	else
-		continueButton.currentColor = continueButton.defaultColor;
+		else
+			continueButton.currentColor = continueButton.defaultColor;
 
-	if (Button::IsMouseOnButton(backToMenuButton))
+		Button::CheckSceneChange(backToMenuButton, SceneManager::Menu);
+		Button::CheckSceneChange(exitButton, SceneManager::None);
+	}
+
+	void Draw()
 	{
-		backToMenuButton.currentColor = backToMenuButton.highlightColor;
-		if (IsMouseButtonReleased(MOUSE_BUTTON_LEFT))
-			SceneManager::SetCurrentScene(SceneManager::Menu);
+		Text::DrawText(pauseTitle);
+		Button::DrawButton(continueButton);
+		Button::DrawButton(backToMenuButton);
+		Button::DrawButton(exitButton);
 	}
-	else
-		backToMenuButton.currentColor = backToMenuButton.defaultColor;
-
 }
 
-void PauseMenu::Draw()
-{
-	DrawText(pauseTitle.content.data(), static_cast<int>(pauseTitle.location.x), static_cast<int>(pauseTitle.location.y), pauseTitle.fontSize, pauseTitle.currentColor);
-	
-	Button::DrawButton(continueButton);
-	Button::DrawButton(backToMenuButton);
-}
