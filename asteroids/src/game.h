@@ -2,5 +2,5 @@
 
 namespace Game
 {
-	void Play();
+    void Play();
 }

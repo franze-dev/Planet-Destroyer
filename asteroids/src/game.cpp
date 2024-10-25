@@ -8,10 +8,14 @@
 #include "scene_manager.h"
 #include "text.h"
 #include "credits_scene.h"
+#include "result_scene.h"
 //NOTE: All of the above are used
 
 namespace Game
 {
+	static SceneManager::Scene previousScene = SceneManager::None;
+	static bool restart = true;
+
 	static void LoadTextures()
 	{
 		Gameplay::LoadTextures();
@@ -24,11 +28,10 @@ namespace Game
 
 	static void Init()
 	{
-		Text::InitFonts();
-		LoadTextures();
 		Gameplay::Init();
 		MenuScene::Init();
 		CreditsScene::Init();
+		ResultScene::Init();
 	}
 
 	static void Update()
@@ -36,6 +39,8 @@ namespace Game
 		switch (SceneManager::GetCurrentScene())
 		{
 		case SceneManager::Gameplay:
+			if (previousScene != SceneManager::Gameplay)
+				previousScene = SceneManager::Gameplay;
 			Gameplay::Update();
 			break;
 		case SceneManager::Menu:
@@ -43,6 +48,11 @@ namespace Game
 			break;
 		case SceneManager::Credits:
 			CreditsScene::Update();
+			break;
+		case SceneManager::Result:
+			if (previousScene != SceneManager::Result)
+				previousScene = SceneManager::Result;
+			ResultScene::Update();
 			break;
 		default:
 			break;
@@ -65,6 +75,9 @@ namespace Game
 		case SceneManager::Credits:
 			CreditsScene::Draw();
 			break;
+		case SceneManager::Result:
+			ResultScene::Draw();
+			break;
 		default:
 			break;
 		}
@@ -74,6 +87,7 @@ namespace Game
 
 	static void Close()
 	{
+		Text::UnloadFonts();
 		UnloadTextures();
 	}
 
@@ -85,10 +99,26 @@ namespace Game
 	void Play()
 	{
 		InitWindow(screenWidth, screenHeight, "Planet Destroyer");
+		Text::InitFonts();
+		LoadTextures();
 		Init();
 
 		while (!ShouldWindowClose())
 		{
+			if ((previousScene == SceneManager::Result || (previousScene == SceneManager::Gameplay) &&
+				SceneManager::GetCurrentScene() != SceneManager::Result) &&
+				SceneManager::GetCurrentScene() != SceneManager::Gameplay)
+			{
+				restart = true;
+				previousScene = SceneManager::None;
+			}
+
+			if (restart)
+			{
+				Init();
+				restart = false;
+			}
+
 			Update();
 			Draw();
 		}
