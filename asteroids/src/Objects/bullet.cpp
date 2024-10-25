@@ -13,7 +13,7 @@ namespace Bullet
 	{
 		Bullet bullet{};
 
-		bullet.rect.height = 8;
+		bullet.rect.height = 8.0f;
 		bullet.rect.width = bullet.rect.height;
 		bullet.maxSpeed = 400.0f;
 		bullet.speed = { bullet.maxSpeed, bullet.maxSpeed };
@@ -25,7 +25,7 @@ namespace Bullet
 
 	void SetPos(float x, float y, Bullet& bullet)
 	{
-		bullet.rect.x = x - bullet.rect.width / 2;
+		bullet.rect.x = x - bullet.rect.width / 2.0f;
 		bullet.rect.y = y;
 	}
 
