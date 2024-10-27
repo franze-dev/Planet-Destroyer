@@ -8,6 +8,8 @@
 
 namespace Planet
 {
+	const int startPlanets = 50;
+
 	struct Planet
 	{
 		float maxSpeed;
@@ -26,7 +28,7 @@ namespace Planet
 
 	void LoadTextures();
 	void UnloadTextures();
-	void Init();
-	void Update(SpaceShip::SpaceShip& ship);
-	void Draw();
+	void Init(Planet planets[]);
+	void Update(SpaceShip::SpaceShip& ship, Planet planets[]);
+	void Draw(Planet planets[]);
 }

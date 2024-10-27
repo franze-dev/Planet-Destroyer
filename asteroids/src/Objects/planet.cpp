@@ -32,14 +32,9 @@ namespace Planet
 		Texture2D texture1;
 		Texture2D texture2;
 	};
-
-	static const int startPlanets = 50;
-
 	//static vector<Planet> planets;
 
 	//static Planet* planets;
-
-	static Planet planets[startPlanets];
 
 	static Texture2D planetTextures[venus + 1];
 
@@ -60,7 +55,7 @@ namespace Planet
 
 	static void InitSprite(TextureManager::Sprite sprite)
 	{
-		Rectangle sourceRect;
+		Rectangle sourceRect{};
 
 		sourceRect.x = 0;
 		sourceRect.y = 0;
@@ -242,7 +237,7 @@ namespace Planet
 		DirectionatePlanet(planet);
 	}
 
-	static void InitPlanets()
+	static void InitPlanets(Planet planets[])
 	{
 		for (int i = 0; i < startPlanets; i++)
 			InitPlanet(planets[i]);
@@ -278,7 +273,7 @@ namespace Planet
 		}
 	}
 
-	static void MovePlanets()
+	static void MovePlanets(Planet planets[])
 	{
 		for (int i = 0; i < startPlanets; i++)
 		{
@@ -298,7 +293,7 @@ namespace Planet
 		DrawTexturePro(planet.sprite.texture, planet.sprite.source, planet.sprite.dest, planet.sprite.origin, static_cast<float>(planet.angle), WHITE);
 	}
 
-	static void DrawPlanets()
+	static void DrawPlanets(Planet planets[])
 	{
 		for (int i = 0; i < startPlanets; i++)
 			if (planets[i].lives > 0)
@@ -306,7 +301,7 @@ namespace Planet
 
 	}
 
-	static int GetPlanetsCount()
+	static int GetPlanetsCount(Planet planets[])
 	{
 		int count = 0;
 		for (int i = 0; i < startPlanets; i++)
@@ -315,9 +310,9 @@ namespace Planet
 		return count;
 	}
 
-	static void ReplenishPlanetsCheck()
+	static void ReplenishPlanetsCheck(Planet planets[])
 	{
-		if (GetPlanetsCount() <= (startPlanets / 2))
+		if (GetPlanetsCount(planets) <= (startPlanets / 2))
 			for (int i = 0; i < startPlanets; i++)
 				if (planets[i].lives == 0)
 					InitPlanet(planets[i]);
@@ -348,7 +343,7 @@ namespace Planet
 
 	}
 
-	static void ShipCollisionCheck(SpaceShip::SpaceShip& ship)
+	static void ShipCollisionCheck(SpaceShip::SpaceShip& ship, Planet planets[])
 	{
 		for (int i = 0; i < startPlanets; i++)
 			if (planets[i].lives > 0)
@@ -382,21 +377,21 @@ namespace Planet
 
 	}
 
-	void Init()
+	void Init(Planet planets[])
 	{
-		InitPlanets();
+		InitPlanets(planets);
 	}
 
-	void Update(SpaceShip::SpaceShip& ship)
+	void Update(SpaceShip::SpaceShip& ship, Planet planets[])
 	{
-		ReplenishPlanetsCheck();
-		MovePlanets();
-		ShipCollisionCheck(ship);
+		ReplenishPlanetsCheck(planets);
+		MovePlanets(planets);
+		ShipCollisionCheck(ship, planets);
 	}
 
-	void Draw()
+	void Draw(Planet planets[])
 	{
-		DrawPlanets();
+		DrawPlanets(planets);
 	}
 }
 

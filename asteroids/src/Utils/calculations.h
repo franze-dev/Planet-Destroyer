@@ -9,6 +9,16 @@ namespace Collide
 		Vector2 pos;
 		int radius;
 	};
+
+	//To calculate the distance between the bullets and the planets
+	struct Distances
+	{
+		int pinPointX;
+		int pinPointY;
+		int distX;
+		int distY;
+		int distance;
+	};
 }
 
 namespace Rotate
