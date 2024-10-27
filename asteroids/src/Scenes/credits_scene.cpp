@@ -63,12 +63,20 @@ namespace CreditsScene
 
 	static void CheckURLButton(Credit& credit)
 	{
+		Audio::ButtonSfx sfx{};
+
+		sfx = Audio::GetRandomSfx();
+
 		if (Button::IsMouseOnButton(credit.button))
 		{
 			credit.button.currentColor = credit.button.highlightColor;
 
 			if (IsMouseButtonReleased(MOUSE_BUTTON_LEFT))
+			{
+				if (!Audio::IsPlaying(sfx))
+					Audio::Play(sfx);
 				OpenURL(credit.url.data());
+			}
 		}
 		else
 			credit.button.currentColor = credit.button.defaultColor;
@@ -106,12 +114,20 @@ namespace CreditsScene
 
 	static void CheckPagesButton(Page& page)
 	{
+		Audio::ButtonSfx sfx{};
+
 		if (Button::IsMouseOnButton(page.button))
 		{
+			sfx = Audio::GetRandomSfx();
+
 			page.button.currentColor = page.button.highlightColor;
 			if (IsMouseButtonReleased(MOUSE_BUTTON_LEFT))
+			{
+				if (!Audio::IsPlaying(sfx))
+					Audio::Play(sfx);
 				if (currentPage != page.number)
 					currentPage = page.number;
+			}
 		}
 		else if (currentPage == page.number)
 			page.button.currentColor = page.button.highlightColor;
@@ -297,6 +313,7 @@ namespace CreditsScene
 
 	void Update()
 	{
+		Audio::Update(Audio::Song::menu);
 		CheckURLButtons();
 		Button::CheckSceneChange(backToMenuButton, SceneManager::Menu);
 

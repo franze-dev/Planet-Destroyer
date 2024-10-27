@@ -15,7 +15,28 @@ namespace Button
 	{
 		Audio::ButtonSfx sfx{};
 
-		bool firstTimeHover = true;
+		if (IsMouseOnButton(button))
+		{
+			button.currentColor = button.highlightColor;
+
+			sfx = Audio::GetRandomSfx();
+
+			if (IsMouseButtonReleased(MOUSE_BUTTON_LEFT))
+			{
+				if (!Audio::IsPlaying(sfx))
+					Audio::Play(sfx);
+				
+				SceneManager::SetCurrentScene(scene);
+			}
+		}
+		else
+			button.currentColor = button.defaultColor;
+		
+	}
+
+	void CheckSceneChange(Button& button, SceneManager::Scene scene, Audio::Song songToStop)
+	{
+		Audio::ButtonSfx sfx{};
 
 		if (IsMouseOnButton(button))
 		{
@@ -23,30 +44,10 @@ namespace Button
 
 			sfx = Audio::GetRandomSfx();
 
-			if (!Audio::IsPlaying(sfx) && firstTimeHover)
-			{
-				Audio::Play(sfx);
-				firstTimeHover = false;
-			}
-
-			if (IsMouseButtonReleased(MOUSE_BUTTON_LEFT))
-				SceneManager::SetCurrentScene(scene);
-		}
-		else
-		{
-			button.currentColor = button.defaultColor;
-			firstTimeHover = true;
-		}
-	}
-
-	void CheckSceneChange(Button& button, SceneManager::Scene scene, Audio::Song songToStop)
-	{
-		if (IsMouseOnButton(button))
-		{
-			button.currentColor = button.highlightColor;
-
 			if (IsMouseButtonReleased(MOUSE_BUTTON_LEFT))
 			{
+				if (!Audio::IsPlaying(sfx))
+					Audio::Play(sfx);
 				Audio::Stop(songToStop);
 				SceneManager::SetCurrentScene(scene);
 			}
