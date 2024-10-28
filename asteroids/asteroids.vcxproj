@@ -31,7 +31,7 @@
     <ClCompile Include="src\Scenes\menu_scene.cpp" />
     <ClCompile Include="src\Scenes\pause_menu.cpp" />
     <ClCompile Include="src\Scenes\result_scene.cpp" />
-    <ClCompile Include="src\Scenes\rules_scene.cpp" />
+    <ClCompile Include="src\Scenes\how2play_scene.cpp" />
     <ClCompile Include="src\Utils\audio_manager.cpp" />
     <ClCompile Include="src\Utils\calculations.cpp" />
     <ClCompile Include="src\Utils\scene_manager.cpp" />
@@ -49,7 +49,7 @@
     <ClInclude Include="src\Scenes\menu_scene.h" />
     <ClInclude Include="src\Scenes\pause_menu.h" />
     <ClInclude Include="src\Scenes\result_scene.h" />
-    <ClInclude Include="src\Scenes\rules_scene.h" />
+    <ClInclude Include="src\Scenes\how2play_scene.h" />
     <ClInclude Include="src\Utils\audio_manager.h" />
     <ClInclude Include="src\Utils\calculations.h" />
     <ClInclude Include="src\Utils\scene_manager.h" />

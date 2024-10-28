@@ -35,7 +35,7 @@
     <ClCompile Include="src\Scenes\result_scene.cpp">
       <Filter>Scenes</Filter>
     </ClCompile>
-    <ClCompile Include="src\Scenes\rules_scene.cpp">
+    <ClCompile Include="src\Scenes\how2play_scene.cpp">
       <Filter>Scenes</Filter>
     </ClCompile>
     <ClCompile Include="src\Utils\audio_manager.cpp">
@@ -96,7 +96,7 @@
     <ClInclude Include="src\Scenes\result_scene.h">
       <Filter>Scenes</Filter>
     </ClInclude>
-    <ClInclude Include="src\Scenes\rules_scene.h">
+    <ClInclude Include="src\Scenes\how2play_scene.h">
       <Filter>Scenes</Filter>
     </ClInclude>
     <ClInclude Include="src\Utils\audio_manager.h">

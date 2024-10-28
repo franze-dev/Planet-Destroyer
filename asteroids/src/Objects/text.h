@@ -7,18 +7,20 @@ using namespace std;
 
 namespace Text
 {
-	const float textSpacing = 20.0f;
+	const float textSpacing = 10.0f;
 
 	enum class Padding
 	{
 		tiny = 20,
 		small = 30,
 		medium = 60,
-		big = 90
+		big = 90,
+		giant = 120
 	};
 
 	enum class FontSize
 	{
+		tiny = 12,
 		small = 20,
 		medium = 40,
 		big = 80,

@@ -6,6 +6,7 @@
 #include "scenes/menu_scene.h"
 #include "scenes/credits_scene.h"
 #include "scenes/result_scene.h"
+#include "scenes/how2play_scene.h"
 #include "utils/screen_info.h"
 #include "utils/scene_manager.h"
 #include "utils/audio_manager.h"
@@ -35,6 +36,7 @@ namespace Game
 		MenuScene::Init();
 		CreditsScene::Init();
 		ResultScene::Init();
+		HowToPlayScene::Init();
 	}
 
 	static void Update()
@@ -56,6 +58,9 @@ namespace Game
 			if (previousScene != SceneManager::Result)
 				previousScene = SceneManager::Result;
 			ResultScene::Update();
+			break;
+		case SceneManager::HowToPlay:
+			HowToPlayScene::Update();
 			break;
 		default:
 			break;
@@ -80,6 +85,9 @@ namespace Game
 			break;
 		case SceneManager::Result:
 			ResultScene::Draw();
+			break;
+		case SceneManager::HowToPlay:
+			HowToPlayScene::Draw();
 			break;
 		default:
 			break;

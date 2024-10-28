@@ -27,20 +27,21 @@ void MenuScene::Init()
 {
 #pragma region TITLE_TEXTS
 
-	titlePart1 = Text::GetText(0, 0, Text::Fonts::Title1, static_cast<int>(Text::FontSize::big), "PLANET", MAGENTA);
-	titlePart1.location.x = static_cast<float>(screenWidth) / 2.0f - Text::GetTextWidth(titlePart1) / 2.0f;
+	titlePart1 = Text::GetText(screenWidth/2, 0, Text::Fonts::Title1, static_cast<int>(Text::FontSize::big), "PLANET", MAGENTA);
+	Text::CenterTextX(titlePart1);
 	titlePart1.location.y = static_cast<float>(Text::Padding::medium);
-	titlePart2 = Text::GetText(0, titlePart1.location.y + Text::GetTextHeight(titlePart1) + static_cast<float>(Text::Padding::tiny), Text::Fonts::Title2, static_cast<int>(Text::FontSize::giant), "DESTROYER", YELLOW);
-	titlePart2.location.x = static_cast<float>(screenWidth) / 2.0f - Text::GetTextWidth(titlePart2) / 2.0f;
+	titlePart2 = Text::GetText(screenWidth / 2, titlePart1.location.y + Text::GetTextHeight(titlePart1), Text::Fonts::Title2, static_cast<int>(Text::FontSize::giant), "DESTROYER", YELLOW);
+	Text::CenterTextX(titlePart2);
+
 #pragma endregion
 
 	playButton = Button::GetButton(static_cast<float>(GetScreenWidth()) / 2.0f - Text::GetTextWidth(titlePart2) / 2.0f, static_cast<float>(GetScreenHeight()) / 2.0f - Text::GetTextHeight(titlePart2) / 2.0f, Text::GetTextWidth(titlePart2), Text::GetTextHeight(titlePart2)/2, "PLAY", BLACK, MAGENTA, WHITE, Text::Fonts::Title2);
 	
 	creditsButton = Button::GetButton(playButton.shape.x, playButton.shape.y + playButton.shape.height + static_cast<int>(Text::Padding::tiny), playButton.shape.width, playButton.shape.height, "CREDITS", BLACK, SKYBLUE, WHITE, playButton.textShown.font);
 
-	exitButton = Button::GetButton(playButton.shape.x, creditsButton.shape.y + creditsButton.shape.height + static_cast<int>(Text::Padding::tiny), playButton.shape.width, playButton.shape.height, "EXIT", BLACK, RED, WHITE, playButton.textShown.font);
+	howToPlayButton = Button::GetButton(playButton.shape.x, creditsButton.shape.y + creditsButton.shape.height + static_cast<int>(Text::Padding::tiny), playButton.shape.width, playButton.shape.height, "HOW TO PLAY", BLACK, YELLOW, WHITE, playButton.textShown.font);
 
-	howToPlayButton = Button::GetButton(playButton.shape.x, exitButton.shape.y + exitButton.shape.height + static_cast<int>(Text::Padding::tiny), playButton.shape.width, playButton.shape.height, "HOW TO PLAY", BLACK, YELLOW, WHITE, playButton.textShown.font);
+	exitButton = Button::GetButton(playButton.shape.x, howToPlayButton.shape.y + howToPlayButton.shape.height + static_cast<int>(Text::Padding::tiny), playButton.shape.width, playButton.shape.height, "EXIT", BLACK, RED, WHITE, playButton.textShown.font);
 }
 
 void MenuScene::Update()
@@ -55,6 +56,8 @@ void MenuScene::Update()
 
 	Button::CheckSceneChange(creditsButton, SceneManager::Credits);
 
+	Button::CheckSceneChange(howToPlayButton, SceneManager::HowToPlay);
+
 	Button::CheckSceneChange(exitButton, SceneManager::None, Audio::Song::menu);
 
 }
@@ -65,7 +68,8 @@ void MenuScene::Draw()
 	DrawText(titlePart2);
 
 	Button::DrawButton(playButton);
-	Button::DrawButton(exitButton);
 	Button::DrawButton(creditsButton);
+	Button::DrawButton(howToPlayButton);
+	Button::DrawButton(exitButton);
 
 }
