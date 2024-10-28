@@ -4,7 +4,7 @@
 #include "raymath.h"
 
 #include "utils/screen_info.h"
-
+#include "utils/audio_manager.h"
 
 namespace Planet
 {
@@ -135,17 +135,6 @@ namespace Planet
 		int y = GetRandomValue(0, screenHeight);
 
 		Vector2 objective{ static_cast<float>(x), static_cast<float>(y) };
-
-		/*if (planet.collisionShape.pos.x < 0)
-			objective.x = planet.collisionShape.pos.x + planet.speed.x;
-		else if(planet.collisionShape.pos.x > screenWidth)
-			objective.x = planet.collisionShape.pos.x - planet.speed.x;
-
-		if (planet.collisionShape.pos.y < 0)
-			objective.y = planet.collisionShape.pos.y + planet.speed.y;
-		else if (planet.collisionShape.pos.x > screenHeight)
-			objective.y = planet.collisionShape.pos.y - planet.speed.y;*/
-
 
 		planet.dir = Vector2Subtract(objective, { planet.collisionShape.pos.x, planet.collisionShape.pos.y });
 
@@ -319,11 +308,6 @@ namespace Planet
 				
 	}
 
-	static void DeletePlanet(Planet& planet)
-	{
-		planet.lives = 0;
-	}
-
 	static void ShipCollisionCheck(SpaceShip::SpaceShip& ship, Planet& planet)
 	{
 		SpaceShip::SpaceShip myship = ship;
@@ -392,6 +376,13 @@ namespace Planet
 	void Draw(Planet planets[])
 	{
 		DrawPlanets(planets);
+	}
+
+	void DeletePlanet(Planet& planet)
+	{
+		Audio::Play(Audio::Sfx::planet);
+
+		planet.lives = 0;
 	}
 }
 

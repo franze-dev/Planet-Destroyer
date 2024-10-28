@@ -31,4 +31,5 @@ namespace Planet
 	void Init(Planet planets[]);
 	void Update(SpaceShip::SpaceShip& ship, Planet planets[]);
 	void Draw(Planet planets[]);
+	void DeletePlanet(Planet& planet);
 }

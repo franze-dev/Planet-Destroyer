@@ -4,6 +4,7 @@
 
 #include "utils/calculations.h"
 #include "utils/screen_info.h"
+#include "utils/audio_manager.h"	
 
 //NOTE: All of the above are used
 
@@ -37,7 +38,7 @@ namespace Bullet
 
 		bullet.dir = Vector2Subtract(mousePos, { bullet.rect.x, bullet.rect.y });
 
-		//tanf returns result in radians
+		//atan returns result in radians
 		bullet.angle = static_cast<float>(atan(bullet.dir.y / bullet.dir.x));
 
 		//I turn it into DEG so it's compatible with raylib functions
@@ -49,6 +50,8 @@ namespace Bullet
 			Rotate::FixTanValue(bullet.angle, myQuadrant);
 
 		bullet.isStored = false;
+
+		Audio::Play(Audio::Sfx::shoot);
 	}
 
 	void Draw(Bullet bullet)

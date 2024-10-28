@@ -53,7 +53,7 @@ namespace Gameplay
 
 		if (calculations.distance <= planet.collisionShape.radius)
 		{
-			planet.lives = 0;
+			Planet::DeletePlanet(planet);
 			bullet.isVisible = false;
 		}
 	}
