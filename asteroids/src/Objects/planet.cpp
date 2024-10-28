@@ -230,7 +230,7 @@ namespace Planet
 	{
 		for (int i = 0; i < startPlanets; i++)
 			InitPlanet(planets[i]);
-		
+
 	}
 
 	static void ScreenWrapCheck(Planet& planet)
@@ -278,7 +278,10 @@ namespace Planet
 
 	static void DrawPlanet(Planet planet)
 	{
+#ifdef DEBUG
 		DrawCircle(static_cast<int>(planet.collisionShape.pos.x), static_cast<int>(planet.collisionShape.pos.y), static_cast<float>(planet.collisionShape.radius), RED);
+#endif // DEBUG
+
 		DrawTexturePro(planet.sprite.texture, planet.sprite.source, planet.sprite.dest, planet.sprite.origin, static_cast<float>(planet.angle), WHITE);
 	}
 
@@ -305,7 +308,7 @@ namespace Planet
 			for (int i = 0; i < startPlanets; i++)
 				if (planets[i].lives == 0)
 					InitPlanet(planets[i]);
-				
+
 	}
 
 	static void ShipCollisionCheck(SpaceShip::SpaceShip& ship, Planet& planet)

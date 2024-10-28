@@ -286,6 +286,9 @@ namespace SpaceShip
 
 		DrawBullets(ship);
 
+#ifdef DEBUG
 		DrawCircle(static_cast<int>(ship.collisionShape.pos.x), static_cast<int>(ship.collisionShape.pos.y), static_cast<float>(ship.collisionShape.radius), BLUE);
+#endif // DEBUG
+
 	}
 }
