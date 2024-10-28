@@ -144,16 +144,16 @@ namespace CreditsScene
 
 		credit.text = Text::GetText(screenWidth / 2, y, Text::Fonts::Default, static_cast<int>(Text::FontSize::small), credit.role, WHITE);
 		Text::CenterTextX(credit.text);
-		credit.button = Button::GetButton(screenWidth / 2, credit.text.location.y + Text::GetTextHeight(credit.text) + static_cast<int>(Text::Padding::tiny), Text::GetTextWidth(creditsTitle) + static_cast<int>(Text::Padding::medium), Text::GetTextHeight(credit.text) * 2, credit.name, BLACK, highlightColor, WHITE, Text::Fonts::Default);
+		credit.button = Button::GetButton(screenWidth / 2, credit.text.location.y + Text::GetTextHeight(credit.text) + static_cast<int>(Text::Padding::tiny), Text::GetTextWidth(creditsTitle) + static_cast<int>(Text::Padding::giant), Text::GetTextHeight(credit.text) * 2, credit.name, BLACK, highlightColor, WHITE, Text::Fonts::Default);
 		credit.button.shape.x -= credit.button.shape.width / 2;
 	}
 
 	static void InitCredits()
 	{
-#pragma region PAGE_1
-
 		creditsTitle = Text::GetText(screenWidth / 2, static_cast<int>(Text::Padding::medium), Text::Fonts::Title1, static_cast<int>(Text::FontSize::big), "CREDITS", SKYBLUE);
 		Text::CenterTextX(creditsTitle);
+
+#pragma region PAGE_1
 
 		devTitle = Text::GetText(screenWidth / 2, creditsTitle.location.y + Text::GetTextHeight(creditsTitle) + static_cast<int>(Text::Padding::tiny), Text::Fonts::Title2, creditsTitle.fontSize * 3 / 4, "DEVELOPMENT", MAGENTA);
 		Text::CenterTextX(devTitle);
@@ -248,9 +248,9 @@ namespace CreditsScene
 
 #pragma region LANGUAGE_TOOL
 
-		creditsInfo[language].name = "C++";
-		creditsInfo[language].url = "https://isocpp.org/";
-		creditsInfo[language].role = "CODE";
+		creditsInfo[language].name = "Github Repository";
+		creditsInfo[language].url = "https://github.com/aeffggbh/Asteroids";
+		creditsInfo[language].role = "SOURCE CODE";
 
 #pragma endregion
 
