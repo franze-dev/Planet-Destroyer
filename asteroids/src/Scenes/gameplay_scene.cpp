@@ -4,6 +4,8 @@
 
 #include "objects/ship.h"
 #include "objects/planet.h"
+#include "objects/button.h"
+#include "objects/text.h"
 #include "scenes/pause_menu.h"
 #include "utils/scene_manager.h"
 #include "utils/audio_manager.h"
@@ -14,12 +16,18 @@ namespace Gameplay
 	Planet::Planet planets[Planet::startPlanets];
 	SpaceShip::SpaceShip ship;
 	static Texture2D shipTexture;
+	static Button::Button pauseButton;
 	static bool isPaused = false;
 
 	static void CheckPause()
 	{
-		if (IsKeyReleased(KEY_P) && !isPaused)
-			isPaused = true;
+		if (Button::IsMouseOnButton(pauseButton))
+		{
+			if (IsMouseButtonReleased(MOUSE_BUTTON_LEFT))
+			{
+				isPaused = true;
+			}
+		}
 	}
 
 	static void BulletPlanetCollision(Planet::Planet& planet, Bullet::Bullet& bullet)
@@ -59,8 +67,6 @@ namespace Gameplay
 						BulletPlanetCollision(planets[j], ship.bullets[i]);
 	}
 
-	
-
 	void UnPauseGame()
 	{
 		isPaused = false;
@@ -85,6 +91,7 @@ namespace Gameplay
 		SpaceShip::SaveTexture(shipTexture, ship);
 		Planet::Init(planets);
 		PauseMenu::Init();
+		pauseButton = Button::GetButton(static_cast<int>(Text::Padding::small), static_cast<int>(Text::Padding::small), 100.0f, 50.0f, "PAUSE", BLACK, RED, YELLOW, Text::Fonts::Default);
 	}
 
 	void Update()
@@ -123,6 +130,10 @@ namespace Gameplay
 	{
 		SpaceShip::Draw(ship);
 		Planet::Draw(planets);
+
+		if (!isPaused)
+			Button::DrawButton(pauseButton);
+		
 
 		if (isPaused)
 			PauseMenu::Draw();
