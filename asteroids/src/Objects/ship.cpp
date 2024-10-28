@@ -216,10 +216,10 @@ namespace SpaceShip
 		ship.maxSpeed = 500.0f;
 		ship.acceleration = 100.0f;
 		ship.speed = { 0, 0 };
-		ship.lives = 3;
+		ship.lives = 6;
 		ship.won = false;
 
-		Rectangle sourceRect;
+		Rectangle sourceRect{};
 
 		sourceRect.x = 0;
 		sourceRect.y = 0;

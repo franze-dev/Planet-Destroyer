@@ -10,29 +10,38 @@
 #include "utils/scene_manager.h"
 #include "utils/audio_manager.h"
 #include "utils/calculations.h"
+#include "utils/screen_info.h"
 
 namespace Gameplay
 {
+	struct Triangle
+	{
+		int width; //distance from 1 to 3
+		int height; //distance from 1 to 2
+		Vector2 vertex1;  //	2
+		Vector2 vertex2;  //  /	  \ 
+		Vector2 vertex3;  // 1-----3
+	};
+
+	static const int maxLives = 6;
+	static bool isPaused = false;
 	Planet::Planet planets[Planet::startPlanets];
 	SpaceShip::SpaceShip ship;
+	static Triangle lives[maxLives];
 	static Texture2D shipTexture;
 	static Button::Button pauseButton;
-	static bool isPaused = false;
 
 	static void CheckPause()
 	{
 		if (Button::IsMouseOnButton(pauseButton))
-		{
 			if (IsMouseButtonReleased(MOUSE_BUTTON_LEFT))
-			{
 				isPaused = true;
-			}
-		}
+			
 	}
 
 	static void BulletPlanetCollision(Planet::Planet& planet, Bullet::Bullet& bullet)
 	{
-		Collide::Distances calculations;
+		Collide::Distances calculations{};
 
 		calculations.pinPointX = static_cast<int>(planet.collisionShape.pos.x);
 		calculations.pinPointY = static_cast<int>(planet.collisionShape.pos.y);
@@ -66,6 +75,43 @@ namespace Gameplay
 					if (planets[j].lives > 0)
 						BulletPlanetCollision(planets[j], ship.bullets[i]);
 	}
+	
+	static Triangle InitLife(float x)
+	{
+		Triangle life{};
+
+		life.height = 40;
+		life.width = life.height / 2;
+		life.vertex1 = { x , life.width + static_cast<float>(Text::Padding::small) };
+		life.vertex3 = life.vertex1;
+		life.vertex3.x += life.width;
+		life.vertex2 = { life.vertex1.x + life.width / 2, life.vertex1.y - life.height };
+
+		return life;
+	}
+
+	static void InitLives()
+	{
+		float x = static_cast<float>(Text::Padding::tiny);
+
+		for (int i = 0; i < maxLives; i++)
+		{
+			lives[i] = InitLife(x);
+			x += lives[i].width + static_cast<float>(Text::Padding::tiny);
+		}
+	}
+
+	static void DrawLife(Triangle life)
+	{
+		DrawTriangle(life.vertex1, life.vertex3, life.vertex2, WHITE);
+	}
+
+	static void DrawLives()
+	{
+		for (int i = 0; i < ship.lives; i++)
+			DrawLife(lives[i]);
+		
+	}
 
 	void UnPauseGame()
 	{
@@ -91,7 +137,9 @@ namespace Gameplay
 		SpaceShip::SaveTexture(shipTexture, ship);
 		Planet::Init(planets);
 		PauseMenu::Init();
-		pauseButton = Button::GetButton(static_cast<int>(Text::Padding::small), static_cast<int>(Text::Padding::small), 100.0f, 50.0f, "PAUSE", BLACK, RED, YELLOW, Text::Fonts::Default);
+		pauseButton = Button::GetButton(screenWidth, static_cast<int>(Text::Padding::small), 100.0f, 50.0f, "PAUSE", BLACK, RED, YELLOW, Text::Fonts::Default);
+		pauseButton.shape.x -= pauseButton.shape.width + static_cast<int>(Text::Padding::small);
+		InitLives();
 	}
 
 	void Update()
@@ -133,6 +181,9 @@ namespace Gameplay
 
 		if (!isPaused)
 			Button::DrawButton(pauseButton);
+		
+		if (ship.lives > 0)
+			DrawLives();
 		
 
 		if (isPaused)
