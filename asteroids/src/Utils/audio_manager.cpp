@@ -87,16 +87,16 @@ namespace Audio
 	{
 		InitAudioDevice();
 
-		menuMusic = LoadMusicStream(menuMusicDir.data());
-		gameplayMusic = LoadMusicStream(gameplayMusicDir.data());
+		menuMusic = LoadMusicStream(menuMusicDir.c_str());
+		gameplayMusic = LoadMusicStream(gameplayMusicDir.c_str());
 
-		buttonSfx0 = LoadSound(buttonSfx0Dir.data());
-		buttonSfx1 = LoadSound(buttonSfx1Dir.data());
-		buttonSfx2 = LoadSound(buttonSfx2Dir.data());
-		buttonSfx3 = LoadSound(buttonSfx3Dir.data());
+		buttonSfx0 = LoadSound(buttonSfx0Dir.c_str());
+		buttonSfx1 = LoadSound(buttonSfx1Dir.c_str());
+		buttonSfx2 = LoadSound(buttonSfx2Dir.c_str());
+		buttonSfx3 = LoadSound(buttonSfx3Dir.c_str());
 
-		shootSfx = LoadSound(shootSfxDir.data());
-		planetSfx = LoadSound(planetSfxDir.data());
+		shootSfx = LoadSound(shootSfxDir.c_str());
+		planetSfx = LoadSound(planetSfxDir.c_str());
 	}
 
 	Music GetMusic(Song song)

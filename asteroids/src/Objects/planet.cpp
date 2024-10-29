@@ -341,19 +341,19 @@ namespace Planet
 
 	void LoadTextures()
 	{
-		planetTextures[earth] = LoadTexture(TextureManager::earthSprite.data());
+		planetTextures[earth] = LoadTexture(TextureManager::earthSprite.c_str());
 
-		planetTextures[venus] = LoadTexture(TextureManager::venusSprite.data());
+		planetTextures[venus] = LoadTexture(TextureManager::venusSprite.c_str());
 
-		planetTextures[saturn] = LoadTexture(TextureManager::saturnSprite.data());
+		planetTextures[saturn] = LoadTexture(TextureManager::saturnSprite.c_str());
 
-		planetTextures[uranus] = LoadTexture(TextureManager::uranusSprite.data());
+		planetTextures[uranus] = LoadTexture(TextureManager::uranusSprite.c_str());
 
-		planetTextures[mars] = LoadTexture(TextureManager::marsSprite.data());
+		planetTextures[mars] = LoadTexture(TextureManager::marsSprite.c_str());
 
-		planetTextures[neptune] = LoadTexture(TextureManager::neptuneSprite.data());
+		planetTextures[neptune] = LoadTexture(TextureManager::neptuneSprite.c_str());
 
-		planetTextures[jupiter] = LoadTexture(TextureManager::jupiterSprite.data());
+		planetTextures[jupiter] = LoadTexture(TextureManager::jupiterSprite.c_str());
 
 	}
 

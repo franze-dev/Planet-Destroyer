@@ -58,7 +58,7 @@ namespace Button
 
 	static void DrawButtonText(Button button)
 	{
-		DrawText(button.textShown.content.data(), static_cast<int>(button.shape.x) + static_cast<int>(button.shape.width / 2) - MeasureText(button.textShown.content.data(), button.textShown.fontSize) / 2, static_cast<int>(button.shape.y) + static_cast<int>(button.shape.height / 2) - button.textShown.fontSize / 2, button.textShown.fontSize, button.textShown.currentColor);
+		DrawText(button.textShown.content.c_str(), static_cast<int>(button.shape.x) + static_cast<int>(button.shape.width / 2) - MeasureText(button.textShown.content.c_str(), button.textShown.fontSize) / 2, static_cast<int>(button.shape.y) + static_cast<int>(button.shape.height / 2) - button.textShown.fontSize / 2, button.textShown.fontSize, button.textShown.currentColor);
 	}
 
 	static void DrawButtonRect(Button button)
@@ -87,7 +87,7 @@ namespace Button
 		myButton.textShown.content = content;
 		myButton.textShown.fontSize = static_cast<int>(height) / 2;
 		myButton.textShown.currentColor = textColor;
-		myButton.textShown.location.x = x + width / 2.0f - static_cast<float>(MeasureText(myButton.textShown.content.data(), myButton.textShown.fontSize), myButton.textShown.fontSize);
+		myButton.textShown.location.x = x + width / 2.0f - static_cast<float>(MeasureText(myButton.textShown.content.c_str(), myButton.textShown.fontSize), myButton.textShown.fontSize);
 		myButton.textShown.font = font;
 
 		return myButton;

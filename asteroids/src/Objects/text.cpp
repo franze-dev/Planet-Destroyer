@@ -13,12 +13,12 @@ namespace Text
 
 	float GetTextWidth(Text text)
 	{
-		return MeasureTextEx(GetFont(text.font), text.content.data(), static_cast<float>(text.fontSize), textSpacing).x;
+		return MeasureTextEx(GetFont(text.font), text.content.c_str(), static_cast<float>(text.fontSize), textSpacing).x;
 	}
 
 	float GetTextHeight(Text text)
 	{
-		return MeasureTextEx(GetFont(text.font), text.content.data(), static_cast<float>(text.fontSize), textSpacing).y;
+		return MeasureTextEx(GetFont(text.font), text.content.c_str(), static_cast<float>(text.fontSize), textSpacing).y;
 	}
 
 	Font GetFont(Fonts font)
@@ -57,13 +57,13 @@ namespace Text
 	void DrawText(Text myText)
 	{
 		SetTextureFilter(GetFont(myText.font).texture, TEXTURE_FILTER_BILINEAR);
-		DrawTextEx(GetFont(myText.font), myText.content.data(), myText.location, static_cast<float>(myText.fontSize), textSpacing, myText.currentColor);
+		DrawTextEx(GetFont(myText.font), myText.content.c_str(), myText.location, static_cast<float>(myText.fontSize), textSpacing, myText.currentColor);
 	}
 
 	void DrawText(Text myText, int number)
 	{
 		SetTextureFilter(GetFont(myText.font).texture, TEXTURE_FILTER_BILINEAR);
-		DrawTextEx(GetFont(myText.font), TextFormat(myText.content.data(), number), myText.location, static_cast<float>(myText.fontSize), textSpacing, myText.currentColor);
+		DrawTextEx(GetFont(myText.font), TextFormat(myText.content.c_str(), number), myText.location, static_cast<float>(myText.fontSize), textSpacing, myText.currentColor);
 	}
 
 	Text GetText(float x, float y, Fonts font, int fontSize, string content, Color color)
