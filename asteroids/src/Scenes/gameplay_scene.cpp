@@ -124,10 +124,11 @@ namespace Gameplay
 
 	static void InitScore()
 	{
+		score = 0;
 		scoreText = Text::GetText(0, 0, Text::Fonts::Default, static_cast<int>(Text::FontSize::medium), "SCORE: ", YELLOW);
 		scoreText.location.y = screenHeight - Text::GetTextHeight(scoreText);
-		scoreCount = Text::GetText(0, 0, Text::Fonts::Default, static_cast<int>(Text::FontSize::medium), "10000", YELLOW, RED);
-		scoreCount.location.y = screenHeight - Text::GetTextHeight(scoreCount);
+		scoreCount = Text::GetText(0, scoreText.location.y, Text::Fonts::Default, static_cast<int>(Text::FontSize::medium), "0", YELLOW, RED);
+		scoreCount.location.x = Text::GetTextWidth(scoreText);
 
 	}
 
