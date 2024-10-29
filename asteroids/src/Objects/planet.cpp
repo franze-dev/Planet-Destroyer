@@ -165,7 +165,7 @@ namespace Planet
 	{
 		PlanetType planetType = static_cast<PlanetType>(GetRandomValue(0, venus));
 
-		Texture2D texture = LoadTexture(TextureManager::shipSprite.c_str());
+		Texture2D texture = planetTextures[earth];
 
 		switch (planetType)
 		{
