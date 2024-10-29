@@ -333,7 +333,7 @@ namespace Planet
 
 	static void ShipCollisionCheck(SpaceShip::SpaceShip& ship, Planet planets[])
 	{
-		for (int i = 0; i < startPlanets; i++)
+		for (int i = 0; i < maxPossiblePlanets; i++)
 			if (planets[i].size > 0 && planets[i].visible)
 				ShipCollisionCheck(ship, planets[i]);
 
