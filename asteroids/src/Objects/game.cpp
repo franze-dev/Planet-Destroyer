@@ -110,6 +110,7 @@ namespace Game
 	void Play()
 	{
 		InitWindow(screenWidth, screenHeight, "Planet Destroyer");
+		SetExitKey(KEY_NULL);
 		Text::InitFonts();
 		LoadRes();
 		Init();
