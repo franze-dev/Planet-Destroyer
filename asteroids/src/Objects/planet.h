@@ -9,7 +9,7 @@
 namespace Planet
 {
 	const int startPlanets = 25;
-	const int maxPossiblePlanets = startPlanets * 3;
+	const int maxPossiblePlanets = startPlanets * 9;
 
 	struct Planet
 	{
