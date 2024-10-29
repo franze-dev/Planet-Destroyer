@@ -47,9 +47,6 @@
     <ClCompile Include="src\Utils\scene_manager.cpp">
       <Filter>Utils</Filter>
     </ClCompile>
-    <ClCompile Include="src\Utils\texture_manager.cpp">
-      <Filter>Utils</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Objects">

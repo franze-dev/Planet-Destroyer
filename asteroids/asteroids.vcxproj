@@ -35,7 +35,6 @@
     <ClCompile Include="src\Utils\audio_manager.cpp" />
     <ClCompile Include="src\Utils\calculations.cpp" />
     <ClCompile Include="src\Utils\scene_manager.cpp" />
-    <ClCompile Include="src\Utils\texture_manager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Objects\bullet.h" />

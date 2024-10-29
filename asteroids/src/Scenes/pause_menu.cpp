@@ -15,9 +15,6 @@ namespace PauseMenu
 	Button::Button backToMenuButton;
 	//Button::Button exitButton;
 
-	int defaultFontSize = 40;
-	int buttonsPadding = 30;
-
 	void Init()
 	{
 		pauseTitle = Text::GetText(screenWidth / 2, screenHeight / 2 - static_cast<int>(Text::FontSize::big), Text::Fonts::Title1, static_cast<int>(Text::FontSize::big), "PAUSED", WHITE);

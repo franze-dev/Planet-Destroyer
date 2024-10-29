@@ -73,8 +73,8 @@ namespace SpaceShip
 
 	static void UpdateSpritePos(SpaceShip& ship)
 	{
-		ship.sprite.dest.x = ship.collisionShape.pos.x; //- ship.sprite.texture.width / 2;
-		ship.sprite.dest.y = ship.collisionShape.pos.y; //- ship.sprite.texture.height / 2;
+		ship.sprite.dest.x = ship.collisionShape.pos.x;
+		ship.sprite.dest.y = ship.collisionShape.pos.y;
 	}
 
 	static void Reload(SpaceShip& ship)
@@ -261,6 +261,7 @@ namespace SpaceShip
 
 		ship.collisionShape.radius = static_cast<int>(ship.sprite.dest.width) / 4;
 	}
+
 	void Update(SpaceShip& ship)
 	{
 		FollowMouse(ship);
