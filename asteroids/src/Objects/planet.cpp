@@ -307,8 +307,8 @@ namespace Planet
 
 	static void ReplenishPlanetsCheck(Planet planets[])
 	{
-		if (GetPlanetsCount(planets) <= (startPlanets / 2))
-			for (int i = 0; i < startPlanets; i++)
+		if (GetPlanetsCount(planets) <= (maxPossiblePlanets - startPlanets))
+			for (int i = 0; i < (maxPossiblePlanets / 2); i++)
 				if (planets[i].size == 0)
 					InitPlanet(planets[i]);
 
@@ -325,7 +325,6 @@ namespace Planet
 
 		if (distance <= ship.collisionShape.radius + planet.collisionShape.radius)
 		{
-			//planet divides!
 			DeletePlanet(planet);
 			ship.lives--;
 		}
