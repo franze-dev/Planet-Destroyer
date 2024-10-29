@@ -18,7 +18,8 @@ namespace CreditsScene
 	enum Roles
 	{
 		dev,
-		artist,
+		artist1,
+		artist2,
 		font1,
 		font2,
 		font3,
@@ -88,7 +89,7 @@ namespace CreditsScene
 		{
 		case CreditsScene::Pages::page1:
 
-			for (int i = dev; i < artist + 1; i++)
+			for (int i = dev; i < artist2 + 1; i++)
 				CheckURLButton(creditsInfo[i]);
 
 			break;
@@ -160,10 +161,11 @@ namespace CreditsScene
 
 		InitCredit(creditsInfo[dev], devTitle.location.y + Text::GetTextHeight(devTitle) + static_cast<int>(Text::Padding::tiny));
 
-		artTitle = Text::GetText(screenWidth / 2, creditsInfo[dev].button.shape.y + creditsInfo[dev].button.shape.height + static_cast<int>(Text::Padding::medium), Text::Fonts::Title2, devTitle.fontSize, "ART", YELLOW);
+		artTitle = Text::GetText(screenWidth / 2, creditsInfo[dev].button.shape.y + creditsInfo[dev].button.shape.height + static_cast<int>(Text::Padding::tiny), Text::Fonts::Title2, devTitle.fontSize, "ART", YELLOW);
 		Text::CenterTextX(artTitle);
 
-		InitCredit(creditsInfo[artist], artTitle.location.y + Text::GetTextHeight(artTitle) + static_cast<int>(Text::Padding::tiny));
+		InitCredit(creditsInfo[artist1], artTitle.location.y + Text::GetTextHeight(artTitle) + static_cast<int>(Text::Padding::tiny));
+		InitCredit(creditsInfo[artist2], creditsInfo[artist1].button.shape.y + Text::GetTextHeight(creditsInfo[artist1].text) + static_cast<int>(Text::Padding::medium));
 
 #pragma endregion
 
@@ -188,7 +190,7 @@ namespace CreditsScene
 		toolsTitle = fontTitle;
 		toolsTitle.content = "TOOLS";
 
-		posY = toolsTitle.location.y + Text::GetTextHeight(toolsTitle) + static_cast<float>(Text::Padding::tiny);
+		posY = toolsTitle.location.y + Text::GetTextHeight(toolsTitle) + static_cast<float>(Text::Padding::medium);
 
 		for (int i = language; i < soundTool2 + 1; i++)
 		{
@@ -222,10 +224,14 @@ namespace CreditsScene
 #pragma endregion
 
 #pragma region ART_ROLE
-		//ART (ME, FOR NOW)
-		creditsInfo[artist].name = "Sofia Alvarez";
-		creditsInfo[artist].url = "https://gensofi24.itch.io/";
-		creditsInfo[artist].role = "PIXEL ART";
+		//ART
+		creditsInfo[artist1].name = "Sofia Alvarez";
+		creditsInfo[artist1].url = "https://gensofi24.itch.io/";
+		creditsInfo[artist1].role = "PIXEL ART";
+
+		creditsInfo[artist2].name = "Alexa Laborero";
+		creditsInfo[artist2].url = "https://xertun.itch.io/";
+		creditsInfo[artist2].role = "GAMEPLAY BACKGROUND";
 #pragma endregion
 
 #pragma region FONTS_ROLE
@@ -334,7 +340,10 @@ namespace CreditsScene
 			DrawCredit(creditsInfo[dev]);
 
 			Text::DrawText(artTitle);
-			DrawCredit(creditsInfo[artist]);
+			DrawCredit(creditsInfo[artist1]);
+
+			Text::DrawText(artTitle);
+			DrawCredit(creditsInfo[artist2]);
 
 			break;
 		case CreditsScene::Pages::page2:
