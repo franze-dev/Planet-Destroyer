@@ -45,7 +45,7 @@ namespace SpaceShip
 
 		float mag = 0.0f;
 
-		if (IsMouseButtonReleased(MOUSE_LEFT_BUTTON))
+		if (IsMouseButtonDown(MOUSE_BUTTON_RIGHT))
 		{
 			normalizedDir.x = ship.dir.x / sqrt(pow(ship.dir.x, 2.0f) + pow(ship.dir.y, 2.0f));
 			normalizedDir.y = ship.dir.y / sqrt(pow(ship.dir.x, 2.0f) + pow(ship.dir.y, 2.0f));

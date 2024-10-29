@@ -8,17 +8,19 @@
 
 namespace Planet
 {
-	const int startPlanets = 50;
+	const int startPlanets = 25;
+	const int maxPossiblePlanets = startPlanets * 3;
 
 	struct Planet
 	{
 		float maxSpeed;
 		int scale;
 		int damage;
-		int lives;
+		int size;
 
 		int angle;
 	
+		bool visible;
 		bool isSmaller;
 		Collide::CollisionBall collisionShape;
 		TextureManager::Sprite sprite;
@@ -26,6 +28,7 @@ namespace Planet
 		Vector2 dir;
 	};
 
+	void DividePlanet(Planet& planet, Planet planets[]);
 	void LoadTextures();
 	void UnloadTextures();
 	void Init(Planet planets[]);

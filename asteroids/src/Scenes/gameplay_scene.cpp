@@ -23,12 +23,13 @@ namespace Gameplay
 		Vector2 vertex3;  // 1-----3
 	};
 
-	static const int maxLives = 6;
+	static const int maxLives = 3;
 	static bool isPaused = false;
-	Planet::Planet planets[Planet::startPlanets];
+	Planet::Planet planets[Planet::maxPossiblePlanets];
 	SpaceShip::SpaceShip ship;
 	static Triangle lives[maxLives];
 	static Texture2D shipTexture;
+	static Texture2D backgroundTexture;
 	static Button::Button pauseButton;
 
 	static void CheckPause()
@@ -36,7 +37,7 @@ namespace Gameplay
 		if (Button::IsMouseOnButton(pauseButton))
 			if (IsMouseButtonReleased(MOUSE_BUTTON_LEFT))
 				isPaused = true;
-			
+
 	}
 
 	static void BulletPlanetCollision(Planet::Planet& planet, Bullet::Bullet& bullet)
@@ -62,7 +63,11 @@ namespace Gameplay
 
 		if (calculations.distance <= planet.collisionShape.radius)
 		{
-			Planet::DeletePlanet(planet);
+			if (planet.size > 0)
+				Planet::DividePlanet(planet, planets);
+			else
+				Planet::DeletePlanet(planet);
+
 			bullet.isVisible = false;
 		}
 	}
@@ -71,11 +76,11 @@ namespace Gameplay
 	{
 		for (int i = 0; i < SpaceShip::maxAmmo; i++)
 			if (ship.bullets[i].isVisible)
-				for (int j = 0; j < Planet::startPlanets; j++)
-					if (planets[j].lives > 0)
+				for (int j = 0; j < Planet::maxPossiblePlanets; j++)
+					if (planets[j].size > 0 && Planet::maxPossiblePlanets)
 						BulletPlanetCollision(planets[j], ship.bullets[i]);
 	}
-	
+
 	static Triangle InitLife(float x)
 	{
 		Triangle life{};
@@ -110,7 +115,7 @@ namespace Gameplay
 	{
 		for (int i = 0; i < ship.lives; i++)
 			DrawLife(lives[i]);
-		
+
 	}
 
 	void UnPauseGame()
@@ -122,11 +127,13 @@ namespace Gameplay
 	{
 		shipTexture = LoadTexture("res/sprites/spaceship.png");
 		Planet::LoadTextures();
+		backgroundTexture = LoadTexture(TextureManager::backgroundSprite.c_str());
 	}
 
 	void UnloadTextures()
 	{
 		UnloadTexture(shipTexture);
+		UnloadTexture(backgroundTexture);
 		Planet::UnloadTextures();
 	}
 
@@ -176,15 +183,26 @@ namespace Gameplay
 
 	void Draw()
 	{
+		SetTextureFilter(backgroundTexture, TEXTURE_FILTER_BILINEAR);
+		DrawTexturePro(backgroundTexture,
+			{ 0,
+			 0,
+			 static_cast<float>(backgroundTexture.width),
+			 static_cast<float>(backgroundTexture.height) },
+			{ 0,
+			 0,
+			 static_cast<float>(screenWidth),
+			 static_cast<float>(screenHeight) }, { 0, 0 }, 0, WHITE);
+
 		SpaceShip::Draw(ship);
 		Planet::Draw(planets);
 
 		if (!isPaused)
 			Button::DrawButton(pauseButton);
-		
+
 		if (ship.lives > 0)
 			DrawLives();
-		
+
 
 		if (isPaused)
 			PauseMenu::Draw();

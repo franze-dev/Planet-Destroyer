@@ -75,7 +75,7 @@ namespace CreditsScene
 			{
 				if (!Audio::IsPlaying(sfx))
 					Audio::Play(sfx);
-				OpenURL(credit.url.data());
+				OpenURL(credit.url.c_str());
 			}
 		}
 		else

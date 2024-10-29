@@ -7,7 +7,7 @@ using namespace std;
 
 namespace TextureManager
 {
-	struct Sprite
+	struct Sprite 
 	{
 		string textureDir;
 		Rectangle source;
@@ -31,5 +31,7 @@ namespace TextureManager
 	const string venusSprite = "res/sprites/venus.png";
 
 	const string earthSprite = "res/sprites/earth.png";
+
+	const string backgroundSprite = "res/sprites/space_bg.png";
 }
 
