@@ -63,8 +63,8 @@ namespace SpaceShip
 				cout << sqrt(pow(ship.speed.x, 2.0f) + pow(ship.speed.y, 2.0f)) << endl;
 			}
 
-			ship.speed.x += ship.acceleration  * normalizedDir.x;
-			ship.speed.y += ship.acceleration  * normalizedDir.y;
+			ship.speed.x += ship.acceleration * GetFrameTime() * normalizedDir.x;
+			ship.speed.y += ship.acceleration * GetFrameTime() * normalizedDir.y;
 
 		}
 
@@ -150,7 +150,7 @@ namespace SpaceShip
 	{
 		Bullet::Bullet* lastBullet = &ship.bullets[maxAmmo - 1];
 
-		if (IsMouseButtonReleased(MOUSE_BUTTON_RIGHT))
+		if (IsMouseButtonReleased(MOUSE_BUTTON_LEFT))
 		{
 			if (!EmptyAmmo(ship))
 			{
@@ -214,9 +214,9 @@ namespace SpaceShip
 		ship.angle = 0.0f;
 		ship.scale = 2;
 		ship.maxSpeed = 500.0f;
-		ship.acceleration = 100.0f;
+		ship.acceleration = 300.0f;
 		ship.speed = { 0, 0 };
-		ship.lives = 6;
+		ship.lives = 3;
 		ship.won = false;
 
 		Rectangle sourceRect{};
@@ -286,9 +286,9 @@ namespace SpaceShip
 
 		DrawBullets(ship);
 
-#ifdef DEBUG
+//#ifdef DEBUG
 		DrawCircle(static_cast<int>(ship.collisionShape.pos.x), static_cast<int>(ship.collisionShape.pos.y), static_cast<float>(ship.collisionShape.radius), BLUE);
-#endif // DEBUG
+//#endif // DEBUG
 
 	}
 }
