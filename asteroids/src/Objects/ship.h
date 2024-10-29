@@ -16,7 +16,6 @@ namespace SpaceShip
 		float angle;
 		int scale;
 		int lives;
-		bool won;
 		Collide::CollisionBall collisionShape;
 		TextureManager::Sprite sprite;
 		Bullet::Bullet bullets[maxAmmo];

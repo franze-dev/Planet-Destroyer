@@ -10,6 +10,7 @@
 #include "objects/button.h"
 #include "objects/text.h"
 #include "scenes/pause_menu.h"
+#include "scenes/result_scene.h"
 #include "utils/scene_manager.h"
 #include "utils/audio_manager.h"
 #include "utils/calculations.h"
@@ -215,6 +216,7 @@ namespace Gameplay
 			if (Audio::IsPlaying(Audio::Song::gameplay))
 				Audio::Stop(Audio::Song::gameplay);
 
+			ResultScene::SaveScore(score);
 			SceneManager::SetCurrentScene(SceneManager::Result);
 		}
 

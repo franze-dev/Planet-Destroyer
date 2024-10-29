@@ -223,7 +223,6 @@ namespace SpaceShip
 		ship.acceleration = 300.0f;
 		ship.speed = { 0, 0 };
 		ship.lives = 3;
-		ship.won = false;
 
 		Rectangle sourceRect{};
 

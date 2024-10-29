@@ -3,7 +3,7 @@
 
 namespace ResultScene
 {
-	void SaveShip(SpaceShip::SpaceShip ship);
+	void SaveScore(int score);
 	void Init();
 	void Update();
 	void Draw();

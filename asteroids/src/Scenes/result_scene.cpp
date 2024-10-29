@@ -1,6 +1,7 @@
 #include "result_scene.h"
 
 #include <iostream>
+#include <string>
 
 #include "objects/button.h"
 #include "objects/text.h"
@@ -11,23 +12,24 @@ using namespace std;
 
 namespace ResultScene
 {
-	static SpaceShip::SpaceShip savedShip;
+	static int savedScore;
 	static Button::Button exitButton;
 	static Button::Button backToMenuButton;
 	static Button::Button playAgainButton;
 	static Text::Text resultText;
-	static string win = "WON!";
-	static string lose = "LOST!";
+	static Text::Text scoreText;
 
-	void SaveShip(SpaceShip::SpaceShip ship)
+	void SaveScore(int score)
 	{
-		savedShip = ship;
+		savedScore = score;
 	}
 
 	void Init()
 	{
-		resultText = Text::GetText(screenWidth / 2, screenHeight / 2 - static_cast<int>(Text::Padding::big), Text::Fonts::Title2, static_cast<int>(Text::FontSize::big), "YOU ", RED, YELLOW);
+		resultText = Text::GetText(screenWidth / 2, screenHeight / 2 - static_cast<int>(Text::Padding::big), Text::Fonts::Title2, static_cast<int>(Text::FontSize::big), "YOU LOST", RED, YELLOW);
 		Text::CenterTextX(resultText);
+
+		scoreText = Text::GetText(screenWidth / 2, resultText.location.y + Text::GetTextHeight(resultText) + static_cast<int>(Text::Padding::tiny), Text::Fonts::Default, resultText.fontSize / 2, "SCORE: ", YELLOW);
 
 		playAgainButton = Button::GetButton(resultText.location.x, resultText.location.y + Text::GetTextHeight(resultText) + static_cast<int>(Text::Padding::medium), Text::GetTextWidth(resultText), Text::GetTextHeight(resultText)/2, "REPLAY", BLACK, MAGENTA, WHITE, Text::Fonts::Default);
 		backToMenuButton = Button::GetButton(resultText.location.x, playAgainButton.shape.y + playAgainButton.shape.height + static_cast<int>(Text::Padding::tiny), Text::GetTextWidth(resultText), Text::GetTextHeight(resultText)/2, "MENU", BLACK, SKYBLUE, WHITE, Text::Fonts::Default);
@@ -40,21 +42,12 @@ namespace ResultScene
 		Button::CheckSceneChange(backToMenuButton, SceneManager::Menu);
 		Button::CheckSceneChange(playAgainButton, SceneManager::Gameplay);
 
-
-		if (savedShip.won)
+		if (scoreText.content != "SCORE: " + to_string(savedScore))
 		{
-			resultText.currentColor = resultText.alt2Color;
-			resultText.content += win;
-			resultText.location.x = screenWidth / 2;
-			Text::CenterTextX(resultText);
+			scoreText.content += to_string(savedScore);
+			Text::CenterTextX(scoreText);
 		}
-		else if (resultText.content != "YOU LOST!")
-		{
-			resultText.currentColor = resultText.alt1Color;
-			resultText.content += lose;
-			resultText.location.x = screenWidth / 2;
-			Text::CenterTextX(resultText);
-		}
+		
 	}
 
 	void Draw()
@@ -66,5 +59,7 @@ namespace ResultScene
 		Button::DrawButton(exitButton);
 
 		Text::DrawText(resultText);
+
+		Text::DrawText(scoreText);
 	}
 }
