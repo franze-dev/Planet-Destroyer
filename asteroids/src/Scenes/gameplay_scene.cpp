@@ -53,40 +53,44 @@ namespace Gameplay
 
 	static void BulletPlanetCollision(Planet::Planet& planet, Bullet::Bullet& bullet)
 	{
-		Collide::Distances calculations{};
-
-		calculations.pinPointX = static_cast<int>(planet.collisionShape.pos.x);
-		calculations.pinPointY = static_cast<int>(planet.collisionShape.pos.y);
-
-		if (static_cast<int>(planet.collisionShape.pos.x) < static_cast<int>(bullet.rect.x))
-			calculations.pinPointX = static_cast<int>(bullet.rect.x); //left
-		else if (static_cast<int>(planet.collisionShape.pos.x) > static_cast<int>(bullet.rect.x) + static_cast<int>(bullet.rect.width))
-			calculations.pinPointX = static_cast<int>(bullet.rect.x) + static_cast<int>(bullet.rect.width); //right
-
-		if (static_cast<int>(planet.collisionShape.pos.y) < static_cast<int>(bullet.rect.y))
-			calculations.pinPointY = static_cast<int>(bullet.rect.y); //top
-		else if (static_cast<int>(planet.collisionShape.pos.y) > static_cast<int>(bullet.rect.y) + static_cast<int>(bullet.rect.height))
-			calculations.pinPointY = static_cast<int>(bullet.rect.y) + static_cast<int>(bullet.rect.height); //bottom
-
-		calculations.distX = static_cast<int>(planet.collisionShape.pos.x) - calculations.pinPointX;
-		calculations.distY = static_cast<int>(planet.collisionShape.pos.y) - calculations.pinPointY;
-		calculations.distance = static_cast<int>(sqrt((calculations.distX * calculations.distX) + (calculations.distY * calculations.distY)));
-
-		if (calculations.distance <= planet.collisionShape.radius)
+		if (planet.visible)
 		{
-			if (planet.size > 0)
-			{
-				Planet::DividePlanet(planet, planets);
-				score += divisionScore;
-			}
-			else
-			{
-				Planet::DeletePlanet(planet);
-				score += deletionScore;
-			}
+			Collide::Distances calculations{};
 
-			bullet.isVisible = false;
+			calculations.pinPointX = static_cast<int>(planet.collisionShape.pos.x);
+			calculations.pinPointY = static_cast<int>(planet.collisionShape.pos.y);
+
+			if (static_cast<int>(planet.collisionShape.pos.x) < static_cast<int>(bullet.rect.x))
+				calculations.pinPointX = static_cast<int>(bullet.rect.x); //left
+			else if (static_cast<int>(planet.collisionShape.pos.x) > static_cast<int>(bullet.rect.x) + static_cast<int>(bullet.rect.width))
+				calculations.pinPointX = static_cast<int>(bullet.rect.x) + static_cast<int>(bullet.rect.width); //right
+
+			if (static_cast<int>(planet.collisionShape.pos.y) < static_cast<int>(bullet.rect.y))
+				calculations.pinPointY = static_cast<int>(bullet.rect.y); //top
+			else if (static_cast<int>(planet.collisionShape.pos.y) > static_cast<int>(bullet.rect.y) + static_cast<int>(bullet.rect.height))
+				calculations.pinPointY = static_cast<int>(bullet.rect.y) + static_cast<int>(bullet.rect.height); //bottom
+
+			calculations.distX = static_cast<int>(planet.collisionShape.pos.x) - calculations.pinPointX;
+			calculations.distY = static_cast<int>(planet.collisionShape.pos.y) - calculations.pinPointY;
+			calculations.distance = static_cast<int>(sqrt((calculations.distX * calculations.distX) + (calculations.distY * calculations.distY)));
+
+			if (calculations.distance <= planet.collisionShape.radius)
+			{
+				if (planet.size > 0)
+				{
+					Planet::DividePlanet(planet, planets);
+					score += divisionScore;
+				}
+				else
+				{
+					Planet::DeletePlanet(planet);
+					score += deletionScore;
+				}
+
+				bullet.isVisible = false;
+			}
 		}
+		
 	}
 
 	static void BulletPlanetCollision()
