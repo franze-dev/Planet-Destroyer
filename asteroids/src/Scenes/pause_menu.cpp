@@ -13,7 +13,7 @@ namespace PauseMenu
 	Text::Text pauseTitle;
 	Button::Button continueButton;
 	Button::Button backToMenuButton;
-	Button::Button exitButton;
+	//Button::Button exitButton;
 
 	int defaultFontSize = 40;
 	int buttonsPadding = 30;
@@ -27,7 +27,7 @@ namespace PauseMenu
 
 		backToMenuButton = Button::GetButton(continueButton.shape.x, continueButton.shape.y + static_cast<float>(Text::Padding::medium), Text::GetTextWidth(pauseTitle), Text::GetTextHeight(pauseTitle) / 2, "BACK TO MENU", BLACK, SKYBLUE, WHITE, Text::Fonts::Default);
 
-		exitButton = Button::GetButton(backToMenuButton.shape.x, backToMenuButton.shape.y + static_cast<float>(Text::Padding::medium), Text::GetTextWidth(pauseTitle), Text::GetTextHeight(pauseTitle) / 2, "EXIT", BLACK, RED, WHITE, Text::Fonts::Default);
+		//exitButton = Button::GetButton(backToMenuButton.shape.x, backToMenuButton.shape.y + static_cast<float>(Text::Padding::medium), Text::GetTextWidth(pauseTitle), Text::GetTextHeight(pauseTitle) / 2, "EXIT", BLACK, RED, WHITE, Text::Fonts::Default);
 	}
 
 
@@ -45,7 +45,7 @@ namespace PauseMenu
 			continueButton.currentColor = continueButton.defaultColor;
 
 		Button::CheckSceneChange(backToMenuButton, SceneManager::Menu);
-		Button::CheckSceneChange(exitButton, SceneManager::None);
+		//Button::CheckSceneChange(exitButton, SceneManager::None);
 	}
 
 	void Draw()
@@ -53,7 +53,7 @@ namespace PauseMenu
 		Text::DrawText(pauseTitle);
 		Button::DrawButton(continueButton);
 		Button::DrawButton(backToMenuButton);
-		Button::DrawButton(exitButton);
+		//Button::DrawButton(exitButton);
 	}
 }
 
