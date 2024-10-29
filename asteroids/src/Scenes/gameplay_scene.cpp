@@ -1,5 +1,8 @@
 #include "gameplay_scene.h"
 
+#include <iostream>
+#include <string>
+
 #include "raylib.h"
 
 #include "objects/ship.h"
@@ -11,6 +14,8 @@
 #include "utils/audio_manager.h"
 #include "utils/calculations.h"
 #include "utils/screen_info.h"
+
+using namespace std;
 
 namespace Gameplay
 {
@@ -24,9 +29,14 @@ namespace Gameplay
 	};
 
 	static const int maxLives = 3;
+	static int divisionScore = 50;
+	static int deletionScore = 100;
+	static int score = 0;
 	static bool isPaused = false;
-	Planet::Planet planets[Planet::maxPossiblePlanets];
-	SpaceShip::SpaceShip ship;
+	static Text::Text scoreCount;
+	static Text::Text scoreText;
+	static Planet::Planet planets[Planet::maxPossiblePlanets];
+	static SpaceShip::SpaceShip ship;
 	static Triangle lives[maxLives];
 	static Texture2D shipTexture;
 	static Texture2D backgroundTexture;
@@ -64,9 +74,15 @@ namespace Gameplay
 		if (calculations.distance <= planet.collisionShape.radius)
 		{
 			if (planet.size > 0)
+			{
 				Planet::DividePlanet(planet, planets);
+				score += divisionScore;
+			}
 			else
+			{
 				Planet::DeletePlanet(planet);
+				score += deletionScore;
+			}
 
 			bullet.isVisible = false;
 		}
@@ -104,6 +120,26 @@ namespace Gameplay
 			lives[i] = InitLife(x);
 			x += lives[i].width + static_cast<float>(Text::Padding::tiny);
 		}
+	}
+
+	static void InitScore()
+	{
+		scoreText = Text::GetText(0, 0, Text::Fonts::Default, static_cast<int>(Text::FontSize::medium), "SCORE: ", YELLOW);
+		scoreText.location.y = screenHeight - Text::GetTextHeight(scoreText);
+		scoreCount = Text::GetText(0, 0, Text::Fonts::Default, static_cast<int>(Text::FontSize::medium), "10000", YELLOW, RED);
+		scoreCount.location.y = screenHeight - Text::GetTextHeight(scoreCount);
+
+	}
+
+	static void UpdateScore()
+	{
+		scoreCount.content = to_string(score);
+	}
+
+	static void DrawScore()
+	{
+		Text::DrawText(scoreText);
+		Text::DrawText(scoreCount);
 	}
 
 	static void DrawLife(Triangle life)
@@ -147,11 +183,13 @@ namespace Gameplay
 		pauseButton = Button::GetButton(screenWidth, static_cast<int>(Text::Padding::small), 100.0f, 50.0f, "PAUSE", BLACK, RED, YELLOW, Text::Fonts::Default);
 		pauseButton.shape.x -= pauseButton.shape.width + static_cast<int>(Text::Padding::small);
 		InitLives();
+		InitScore();
 	}
 
 	void Update()
 	{
 		CheckPause();
+		UpdateScore();
 
 		if (!Audio::IsPlaying(Audio::Song::gameplay))
 			Audio::Play(Audio::Song::gameplay);
@@ -179,6 +217,7 @@ namespace Gameplay
 			SceneManager::SetCurrentScene(SceneManager::Result);
 		}
 
+
 	}
 
 	void Draw()
@@ -203,9 +242,10 @@ namespace Gameplay
 		if (ship.lives > 0)
 			DrawLives();
 
-
 		if (isPaused)
 			PauseMenu::Draw();
+
+		DrawScore();
 
 	}
 }
