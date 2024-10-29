@@ -13,6 +13,7 @@
 
 namespace SpaceShip
 {
+	static Text::Text ammoText;
 	static Text::Text ammoCount;
 
 	static void FollowMouse(SpaceShip& ship)
@@ -182,9 +183,13 @@ namespace SpaceShip
 
 	static void InitAmmoText()
 	{
+		ammoText = Text::GetText(0, 0, Text::Fonts::Default, static_cast<int>(Text::FontSize::medium), "AMMO: ", YELLOW);
+		ammoText.location.y = screenHeight - Text::GetTextHeight(ammoText);
 		ammoCount = Text::GetText(0, 0, Text::Fonts::Default, static_cast<int>(Text::FontSize::medium), "%02i", YELLOW, RED);
-		ammoCount.location.x = static_cast<int>(Text::Padding::tiny);
 		ammoCount.location.y = screenHeight - Text::GetTextHeight(ammoCount);
+
+		ammoCount.location.x = screenWidth - Text::GetTextWidth(ammoCount);
+		ammoText.location.x = ammoCount.location.x - static_cast<int>(Text::FontSize::medium) - Text::GetTextWidth(ammoCount);
 	}
 
 	static void UpdateAmmoText(SpaceShip ship)
@@ -198,6 +203,7 @@ namespace SpaceShip
 
 	static void DrawAmmoCount(SpaceShip ship)
 	{
+		Text::DrawText(ammoText);
 		Text::DrawText(ammoCount, GetCurrentAmmo(ship));
 	}
 
@@ -288,7 +294,7 @@ namespace SpaceShip
 		DrawBullets(ship);
 
 //#ifdef DEBUG
-		DrawCircle(static_cast<int>(ship.collisionShape.pos.x), static_cast<int>(ship.collisionShape.pos.y), static_cast<float>(ship.collisionShape.radius), BLUE);
+		//DrawCircle(static_cast<int>(ship.collisionShape.pos.x), static_cast<int>(ship.collisionShape.pos.y), static_cast<float>(ship.collisionShape.radius), BLUE);
 //#endif // DEBUG
 
 	}

@@ -275,7 +275,7 @@ namespace Planet
 	static void DrawPlanet(Planet planet)
 	{
 		//#ifdef DEBUG
-		DrawCircle(static_cast<int>(planet.collisionShape.pos.x), static_cast<int>(planet.collisionShape.pos.y), static_cast<float>(planet.collisionShape.radius), RED);
+		//DrawCircle(static_cast<int>(planet.collisionShape.pos.x), static_cast<int>(planet.collisionShape.pos.y), static_cast<float>(planet.collisionShape.radius), RED);
 		//DrawRectangleLines(static_cast<int>(planet.sprite.dest.x), static_cast<int>(planet.sprite.dest.y), static_cast<int>(planet.sprite.dest.width), static_cast<int>(planet.sprite.dest.height), GREEN);
 		//#endif // DEBUG
 
