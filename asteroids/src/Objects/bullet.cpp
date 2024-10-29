@@ -10,6 +10,11 @@
 
 namespace Bullet
 {
+	static void RadianToAngle(float& angle)
+	{
+		angle *= 180.0f / PI;
+	}
+
 	Bullet GetBullet()
 	{
 		Bullet bullet{};
@@ -42,7 +47,7 @@ namespace Bullet
 		bullet.angle = static_cast<float>(atan(bullet.dir.y / bullet.dir.x));
 
 		//I turn it into DEG so it's compatible with raylib functions
-		bullet.angle *= 180.0f / PI;
+		RadianToAngle(bullet.angle);
 
 		Rotate::Quadrants myQuadrant = Rotate::GetQuadrant(bullet.dir);
 
