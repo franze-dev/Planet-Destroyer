@@ -48,7 +48,7 @@ namespace Planet
 		planet.sprite.dest.width = planet.sprite.source.width * planet.scale;
 		planet.sprite.dest.height = planet.sprite.source.height * planet.scale;
 
-		planet.sprite.origin = { static_cast<float>(planet.sprite.dest.width/2),static_cast<float>(planet.sprite.dest.height/2) };
+		planet.sprite.origin = { static_cast<float>(planet.sprite.dest.width / 2),static_cast<float>(planet.sprite.dest.height / 2) };
 
 		planet.collisionShape.radius = planet.sprite.texture.height;
 	}
@@ -86,33 +86,35 @@ namespace Planet
 		{
 		case left:
 			planet.collisionShape.pos.x = -(static_cast<float>(planet.sprite.texture.width));
-			randomPos = static_cast<Position>(GetRandomValue(0, screenHeight));
+			randomPos = GetRandomValue(0, screenHeight);
 			planet.collisionShape.pos.y = static_cast<float>(randomPos);
 
 			break;
 		case right:
 			planet.collisionShape.pos.x = screenWidth;
-			randomPos = static_cast<Position>(GetRandomValue(0, screenHeight));
+			randomPos = GetRandomValue(0, screenHeight);
 			planet.collisionShape.pos.y = static_cast<float>(randomPos);
 
 			break;
 		case top:
 
-			randomPos = static_cast<Position>(GetRandomValue(0, screenWidth));
+			randomPos = GetRandomValue(0, screenWidth);
 			planet.collisionShape.pos.x = static_cast<float>(randomPos);
 			planet.collisionShape.pos.y = -(static_cast<float>(planet.sprite.texture.height));
 
 			break;
 		case bottom:
-			randomPos = static_cast<Position>(GetRandomValue(0, screenWidth));
+			randomPos = GetRandomValue(0, screenWidth);
 			planet.collisionShape.pos.x = static_cast<float>(randomPos);
 			planet.collisionShape.pos.y = screenHeight;
 
 			break;
 		default:
+			randomPos = GetRandomValue(0, screenWidth);
+			planet.collisionShape.pos.x = static_cast<float>(randomPos);
+			planet.collisionShape.pos.y = screenHeight;
 			break;
 		}
-
 	}
 
 	static Planet GetPlanet()
