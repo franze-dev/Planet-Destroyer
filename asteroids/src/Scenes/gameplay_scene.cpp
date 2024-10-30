@@ -160,7 +160,7 @@ namespace Gameplay
 
 	static void DrawLives()
 	{
-		for (int i = 0; i < maxLives; i++)
+		for (int i = 0; i < ship.lives; i++)
 			DrawLife(lives[i]);
 
 	}
