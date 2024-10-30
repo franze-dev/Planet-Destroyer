@@ -90,8 +90,8 @@ namespace Gameplay
 					score += deletionScore;
 				}
 
-				if (!bullet.powered)
-					bullet.isVisible = false;
+				//if (!bullet.powered)
+				bullet.isVisible = false;
 
 			}
 		}
@@ -217,7 +217,7 @@ namespace Gameplay
 				SpaceShip::Update(ship);
 				Planet::Update(ship, planets);
 				BulletPlanetCollision();
-				PowerUp::Update(ship);
+				PowerUp::Update(ship, planets);
 			}
 			else
 				PauseMenu::Update();

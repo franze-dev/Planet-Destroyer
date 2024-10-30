@@ -333,7 +333,7 @@ namespace Planet
 	static void ReplenishPlanetsCheck(Planet planets[])
 	{
 		if (GetPlanetsCount(planets) <= (maxPossiblePlanets - startPlanets))
-			for (int i = 0; i < (maxPossiblePlanets / 2); i++)
+			for (int i = 0; i < startPlanets; i++)
 				if (planets[i].size == 0)
 					InitPlanet(planets[i]);
 

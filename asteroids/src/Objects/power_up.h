@@ -2,6 +2,7 @@
 
 #include "utils/calculations.h"
 #include "objects/ship.h"
+#include "objects/planet.h"
 
 namespace PowerUp
 {
@@ -18,7 +19,7 @@ namespace PowerUp
 	void IncreasePlanetsShot();
 
 	void Init();
-	void Update(SpaceShip::SpaceShip& ship);
+	void Update(SpaceShip::SpaceShip& ship, Planet::Planet planets[]);
 	void Draw();
 }
 

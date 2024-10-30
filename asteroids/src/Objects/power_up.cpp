@@ -2,7 +2,7 @@
 
 #include "raylib.h"
 
-#include "objects//text.h"
+//#include "objects//text.h"
 #include "utils/screen_info.h"
 
 namespace PowerUp
@@ -12,13 +12,18 @@ namespace PowerUp
 
 	PowerUp myPower;
 
-	Text::Text powerActive;
+	//Text::Text powerActive;
 
-	static void GrabPower(SpaceShip::SpaceShip& ship)
+	static void TriggerPower(Planet::Planet planets[])
 	{
 		myPower.visible = false;
 		myPower.active = true;
-		for (int i = 0; i < SpaceShip::maxAmmo; i++)
+
+		for (int i = 0; i < Planet::maxPossiblePlanets; i++)
+			if (planets[i].size > 0)
+				planets[i].size = 0;
+
+		/*for (int i = 0; i < SpaceShip::maxAmmo; i++)
 		{
 			if (ship.bullets[i].isStored)
 			{
@@ -26,10 +31,10 @@ namespace PowerUp
 
 				ship.bullets[i].powered = true;
 			}
-		}
+		}*/
 	}
 
-	static void ShipCollisionCheck(SpaceShip::SpaceShip& ship)
+	static void ShipCollisionCheck(SpaceShip::SpaceShip ship, Planet::Planet planets[])
 	{
 		float distX = ship.collisionShape.pos.x - myPower.collisionShape.pos.x;
 		float distY = ship.collisionShape.pos.y - myPower.collisionShape.pos.y;
@@ -38,7 +43,7 @@ namespace PowerUp
 
 		if (distance <= ship.collisionShape.radius + myPower.collisionShape.radius)
 		{
-			GrabPower(ship);
+			TriggerPower(planets);
 		}
 	}
 
@@ -66,13 +71,14 @@ namespace PowerUp
 		if (planetsShot == planetsToShoot && myPower.active)
 		{
 			myPower.active = false;
-			for (int i = 0; i < SpaceShip::maxAmmo; i++)
+			/*for (int i = 0; i < SpaceShip::maxAmmo; i++)
 			{
 				if (ship.bullets[i].powered)
 				{
 					ship.bullets[i].powered = false;
 				}
-			}
+			}*/
+
 			planetsShot = 0;
 		}
 	}
@@ -84,19 +90,19 @@ namespace PowerUp
 
 	void Init()
 	{
-		powerActive = Text::GetText(screenWidth / 2, 0, Text::Fonts::Title2, static_cast<int>(Text::FontSize::big), "POWER ACTIVE", WHITE);
-		Text::CenterTextX(powerActive);
-		powerActive.location.y = screenHeight - Text::GetTextHeight(powerActive);
+		//powerActive = Text::GetText(screenWidth / 2, 0, Text::Fonts::Title2, static_cast<int>(Text::FontSize::big), "POWER ACTIVE", WHITE);
+		//Text::CenterTextX(powerActive);
+		//powerActive.location.y = screenHeight - Text::GetTextHeight(powerActive);
 		planetsShot = 0;
 		myPower.collisionShape.radius = 10;
 		myPower.active = false;
 		myPower.visible = false;
 	}
 
-	void Update(SpaceShip::SpaceShip& ship)
+	void Update(SpaceShip::SpaceShip& ship, Planet::Planet planets[])
 	{
 		CheckPowerSpawn();
-		ShipCollisionCheck(ship);
+		ShipCollisionCheck(ship, planets);
 		CheckPowerActive(ship);
 	}
 
@@ -125,11 +131,11 @@ namespace PowerUp
 		if (myPower.visible)
 			DrawCircle(static_cast<int>(myPower.collisionShape.pos.x), static_cast<int>(myPower.collisionShape.pos.y), static_cast<float>(myPower.collisionShape.radius), color);
 
-		if (myPower.active)
+		/*if (myPower.active)
 		{
 			powerActive.currentColor = color;
 			Text::DrawText(powerActive);
-		}
+		}*/
 	}
 }
 
