@@ -32,6 +32,8 @@ namespace TextureManager
 
 	const string earthSprite = "res/sprites/earth.png";
 
+	const string specialSprite = "res/sprites/special.png";
+
 	const string backgroundSprite = "res/sprites/space_bg.png";
 }
 

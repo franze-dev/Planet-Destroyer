@@ -14,6 +14,7 @@ namespace HowToPlayScene
 	static Text::Text objectiveTitle;
 	static Text::Text objectiveText;
 	static Text::Text powerUpsText;
+	static Text::Text specialEnemyText;
 	static Button::Button backToMenuButton;
 
 	void Init()
@@ -38,6 +39,9 @@ namespace HowToPlayScene
 		powerUpsText = Text::GetText(screenWidth / 2, objectiveText.location.y + Text::GetTextHeight(objectiveText) + static_cast<int>(Text::Padding::small), objectiveText.font, objectiveText.fontSize, "- Power-Up: Bullets with no collision!", WHITE);
 		Text::CenterTextX(powerUpsText);
 
+		specialEnemyText = Text::GetText(screenWidth / 2, powerUpsText.location.y + Text::GetTextHeight(powerUpsText) + static_cast<int>(Text::Padding::small), powerUpsText.font, powerUpsText.fontSize, "- Destroy the PLANET DEFENDERS!", WHITE);
+		Text::CenterTextX(specialEnemyText);
+
 		backToMenuButton = Button::GetButton(static_cast<float>(Text::Padding::tiny), screenHeight, 80, 40, "BACK", BLACK, YELLOW, WHITE, Text::Fonts::Default);
 		backToMenuButton.shape.y -= backToMenuButton.shape.height + static_cast<float>(Text::Padding::tiny);
 	}
@@ -57,6 +61,7 @@ namespace HowToPlayScene
 		Text::DrawText(objectiveTitle);
 		Text::DrawText(objectiveText);
 		Text::DrawText(powerUpsText);
+		Text::DrawText(specialEnemyText);
 		Button::DrawButton(backToMenuButton);
 	}
 }

@@ -16,7 +16,8 @@ namespace Planet
 		neptune,
 		saturn,
 		uranus,
-		venus
+		venus,
+		special
 	};
 
 	enum Position
@@ -33,7 +34,7 @@ namespace Planet
 		Texture2D texture2;
 	};
 
-	static Texture2D planetTextures[venus + 1];
+	static Texture2D planetTextures[special + 1];
 
 	static void SaveTexture(Texture2D texture, Planet& planet)
 	{
@@ -165,9 +166,11 @@ namespace Planet
 
 	static void RandomizeTexture(Planet& planet)
 	{
-		PlanetType planetType = static_cast<PlanetType>(GetRandomValue(0, venus));
+		PlanetType planetType = static_cast<PlanetType>(GetRandomValue(0, special));
 
 		Texture2D texture = planetTextures[earth];
+
+		planet.isSpecial = false;
 
 		switch (planetType)
 		{
@@ -198,7 +201,11 @@ namespace Planet
 		case venus:
 			texture = planetTextures[venus];
 			break;
-
+		case special:
+			texture = planetTextures[special];
+			planet.isSpecial = true;
+			planet.size = 1;
+			break;
 		default:
 			abort();
 			break;
@@ -260,12 +267,32 @@ namespace Planet
 		}
 	}
 
-	static void MovePlanets(Planet planets[])
+	static void FollowShip(Planet& planet, SpaceShip::SpaceShip ship)
+	{
+
+		planet.dir = Vector2Subtract(ship.collisionShape.pos, planet.collisionShape.pos);
+
+		//tanf returns result in radians
+		planet.angle = atan(planet.dir.y / planet.dir.x);
+
+		//I turn it into DEG so it's compatible with raylib functions
+		planet.angle *= 180.0f / PI;
+
+		Rotate::Quadrants myQuadrant = Rotate::GetQuadrant(planet.dir);
+
+		if (myQuadrant != Rotate::Q1)
+			FixTanValue(planet.angle, myQuadrant);
+	}
+
+	static void MovePlanets(Planet planets[], SpaceShip::SpaceShip ship)
 	{
 		for (int i = 0; i < maxPossiblePlanets; i++)
 		{
 			if (planets[i].size > 0 && planets[i].visible)
 			{
+				if (planets[i].isSpecial)
+					FollowShip(planets[i], ship);
+
 				MovePlanet(planets[i]);
 				ScreenWrapCheck(planets[i]);
 				UpdateSpritePos(planets[i]);
@@ -282,10 +309,8 @@ namespace Planet
 		//#endif // DEBUG
 
 		if (planet.visible)
-		{
-			DrawTexturePro(planet.sprite.texture, planet.sprite.source, planet.sprite.dest, planet.sprite.origin, static_cast<float>(planet.angle), WHITE);
-
-		}
+			DrawTexturePro(planet.sprite.texture, planet.sprite.source, planet.sprite.dest, planet.sprite.origin, planet.angle, WHITE);
+			
 	}
 
 	static void DrawPlanets(Planet planets[])
@@ -316,8 +341,6 @@ namespace Planet
 
 	static void ShipCollisionCheck(SpaceShip::SpaceShip& ship, Planet& planet)
 	{
-		SpaceShip::SpaceShip myship = ship;
-
 		float distX = ship.collisionShape.pos.x - planet.collisionShape.pos.x;
 		float distY = ship.collisionShape.pos.y - planet.collisionShape.pos.y;
 
@@ -400,11 +423,12 @@ namespace Planet
 
 		planetTextures[jupiter] = LoadTexture(TextureManager::jupiterSprite.c_str());
 
+		planetTextures[special] = LoadTexture(TextureManager::specialSprite.c_str());
 	}
 
 	void UnloadTextures()
 	{
-		for (int i = 0; i < venus + 1; i++)
+		for (int i = 0; i < special + 1; i++)
 			UnloadTexture(planetTextures[i]);
 
 	}
@@ -417,7 +441,7 @@ namespace Planet
 	void Update(SpaceShip::SpaceShip& ship, Planet planets[])
 	{
 		ReplenishPlanetsCheck(planets);
-		MovePlanets(planets);
+		MovePlanets(planets, ship);
 		ShipCollisionCheck(ship, planets);
 	}
 

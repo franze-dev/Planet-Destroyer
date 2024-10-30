@@ -18,10 +18,11 @@ namespace Planet
 		int damage;
 		int size;
 
-		int angle;
+		float angle;
 	
 		bool visible;
 		bool isSmaller;
+		bool isSpecial;
 		Collide::CollisionBall collisionShape;
 		TextureManager::Sprite sprite;
 		Vector2 speed;
