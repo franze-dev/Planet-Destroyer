@@ -24,6 +24,7 @@
     <ClCompile Include="src\Objects\button.cpp" />
     <ClCompile Include="src\Objects\game.cpp" />
     <ClCompile Include="src\Objects\planet.cpp" />
+    <ClCompile Include="src\Objects\power_up.cpp" />
     <ClCompile Include="src\Objects\ship.cpp" />
     <ClCompile Include="src\Objects\text.cpp" />
     <ClCompile Include="src\Scenes\credits_scene.cpp" />
@@ -41,6 +42,7 @@
     <ClInclude Include="src\Objects\button.h" />
     <ClInclude Include="src\Objects\game.h" />
     <ClInclude Include="src\Objects\planet.h" />
+    <ClInclude Include="src\Objects\power_up.h" />
     <ClInclude Include="src\Objects\ship.h" />
     <ClInclude Include="src\Objects\text.h" />
     <ClInclude Include="src\Scenes\credits_scene.h" />

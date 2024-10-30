@@ -9,6 +9,7 @@
 #include "objects/planet.h"
 #include "objects/button.h"
 #include "objects/text.h"
+#include "objects/power_up.h"
 #include "scenes/pause_menu.h"
 #include "scenes/result_scene.h"
 #include "utils/scene_manager.h"
@@ -76,6 +77,8 @@ namespace Gameplay
 
 			if (calculations.distance <= planet.collisionShape.radius)
 			{
+				PowerUp::IncreasePlanetsShot();
+
 				if (planet.size > 0)
 				{
 					Planet::DividePlanet(planet, planets);
@@ -87,10 +90,12 @@ namespace Gameplay
 					score += deletionScore;
 				}
 
-				bullet.isVisible = false;
+				if (!bullet.powered)
+					bullet.isVisible = false;
+
 			}
 		}
-		
+
 	}
 
 	static void BulletPlanetCollision()
@@ -155,7 +160,7 @@ namespace Gameplay
 
 	static void DrawLives()
 	{
-		for (int i = 0; i < ship.lives; i++)
+		for (int i = 0; i < maxLives; i++)
 			DrawLife(lives[i]);
 
 	}
@@ -190,6 +195,7 @@ namespace Gameplay
 		pauseButton.shape.x -= pauseButton.shape.width + static_cast<int>(Text::Padding::small);
 		InitLives();
 		InitScore();
+		PowerUp::Init();
 	}
 
 	void Update()
@@ -211,6 +217,7 @@ namespace Gameplay
 				SpaceShip::Update(ship);
 				Planet::Update(ship, planets);
 				BulletPlanetCollision();
+				PowerUp::Update(ship);
 			}
 			else
 				PauseMenu::Update();
@@ -242,6 +249,7 @@ namespace Gameplay
 
 		SpaceShip::Draw(ship);
 		Planet::Draw(planets);
+		PowerUp::Draw();
 
 		if (!isPaused)
 			Button::DrawButton(pauseButton);

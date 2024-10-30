@@ -10,6 +10,7 @@
 
 namespace Bullet
 {
+
 	static void RadianToAngle(float& angle)
 	{
 		angle *= 180.0f / PI;
@@ -25,6 +26,7 @@ namespace Bullet
 		bullet.speed = { bullet.maxSpeed, bullet.maxSpeed };
 		bullet.isStored = true;
 		bullet.isVisible = false;
+		bullet.powered = false;
 
 		return bullet;
 	}

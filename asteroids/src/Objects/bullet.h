@@ -13,7 +13,9 @@ namespace Bullet
 		float damage;
 		bool isStored;
 		bool isVisible;
+		bool powered;
 	};
+
 
 	Bullet GetBullet();
 	void SetPos(float x, float y, Bullet& bullet);
