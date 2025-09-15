@@ -8,7 +8,7 @@
 
 ## About me
 
-I am a college student who's actively learning how to develop videogames! 
+I am a college student who's actively learning how to develop videogames! You can find me on [Itch.io](https://gensofi24.itch.io/) or contact me on [Instagram](https://www.instagram.com/s.alvarezz_/)
  
 ## Download Game
 
